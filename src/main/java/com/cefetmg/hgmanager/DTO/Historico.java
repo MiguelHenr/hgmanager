@@ -8,7 +8,7 @@ import java.util.List;
 public class Historico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Reserva> reservas;
@@ -18,11 +18,11 @@ public class Historico {
     @JoinColumn(name = "idProfessor", nullable = false)
     private Professor professor;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

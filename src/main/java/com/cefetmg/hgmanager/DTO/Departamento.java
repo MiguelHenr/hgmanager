@@ -1,9 +1,5 @@
 package com.cefetmg.hgmanager.DTO;
 
-
-import jakarta.persistence.Entity;
-
-
 import javax.persistence.*;
 
 import java.util.List;
@@ -12,7 +8,7 @@ import java.util.List;
 public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String telefone;
     private String nome;
     private String email;
@@ -24,11 +20,11 @@ public class Departamento {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "departamento")
     private List<Recurso> recursos;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

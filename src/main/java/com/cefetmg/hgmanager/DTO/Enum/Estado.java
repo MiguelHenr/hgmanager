@@ -1,4 +1,4 @@
-package com.cefetmg.hgmanager.DTO;
+package com.cefetmg.hgmanager.DTO.Enum;
 
 public enum Estado {
     NOVO,
