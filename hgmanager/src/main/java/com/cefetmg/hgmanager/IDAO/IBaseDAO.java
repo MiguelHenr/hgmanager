@@ -6,7 +6,6 @@ import java.util.List;
 
 @Repository
 public interface IBaseDAO<T, ID> extends JpaRepository<T, ID> {
-
     public List<T> recuperarTodos(T t);
 
     public List<T> recuperarPorID(ID id);
@@ -21,5 +20,5 @@ public interface IBaseDAO<T, ID> extends JpaRepository<T, ID> {
 
     public boolean atualizar(T t);
 
-    public boolean atualiarPorID(ID id);
+    public boolean atualizarPorID(ID id);
 }

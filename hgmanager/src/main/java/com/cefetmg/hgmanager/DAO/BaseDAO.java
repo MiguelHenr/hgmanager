@@ -1,48 +1,45 @@
 package com.cefetmg.hgmanager.DAO;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import com.cefetmg.hgmanager.IDAO.IBaseDAO;
 
 import java.util.List;
 
 public abstract class BaseDAO<T, ID> implements IBaseDAO<T, ID> {
-
     @Override
     public List<T> recuperarPorID(ID id) {
-        return null;
+        return findById(id);
     }
 
     @Override
     public List<BaseDAO> recuperarTodos(BaseDAO baseDAO) {
-        return null;
+        return findAll(BaseDAO);
     }
 
     @Override
     public boolean inserir(BaseDAO baseDAO) {
-        return false;
-    }
-
-    @Override
-    public boolean inserirPorID(ID id) {
-        return false;
+        return save(baseDAO);
     }
 
     @Override
     public boolean deletar(BaseDAO baseDAO) {
+        if(delete(baseDAO))
+            return true;
         return false;
     }
 
     @Override
     public boolean deletarṔorID(ID id) {
-        return false;
+        if(deleteAllById(id))
+            return true;
+        return false;    
     }
 
     @Override
     public boolean atualizar(BaseDAO baseDAO) {
-        return false;
-    }
-
-    @Override
-    public boolean atualiarPorID(ID id) {
+        if(save(baseDAO))
+            return true;
         return false;
     }
 }

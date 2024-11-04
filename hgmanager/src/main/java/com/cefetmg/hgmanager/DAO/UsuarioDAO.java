@@ -7,6 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioDAO implements BaseDAO, UsuarioIDAO {
-
+public class UsuarioDAO extends BaseDAO<UsuarioDAO, Long> implements UsuarioIDAO {
+    
 }
