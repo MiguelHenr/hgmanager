@@ -1,12 +1,14 @@
 package com.cefetmg.hgmanager.DTO;
 
+import com.cefetmg.hgmanager.DTO.Enum.Estado;
+
 import javax.persistence.*;
 
 @Entity
 public class Recurso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Long Id;
     private String marca;
     private String descricao;
 
@@ -66,11 +68,11 @@ public class Recurso {
         this.marca = marca;
     }
 
-    public int getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         Id = id;
     }
 

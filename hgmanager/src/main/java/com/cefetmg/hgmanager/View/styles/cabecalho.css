@@ -88,7 +88,6 @@ label {
 }
 
 .menu {
-    display: none;
     flex-direction: column;
     justify-content: space-between;
     height: 20px;
@@ -100,55 +99,4 @@ label {
     height: 2px;
     background: #AD9FEA;
     margin: 8px;
-}
-
-@media (max-width: 768px) {
-    body {
-        overflow: hidden;
-    }
-
-    .nav-list {
-        position: absolute;
-        top: 8vh;
-        right: 0;
-        flex-direction: column;
-        width: 50vw;
-        height: 92vh;
-        background-color: #233040;
-        align-items: flex-start;
-        justify-content: space-around;
-        transform: translateX(100%);
-    }
-
-    .nav-list li {
-        margin-left: 0;
-        margin-bottom: 10px;
-    }
-
-    .menu {
-        display: block;
-    }
-
-    /*nav {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    nav.active {
-        display: flex;
-    }
-
-    header > img {
-        margin-bottom: 10px;
-    }
-
-    label {
-        width: 100%;
-    }*/
-}
-
-.nav-list.active {
-    transform: translateX(0);
 }

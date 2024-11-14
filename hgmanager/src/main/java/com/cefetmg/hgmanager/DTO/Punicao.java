@@ -1,12 +1,14 @@
 package com.cefetmg.hgmanager.DTO;
 
+import com.cefetmg.hgmanager.DTO.Enum.Estado;
+
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.util.Date;
 
 public class Punicao {
-    private int id;
+    private Long id;
     private Estado estado;
     private Date inicio;
     private Date fim;
@@ -15,11 +17,11 @@ public class Punicao {
     @JoinColumn(name = "idProfessor", nullable = false)
     private Professor professor;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
