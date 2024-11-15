@@ -2,7 +2,7 @@ package com.cefetmg.hgmanager.DTO;
 
 import com.cefetmg.hgmanager.DTO.Enum.Estado;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Recurso {

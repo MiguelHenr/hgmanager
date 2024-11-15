@@ -1,7 +1,7 @@
 package com.cefetmg.hgmanager.DTO;
 
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 

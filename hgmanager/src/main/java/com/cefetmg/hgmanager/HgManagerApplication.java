@@ -1,4 +1,4 @@
-package com.cefetmg.hgmanager.Controller;
+package com.cefetmg.hgmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,15 +1,12 @@
 package com.cefetmg.hgmanager.DTO;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Reserva {
-
-
 
     private Professor professor;
 

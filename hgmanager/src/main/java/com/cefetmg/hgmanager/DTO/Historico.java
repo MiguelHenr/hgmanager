@@ -1,10 +1,10 @@
 package com.cefetmg.hgmanager.DTO;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
+
+@Entity
 public class Historico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

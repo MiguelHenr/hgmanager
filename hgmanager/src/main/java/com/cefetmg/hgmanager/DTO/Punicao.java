@@ -2,11 +2,10 @@ package com.cefetmg.hgmanager.DTO;
 
 import com.cefetmg.hgmanager.DTO.Enum.Estado;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Punicao {
     private Long id;
     private Estado estado;

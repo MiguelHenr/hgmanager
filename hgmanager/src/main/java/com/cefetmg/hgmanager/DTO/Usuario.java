@@ -2,7 +2,7 @@ package com.cefetmg.hgmanager.DTO;
 
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Usuario {
