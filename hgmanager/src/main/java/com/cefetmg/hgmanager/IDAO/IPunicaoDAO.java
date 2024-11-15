@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PunicaoIDAO extends JpaRepository<Punicao, Long> {
+public interface IPunicaoDAO extends IBaseDAO<Punicao, Long> {
 }

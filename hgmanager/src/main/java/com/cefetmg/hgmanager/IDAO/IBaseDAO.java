@@ -3,22 +3,21 @@ package com.cefetmg.hgmanager.IDAO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IBaseDAO<T, ID> extends JpaRepository<T, ID> {
-    public List<T> recuperarTodos(T t);
+    public List<T> recuperarTodos();
 
-    public List<T> recuperarPorID(ID id);
+    public Optional<T> recuperarPorID(ID id);
 
-    public boolean inserir(T t);
+    public T inserir(T t);
 
-    public boolean inserirPorID(ID id);
+    public boolean encontrarPorID(ID id);
 
     public boolean deletar(T t);
 
-    public boolean deletarṔorID(ID id);
+    public boolean deletarPorID(ID id);
 
-    public boolean atualizar(T t);
-
-    public boolean atualizarPorID(ID id);
+    public T atualizar(T t);
 }

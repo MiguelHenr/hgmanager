@@ -1,6 +1,6 @@
 package com.cefetmg.hgmanager.Controller;
 
-import com.cefetmg.hgmanager.View.HgManagerApplication;
+import com.cefetmg.hgmanager.Controller.HgManagerApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
