@@ -22,6 +22,6 @@ public class TestController {
 
         dao.inserir(departamento);
 
-        return dao.recuperarTodos().toString();
+        return "Hello World";
     }
 }

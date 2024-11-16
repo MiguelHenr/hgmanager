@@ -19,14 +19,6 @@ public class Recurso {
     @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
 
-    public Reserva getReserva() {
-        return reserva;
-    }
-
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
-    }
-
     public Departamento getDepartamento() {
         return departamento;
     }
