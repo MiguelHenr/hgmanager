@@ -1,6 +1,6 @@
-package com.cefetmg.hgmanager.DTO;
+package com.cefetmg.hgmanager.Model;
 
-import com.cefetmg.hgmanager.DTO.Enum.Estado;
+import com.cefetmg.hgmanager.Model.Enum.Estado;
 
 import jakarta.persistence.*;
 

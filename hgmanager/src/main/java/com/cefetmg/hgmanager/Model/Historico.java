@@ -1,4 +1,4 @@
-package com.cefetmg.hgmanager.DTO;
+package com.cefetmg.hgmanager.Model;
 
 import jakarta.persistence.*;
 import java.util.List;

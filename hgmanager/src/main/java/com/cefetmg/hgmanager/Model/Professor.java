@@ -1,8 +1,8 @@
-package com.cefetmg.hgmanager.DTO;
+package com.cefetmg.hgmanager.Model;
 
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class Professor extends Usuario{

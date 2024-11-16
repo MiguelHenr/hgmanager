@@ -1,37 +1,39 @@
-package com.cefetmg.hgmanager.DAO;
+package com.cefetmg.hgmanager.Service;
 
+import com.cefetmg.hgmanager.Repository.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.cefetmg.hgmanager.IDAO.IBaseDAO;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class BaseDAO<T, ID> implements IBaseDAO<T, ID> {
+public abstract class BaseService<T, ID>{
+
+    private final BaseRepository<T, ID> repository;
+
+    @Autowired
+    BaseService(BaseRepository<T, ID> repository) {
+        this.repository = repository;
+    }
 
     // Recupera uma entidade do banco de dados através do ID dela.
-    @Override
-    public Optional<T> recuperarPorID(ID id) {
-        return findById(id);
+    public Optional<T> recuperarPorID(Long id) {
+        return repository.findById(id);
     }
 
     // Recupera TODAS as entidades que estão cadastradas no bando de dados
-    @Override
     public List<T> recuperarTodos() {
-        return findAll();
+        return repository.findAll();
     }
 
     // Insere uma nova entidade no banco de dados
-    @Override
     public T inserir(T entity) {
-        return save(entity);
+        return repository.save(entity);
     }
 
     // Deleta uma entidade inserida no banco de dados, caso ela não exista nele, uma execeção é lançada
-    @Override
     public boolean deletar(T entity) {
         try {
-            delete(entity);
+            repository.delete(entity);
             return true;
         } catch (Exception e) {
             return false;
@@ -39,10 +41,9 @@ public abstract class BaseDAO<T, ID> implements IBaseDAO<T, ID> {
     }
 
     // Deleta uma entidade do banco de dados, através do ID dela, caso ela não existe nele, uma exceção é lançada e é retornado false
-    @Override
-    public boolean deletarPorID(ID id) {
+    public boolean deletarPorID(Long id) {
         try {
-            deleteById(id);
+            repository.deleteById(id);
             return true;
         } catch (Exception e) {
             return false;
@@ -50,14 +51,12 @@ public abstract class BaseDAO<T, ID> implements IBaseDAO<T, ID> {
     }
 
     // Atualiza uma entidade ja criada no bando de dados
-    @Override
     public T atualizar(T entity) {
-        return save(entity);
+        return repository.save(entity);
     }
 
     // Encontra uma entidade no banco de dados, caso ela não exista nele, é retornado false
-    @Override
-    public boolean encontrarPorID(ID id) {
-        return existsById(id);
+    public boolean encontrarPorID(Long id) {
+        return repository.existsById(id);
     }
 }
