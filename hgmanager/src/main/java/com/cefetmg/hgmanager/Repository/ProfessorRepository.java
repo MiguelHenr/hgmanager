@@ -4,5 +4,5 @@ import com.cefetmg.hgmanager.Model.Professor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProfessorRepository extends BaseRepository<Professor, Long> {
+public interface ProfessorRepository extends org.springframework.data.jpa.repository.JpaRepository<Professor, Long> {
 }

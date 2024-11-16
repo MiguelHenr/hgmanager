@@ -4,5 +4,5 @@ import com.cefetmg.hgmanager.Model.Recurso;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RecursoRepository extends BaseRepository<Recurso, Long> {
+public interface RecursoRepository extends org.springframework.data.jpa.repository.JpaRepository<Recurso, Long> {
 }

@@ -7,13 +7,14 @@ import java.util.Date;
 
 @Entity
 public class Punicao {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Estado estado;
     private Date inicio;
     private Date fim;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idProfessor", nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Professor professor;
 
     public Long getId() {
@@ -22,14 +23,6 @@ public class Punicao {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
     }
 
     public Date getInicio() {

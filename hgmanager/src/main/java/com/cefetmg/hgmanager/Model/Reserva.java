@@ -7,9 +7,10 @@ import java.util.List;
 
 @Entity
 public class Reserva {
-
-    private Professor professor;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Usuario professor;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private List<Recurso> recurso;
