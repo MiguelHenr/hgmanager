@@ -10,33 +10,33 @@ public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario professor;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private List<Recurso> recurso;
+    @JoinColumn(name = "id_recurso", nullable = false)
+    private Recurso recurso;
 
     private Date incio;
     private Date fim;
 
 
-    public Professor getProfessor() {
-        return professor;
+    public Usuario getProfessor() {
+        return this.professor;
     }
 
-    public void setProfessor(Professor professor) {
+    public void setProfessor(Usuario professor) {
         this.professor = professor;
     }
 
-    public List<Recurso> getRecurso() {
+    public Recurso getRecurso() {
         return recurso;
     }
 
-    public void setRecurso(List<Recurso> recurso) {
+    public void setRecurso(Recurso recurso) {
         this.recurso = recurso;
-    }
-
-    public void AddRecurso(Recurso recurso) {
-        this.recurso.add(recurso);
     }
 
     public Date getIncio() {

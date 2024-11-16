@@ -13,9 +13,11 @@ public class Usuario {
     private String email;
     private String senha;
     private String cpf;
+    private String foto;
+    private String tipoUsuario;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idDepartamento", nullable = false)
+    @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
 
 

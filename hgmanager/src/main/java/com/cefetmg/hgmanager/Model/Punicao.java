@@ -15,7 +15,7 @@ public class Punicao {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario", nullable = false)
-    private Professor professor;
+    private Usuario professor;
 
     public Long getId() {
         return id;
@@ -41,11 +41,11 @@ public class Punicao {
         this.fim = fim;
     }
 
-    public Professor getProfessor() {
+    public Usuario getProfessor() {
         return professor;
     }
 
-    public void setProfessor(Professor professor) {
+    public void setProfessor(Usuario professor) {
         this.professor = professor;
     }
 

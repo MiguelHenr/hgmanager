@@ -15,16 +15,9 @@ public class Recurso {
     @Enumerated(EnumType.STRING)
     private Estado estado;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idDepartamento", nullable = false)
+    @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idReserva", nullable = true)
-    private Reserva reserva;
-
-
 
     public Reserva getReserva() {
         return reserva;

@@ -10,10 +10,6 @@ CREATE TABLE public.usuario (
 	id_departamento integer NOT NULL,
 	tipo_usuario varchar(25) NOT NULL,
 	CONSTRAINT usuario_pk PRIMARY KEY (id)
-
-	ALTER TABLE public.usuario ADD CONSTRAINT departamento_fk FOREIGN KEY (id_departamento)
-		REFERENCES public.departamento (id) MATCH FULL
-		ON DELETE RESTRICT ON UPDATE CASCADE;
 );
 
 CREATE TABLE public.departamento (
@@ -36,9 +32,6 @@ CREATE TABLE public.recurso (
 	descricao varchar(255) NOT NULL,
 	id_departamento integer NOT NULL,
 	CONSTRAINT recurso_pk PRIMARY KEY (id)
-	ALTER TABLE public.recurso ADD CONSTRAINT departamento_fk FOREIGN KEY (id_departamento)
-		REFERENCES public.departamento (id) MATCH FULL
-		ON DELETE RESTRICT ON UPDATE CASCADE;
 );
 
 CREATE TABLE public.reserva (
@@ -56,18 +49,6 @@ CREATE TABLE public.reclamacao (
 	data date NOT NULL,
 	id_reserva integer NOT NULL,
 	CONSTRAINT reclamacao_pk PRIMARY KEY (id)
-	
-	ALTER TABLE public.reclamacao ADD CONSTRAINT reserva_fk FOREIGN KEY (id_reserva)
-		REFERENCES public.reserva (id) MATCH SIMPLE
-		ON DELETE RESTRICT ON UPDATE CASCADE;
-
-	ALTER TABLE public.reserva ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario)
-		REFERENCES public.usuario (id) MATCH SIMPLE
-		ON DELETE RESTRICT ON UPDATE CASCADE;
-
-	ALTER TABLE public.reserva ADD CONSTRAINT recurso_fk FOREIGN KEY (id_recurso)
-		REFERENCES public.recurso (id) MATCH SIMPLE
-		ON DELETE RESTRICT ON UPDATE CASCADE;
 );
 
 CREATE TABLE public.punicao (
@@ -76,10 +57,6 @@ CREATE TABLE public.punicao (
 	dt_fim date NOT NULL,
 	id_usuario integer NOT NULL,
 	CONSTRAINT punicao_pk PRIMARY KEY (id)
-
-	ALTER TABLE public.punicao ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario)
-		REFERENCES public.usuario (id) MATCH FULL
-		ON DELETE RESTRICT ON UPDATE CASCADE;
 );
 
 CREATE TABLE public.resposta (
@@ -88,14 +65,36 @@ CREATE TABLE public.resposta (
 	id integer NOT NULL GENERATED ALWAYS AS IDENTITY ,
 	comentario varchar(255),
 	CONSTRAINT resposta_pk PRIMARY KEY (id_usuario,id_reclamacao,id)
-
-	ALTER TABLE public.resposta ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario)
-		REFERENCES public.usuario (id) MATCH FULL
-		ON DELETE RESTRICT ON UPDATE CASCADE;
-
-	ALTER TABLE public.resposta ADD CONSTRAINT reclamacao_fk FOREIGN KEY (id_reclamacao)
-		REFERENCES public.reclamacao (id) MATCH FULL
-		ON DELETE RESTRICT ON UPDATE CASCADE;
 );
 
+ALTER TABLE public.resposta ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario)
+	REFERENCES public.usuario (id) MATCH FULL
+	ON DELETE RESTRICT ON UPDATE CASCADE;
 
+ALTER TABLE public.resposta ADD CONSTRAINT reclamacao_fk FOREIGN KEY (id_reclamacao)
+	REFERENCES public.reclamacao (id) MATCH FULL
+	ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE public.usuario ADD CONSTRAINT departamento_fk FOREIGN KEY (id_departamento)
+	REFERENCES public.departamento (id) MATCH FULL
+	ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE public.punicao ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario)
+	REFERENCES public.usuario (id) MATCH FULL
+	ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE public.reclamacao ADD CONSTRAINT reserva_fk FOREIGN KEY (id_reserva)
+	REFERENCES public.reserva (id) MATCH SIMPLE
+	ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE public.reserva ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario)
+	REFERENCES public.usuario (id) MATCH SIMPLE
+	ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE public.reserva ADD CONSTRAINT recurso_fk FOREIGN KEY (id_recurso)
+	REFERENCES public.recurso (id) MATCH SIMPLE
+	ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE public.recurso ADD CONSTRAINT departamento_fk FOREIGN KEY (id_departamento)
+	REFERENCES public.departamento (id) MATCH FULL
+	ON DELETE RESTRICT ON UPDATE CASCADE;
