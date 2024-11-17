@@ -1,5 +1,7 @@
 package com.cefetmg.hgmanager.Model;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -8,6 +10,7 @@ public class Resposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String comentario;
+    private Date data;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
@@ -47,5 +50,13 @@ public class Resposta {
 
     public void setRelamacao(Reclamacao relamacao) {
         this.relamacao = relamacao;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
     }
 }
