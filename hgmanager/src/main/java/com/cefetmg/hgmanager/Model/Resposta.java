@@ -18,7 +18,7 @@ public class Resposta {
 
     @ManyToOne
     @JoinColumn(name = "id_reclamacao", nullable = false)
-    private Reclamacao relamacao;
+    private Reclamacao reclamacao;
 
     public Long getId() {
         return id;
@@ -44,12 +44,12 @@ public class Resposta {
         this.usuario = usuario;
     }
 
-    public Reclamacao getRelamacao() {
-        return relamacao;
+    public Reclamacao getReclamacao() {
+        return reclamacao;
     }
 
-    public void setRelamacao(Reclamacao relamacao) {
-        this.relamacao = relamacao;
+    public void setReclamacao(Reclamacao reclamacao) {
+        this.reclamacao = reclamacao;
     }
 
     public Date getData() {

@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RespostaRepository extends JpaRepository<Resposta, Long> {
-    @Query("SELECT r FROM Resposta r WHERE r.rc = :rc")
-    List<Resposta> findByReclamacao(@Param("rc") Reclamacao reclamacao);
+
+    List<Resposta> findByReclamacao(Reclamacao reclamacao);
 }

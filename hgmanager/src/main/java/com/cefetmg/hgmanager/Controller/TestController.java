@@ -19,15 +19,7 @@ public class TestController {
 
     @GetMapping("/dep")
     public String helloWorld() {
-        Departamento departamento = new Departamento();
-        departamento.setCampus("CII");
-        departamento.setNome("CEF");
-        departamento.setEmail("cefetmg@gmail.com");
-        departamento.setTelefone("319123128");
-
-        dao.inserir(departamento);
-
-        return dao.recuperarTodos().toString();
+        return "/index";
     }
 
     @GetMapping("/cadastroDepartamento")
