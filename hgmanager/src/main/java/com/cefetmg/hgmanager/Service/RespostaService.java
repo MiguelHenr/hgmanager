@@ -1,5 +1,6 @@
 package com.cefetmg.hgmanager.Service;
 
+import com.cefetmg.hgmanager.Model.Reclamacao;
 import com.cefetmg.hgmanager.Model.Reserva;
 import com.cefetmg.hgmanager.Model.Resposta;
 import com.cefetmg.hgmanager.Model.Usuario;
@@ -9,6 +10,7 @@ import com.cefetmg.hgmanager.Repository.RespostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -63,4 +65,11 @@ public class RespostaService {
         }
     }
 
+    public List<Resposta> listarDe(Reclamacao reclamacao) {
+        try {
+            return repository.findByReclamacao(reclamacao);
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
 }
