@@ -1,6 +1,7 @@
 package com.cefetmg.hgmanager.Service;
 
 import com.cefetmg.hgmanager.Model.Departamento;
+import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.DepartamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -58,5 +59,13 @@ public class DepartamentoService{
     // Encontra uma entidade no banco de dados, caso ela não exista nele, é retornado false
     public boolean encontrarPorID(Long id) {
         return repository.existsById(id);
+    }
+
+    public List<Departamento> listar() {
+        try{
+            return repository.findAll();
+        }catch(Exception e){
+            throw new NullPointerException();
+        }
     }
 }

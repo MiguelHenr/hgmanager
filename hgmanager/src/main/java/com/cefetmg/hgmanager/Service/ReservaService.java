@@ -1,9 +1,9 @@
 package com.cefetmg.hgmanager.Service;
 
+import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Reserva;
-import com.cefetmg.hgmanager.Model.Resposta;
 import com.cefetmg.hgmanager.Model.Usuario;
-import com.cefetmg.hgmanager.Repository.DepartamentoRepository;
+import com.cefetmg.hgmanager.Repository.RecursoRepository;
 import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import com.cefetmg.hgmanager.Repository.RespostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,25 +12,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RespostaService {
+public class ReservaService {
 
     @Autowired
-    private RespostaRepository repository;
+    private ReservaRepository repository;
 
-
-    public Resposta inserir(Resposta resposta) {
+    public Reserva inserir(Reserva reserva) {
         try {
-            repository.save(resposta);
-            return resposta;
+            repository.save(reserva);
+            return reserva;
         }catch(Exception e){
-            throw new NullPointerException();
+                throw new NullPointerException();
+            }
         }
-    }
 
 
-    public boolean deletar(Resposta resposta) {
+    public boolean deletar(Reserva reserva) {
         try {
-            repository.delete(resposta);
+            repository.delete(reserva);
             return true;
         } catch (Exception e) {
             return false;
@@ -46,8 +45,8 @@ public class RespostaService {
         }
     }
 
-    public Resposta atualizar(Resposta resposta) {
-        return repository.save(resposta);
+    public Reserva atualizar(Reserva reserva) {
+        return repository.save(reserva);
     }
 
 
@@ -55,7 +54,7 @@ public class RespostaService {
         return repository.existsById(id);
     }
 
-    public List<Resposta> listar() {
+    public List<Reserva> listar() {
         try{
             return repository.findAll();
         }catch(Exception e){

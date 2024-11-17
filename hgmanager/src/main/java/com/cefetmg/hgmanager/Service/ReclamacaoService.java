@@ -1,9 +1,11 @@
 package com.cefetmg.hgmanager.Service;
 
+
+import com.cefetmg.hgmanager.Model.Reclamacao;
 import com.cefetmg.hgmanager.Model.Reserva;
 import com.cefetmg.hgmanager.Model.Resposta;
 import com.cefetmg.hgmanager.Model.Usuario;
-import com.cefetmg.hgmanager.Repository.DepartamentoRepository;
+import com.cefetmg.hgmanager.Repository.ReclamacaoRepository;
 import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import com.cefetmg.hgmanager.Repository.RespostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,50 +14,50 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RespostaService {
+public class ReclamacaoService {
 
     @Autowired
-    private RespostaRepository repository;
+    private ReclamacaoRepository repository;
 
 
-    public Resposta inserir(Resposta resposta) {
+    public Reclamacao inserir(Reclamacao reclamacao) {
         try {
-            repository.save(resposta);
-            return resposta;
+            repository.save(reclamacao);
+            return reclamacao;
         }catch(Exception e){
             throw new NullPointerException();
         }
     }
 
 
-    public boolean deletar(Resposta resposta) {
+    public boolean deletar(Reclamacao reclamacao) {
         try {
-            repository.delete(resposta);
+            repository.delete(reclamacao);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    public boolean deletarPorID(Long id) {
+    public boolean deletarPorID(Long Id) {
         try {
-            repository.deleteById(id);
+            repository.deleteById(Id);//ta dando erro pelo tipo Long, mas o certo é ser Long mesmo
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    public Resposta atualizar(Resposta resposta) {
-        return repository.save(resposta);
+    public Reclamacao atualizar(Reclamacao reclamacao) {
+        return repository.save(reclamacao);
     }
 
 
     public boolean encontrarPorID(Long id) {
-        return repository.existsById(id);
+        return repository.existsById(id);//ta dando erro pelo tipo Long, mas o certo é ser Long mesmo tbm
     }
 
-    public List<Resposta> listar() {
+    public List<Reclamacao> listar() {
         try{
             return repository.findAll();
         }catch(Exception e){
