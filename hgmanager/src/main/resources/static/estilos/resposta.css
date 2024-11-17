@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2Wfamily=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+body {
+    background-color: #233040;
+    font-family: "Kulim Park", sans-serif;
+    margin: 0;
+}
+
+h1 {
+    color: #FCE1C1;
+    text-align: center;
+    margin-bottom: 75px;
+    padding-top: 3%;
+    padding-left: 1.5%;
+}
+
+.campo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 30vh;
+}
+
+.box {
+    width: 25.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 25px 0px;
+    background: #06191E;
+    border-radius: 20px;
+    border: 1.5px solid #AD9FEA;
+}
+
+.textfield {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 10px 0px;
+    width: 50%;
+}
+
+.textfield > input {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #233040;
+    padding: 3px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.textfield > textarea {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #233040;
+    padding: 3px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.textfield > label {
+    color: #FCE1C1;
+    font-family: sans-serif; 
+}
+
+button {
+    width: 43%;
+    padding: 10px 0px;
+    margin: 25px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-color: #AD9FEA;
+    color: #06191E;
+    font-weight: 750;
+}
+
+.botao:active {
+    transform: translateY(4px); 
+}
