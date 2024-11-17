@@ -17,7 +17,7 @@ public class TestController {
     @Autowired
     private RecursoService recursoService;
 
-    @GetMapping("/")
+    @GetMapping("/dep")
     public String helloWorld() {
         Departamento departamento = new Departamento();
         departamento.setCampus("CII");
@@ -38,8 +38,10 @@ public class TestController {
         departamento.setEmail("cefetmg@gmail.com");
         departamento.setTelefone("319123128");
 
-        dao.inserir(departamento);
-
+        if(dao.inserir(departamento) != null) {
+            System.out.println("inseriu");
+        }else
+            System.out.println("não inseriu");
         return dao.recuperarTodos().toString();
     }
 
@@ -53,7 +55,7 @@ public class TestController {
             System.out.println("deu certo");
             return (ResponseEntity<String>) ResponseEntity.ok();
         }
-
+        
     }
 
     @DeleteMapping("/Recurso/deletarRecurso/{id}")
