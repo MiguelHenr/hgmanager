@@ -46,7 +46,7 @@ CREATE TABLE public.reserva (
 CREATE TABLE public.reclamacao (
 	id integer NOT NULL GENERATED ALWAYS AS IDENTITY ,
 	comentario varchar(255) NOT NULL,
-	'data' date NOT NULL,
+	data date NOT NULL,
 	id_reserva integer NOT NULL,
 	CONSTRAINT reclamacao_pk PRIMARY KEY (id)
 );
@@ -64,7 +64,7 @@ CREATE TABLE public.resposta (
 	id_reclamacao integer NOT NULL,
 	id integer NOT NULL GENERATED ALWAYS AS IDENTITY ,
 	comentario varchar(255),
-    'data' date,
+    data date,
 	CONSTRAINT resposta_pk PRIMARY KEY (id_usuario,id_reclamacao,id)
 );
 
