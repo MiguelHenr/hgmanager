@@ -28,7 +28,7 @@ public class RespostaController {
 
             Reclamacao reclamacao = new Reclamacao(); 
             reclamacao.setId(id);
-            resposta.setRelamacao(reclamacao);
+            resposta.setReclamacao(reclamacao);
 
             respostaService.inserir(resposta);
 

@@ -8,4 +8,7 @@ import java.io.Serializable;
 
 @Repository
 public interface DepartamentoRepository extends JpaRepository<Departamento, Long> {
+
+    Departamento findByNome(String nome);
+
 }

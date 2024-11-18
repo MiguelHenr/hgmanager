@@ -20,6 +20,16 @@ public class Departamento {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "departamento")
     private List<Recurso> recursos;
 
+    public Departamento() {}
+
+    public Departamento(Long id, String telefone, String nome, String email, String campus) {
+        setId(id);
+        setTelefone(telefone);
+        setNome(nome);
+        setEmail(email);
+        setCampus(campus);
+    }
+
     public Long getId() {
         return id;
     }
@@ -82,8 +92,5 @@ public class Departamento {
     public void AddRecurso(Recurso recurso) {
         this.recursos.add(recurso);
     }
-
-
-
 
 }
