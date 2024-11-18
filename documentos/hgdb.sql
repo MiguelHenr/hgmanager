@@ -1,14 +1,16 @@
 CREATE DATABASE hgdb;
 
--- Criação da tabela usuário
+CREATE TYPE public.cargo AS
+ENUM ('TAE','PROFESSOR');
+ALTER TYPE public.cargo OWNER TO postgres;
+
 CREATE TABLE public.usuario (
 	id integer NOT NULL GENERATED ALWAYS AS IDENTITY ,
 	nome varchar(255) NOT NULL,
-	senha varchar(255) NOT NULL,
 	cpf varchar(14) NOT NULL,
 	foto varchar(255) NOT NULL,
 	id_departamento integer NOT NULL,
-	tipo_usuario varchar(25) NOT NULL,
+	tipo_usuario public.cargo NOT NULL,
 	CONSTRAINT usuario_pk PRIMARY KEY (id)
 );
 
@@ -27,17 +29,22 @@ ALTER TYPE public.estado OWNER TO postgres;
 
 CREATE TABLE public.recurso (
 	id integer NOT NULL GENERATED ALWAYS AS IDENTITY ,
-	estado public.estado,
+	estado public.estado NOT NULL,
 	marca varchar(255) NOT NULL,
 	descricao varchar(255) NOT NULL,
 	id_departamento integer NOT NULL,
 	CONSTRAINT recurso_pk PRIMARY KEY (id)
 );
 
+CREATE TYPE public.status AS
+ENUM ('AGUARDANDO','APROVADA','RECUSADA');
+ALTER TYPE public.status OWNER TO postgres;
+
 CREATE TABLE public.reserva (
 	id integer NOT NULL GENERATED ALWAYS AS IDENTITY ,
 	dt_inicio date NOT NULL,
 	dt_fim date NOT NULL,
+    status public.status NOT NULL,
 	id_usuario integer NOT NULL,
 	id_recurso integer NOT NULL,
 	CONSTRAINT reserva_pk PRIMARY KEY (id)

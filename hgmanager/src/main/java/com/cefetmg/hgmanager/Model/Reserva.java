@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import com.cefetmg.hgmanager.Model.Enum.Status;
+
 @Entity
 public class Reserva {
     @Id
@@ -21,6 +23,9 @@ public class Reserva {
 
     private Date incio;
     private Date fim;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 
     public Usuario getProfessor() {
@@ -55,5 +60,11 @@ public class Reserva {
         this.fim = fim;
     }
 
+    public Status getStatus() {
+        return status;
+    }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }
