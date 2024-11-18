@@ -90,7 +90,7 @@ public class TestController {
    @GetMapping("Recurso/resgatarRecurso/{departamento}")
    public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento){
         try{
-            service.listarPorDepartamento(departamento);
+            service.listarRecursosPorDepartamento(departamento);
             return (ResponseEntity<String>) ResponseEntity.ok();
         }catch (Exception e){
             return (ResponseEntity<String>) ResponseEntity.badRequest();
