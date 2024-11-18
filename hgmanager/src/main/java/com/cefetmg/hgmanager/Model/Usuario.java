@@ -1,6 +1,6 @@
 package com.cefetmg.hgmanager.Model;
 
-
+import com.cefetmg.hgmanager.Model.Enum.Cargo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -14,10 +14,11 @@ public class Usuario {
 
     private String nome;
     private String email;
-    private String senha;
     private String cpf;
     private String foto;
-    private String tipoUsuario;
+
+    @Enumerated(EnumType.STRING)
+    private Cargo tipoUsuario;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
@@ -27,12 +28,11 @@ public class Usuario {
     // constructors
     public Usuario() {}
 
-    public Usuario(String nome, String email, String senha, String cpf,
-                   String foto, String tipoUsuario, Departamento departamento) {
+    public Usuario(String nome, String email, String cpf, String foto, 
+                   String tipoUsuario, Departamento departamento) {
 
         setNome(nome);
         setEmail(email);
-        setSenha(senha);
         setCpf(cpf);
         setFoto(foto);
         setTipoUsuario(tipoUsuario);
@@ -65,7 +65,7 @@ public class Usuario {
         return foto;
     }
 
-    public String getTipoUsuario() {
+    public Cargo getTipoUsuario() {
         return tipoUsuario;
     }
 
@@ -98,7 +98,7 @@ public class Usuario {
         this.foto = foto;
     }
 
-    public void setTipoUsuario(String tipoUsuario) {
+    public void setTipoUsuario(Cargo tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 

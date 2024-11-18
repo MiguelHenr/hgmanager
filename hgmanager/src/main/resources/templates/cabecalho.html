@@ -1,30 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/estilos/cabecalho.css">
-    <title>cabeçalho</title>
-</head>
-
-<body>
-    <header>
-        <nav>
-            <ul class="nav-list">
-                <li><a href="/"><img src="../static/imagens/Menu.png" alt="menu" class="menu"></a></li>
-                <li><a href="/"><img src="../static/imagens/Logo.png" alt="logo"></a></li>
-                <li>
-                    <label for="pesquisa"> 
-                        <input type="text" id="barrapesquisa"> 
-                    </label> 
-                    <a href="/" class="background"></a>
-                </li>
-                <li><a href="/"><img src="../static/imagens/Avatar.png" alt="avatar" id="avatar"></a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <script src="cabecalho.js"></script>
-</body>
-
-</html>
+<header>
+    <nav>
+        <ul class="nav-list">
+            <li><a href="/"><img th:src="@{static/imagens/Menu.png}" alt="menu" class="menu"></a></li>
+            <li><a href="/"><img th:src="@{/static/imagens/Logo.png}" alt="logo"></a></li>
+            <li>
+                <label for="pesquisa"> 
+                    <input type="text" id="barrapesquisa"> 
+                </label> 
+                <a href="/" class="background"></a>
+            </li>
+            <li><a href="/"><img th:src="@{static/imagens/Avatar.png}" alt="avatar" id="avatar"></a></li>
+        </ul>
+    </nav>
+</header>

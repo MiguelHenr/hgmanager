@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import com.cefetmg.hgmanager.Model.Enum.Status;
+
 @Entity
 public class Reserva {
 
@@ -26,16 +28,18 @@ public class Reserva {
     private Date incio;
     private Date fim;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+  
     // constructors
     public Reserva() {}
 
-    public Reserva(Usuario professor, Recurso recurso, Date inicio, Date fim) {
+    public Reserva(Usuario professor, Recurso recurso, Date inicio, Date fim, Status status) {
 
         setProfessor(professor);
         setRecurso(recurso);
         setIncio(inicio);
         setFim(fim);
-
     }
 
     // getters
@@ -59,6 +63,10 @@ public class Reserva {
         return fim;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     // setters
     public void setId(Long id) {
         this.id = id;
@@ -80,4 +88,8 @@ public class Reserva {
         this.fim = fim;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+  
 }
