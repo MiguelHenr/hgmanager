@@ -17,10 +17,17 @@ public class Reclamacao {
     @JoinColumn(name = "id_reserva", nullable = false)
     private Reserva reserva;
 
-    public void setId(Long id) {
-        this.id = id;
+    // constructors
+    public Reclamacao(){}
+
+    public Reclamacao(Long id, String comentario, Date data, Reserva reserva) {
+        setId(id);
+        setComentario(comentario);
+        setData(data);
+        setReserva(reserva);
     }
 
+    // getters
     public Long getId() {
         return id;
     }
@@ -29,23 +36,29 @@ public class Reclamacao {
         return comentario;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
-
     public Date getData() {
         return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
     }
 
     public Reserva getReserva() {
         return reserva;
     }
 
+    // setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
     }
+
 }

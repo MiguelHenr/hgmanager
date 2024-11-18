@@ -6,9 +6,11 @@ import jakarta.persistence.*;
 
 @Entity
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String email;
     private String senha;
@@ -20,8 +22,11 @@ public class Usuario {
     @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
 
-    //constructor
-    public Usuario(Long id, String nome, String email, String senha, String cpf, String foto, String tipoUsuario, Departamento departamento) {
+    // constructors
+    public Usuario() {}
+
+    public Usuario(Long id, String nome, String email, String senha, String cpf,
+                   String foto, String tipoUsuario, Departamento departamento) {
 
         setId(id);
         setNome(nome);
@@ -34,7 +39,7 @@ public class Usuario {
 
     }
 
-    //getters
+    // getters
     public Long getId() {
         return id;
     }
@@ -43,12 +48,12 @@ public class Usuario {
         return nome;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
     public String getEmail() {
         return email;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public String getCpf() {
@@ -67,7 +72,7 @@ public class Usuario {
         return departamento;
     }
 
-    //setters
+    // setters
     public void setId(Long id) {
         this.id = id;
     }
@@ -76,12 +81,12 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public void setCpf(String cpf) {

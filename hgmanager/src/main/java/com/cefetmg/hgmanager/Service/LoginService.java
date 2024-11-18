@@ -30,13 +30,6 @@ public class LoginService {
 
         Usuario model = usuarioDtoToModel(dto);
 
-        System.out.println("dto:");
-        System.out.println("cpf = " + dto.getCpf());
-        System.out.println("senha = " + dto.getSenha());
-        System.out.println("model:");
-        System.out.println("cpf = " + model.getCpf());
-        System.out.println("senha = " + model.getSenha());
-
         return model;
 
     }

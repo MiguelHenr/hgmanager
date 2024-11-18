@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 public class Reserva {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,38 +23,59 @@ public class Reserva {
     private Date incio;
     private Date fim;
 
+    // constructors
+    public Reserva() {}
+
+    public Reserva(Long id, Usuario professor, Recurso recurso, Date inicio, Date fim) {
+
+        setId(id);
+        setProfessor(professor);
+        setRecurso(recurso);
+        setIncio(inicio);
+        setFim(fim);
+
+    }
+
+    // getters
+    public Long getId() {
+        return id;
+    }
 
     public Usuario getProfessor() {
         return this.professor;
-    }
-
-    public void setProfessor(Usuario professor) {
-        this.professor = professor;
     }
 
     public Recurso getRecurso() {
         return recurso;
     }
 
-    public void setRecurso(Recurso recurso) {
-        this.recurso = recurso;
-    }
-
     public Date getIncio() {
         return incio;
-    }
-
-    public void setIncio(Date incio) {
-        this.incio = incio;
     }
 
     public Date getFim() {
         return fim;
     }
 
+    // setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setProfessor(Usuario professor) {
+        this.professor = professor;
+    }
+
+    public void setRecurso(Recurso recurso) {
+        this.recurso = recurso;
+    }
+
+    public void setIncio(Date incio) {
+        this.incio = incio;
+    }
+
     public void setFim(Date fim) {
         this.fim = fim;
     }
-
 
 }
