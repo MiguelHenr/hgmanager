@@ -2,6 +2,7 @@ package com.cefetmg.hgmanager.Model;
 
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +18,7 @@ public class Recurso {
     @Enumerated(EnumType.STRING)
     private Estado estado;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
@@ -24,9 +26,8 @@ public class Recurso {
     // constructors
     public Recurso() {}
 
-    public Recurso(Long id, String marca, String descricao, Estado estado, Departamento departamento) {
+    public Recurso(String marca, String descricao, Estado estado, Departamento departamento) {
 
-        setId(id);
         setMarca(marca);
         setDescricao(descricao);
         setEstado(estado);

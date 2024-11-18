@@ -1,5 +1,6 @@
 package com.cefetmg.hgmanager.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -12,10 +13,12 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario professor;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_recurso", nullable = false)
     private Recurso recurso;
@@ -26,9 +29,8 @@ public class Reserva {
     // constructors
     public Reserva() {}
 
-    public Reserva(Long id, Usuario professor, Recurso recurso, Date inicio, Date fim) {
+    public Reserva(Usuario professor, Recurso recurso, Date inicio, Date fim) {
 
-        setId(id);
         setProfessor(professor);
         setRecurso(recurso);
         setIncio(inicio);

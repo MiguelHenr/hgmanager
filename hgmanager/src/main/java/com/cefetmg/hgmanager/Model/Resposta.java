@@ -2,6 +2,7 @@ package com.cefetmg.hgmanager.Model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,10 +15,12 @@ public class Resposta {
     private String comentario;
     private Date data;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_reclamacao", nullable = false)
     private Reclamacao reclamacao;
@@ -25,9 +28,8 @@ public class Resposta {
     // constructors
     public Resposta() {}
 
-    public Resposta(Long id, String comentario, Date data, Usuario usuario, Reclamacao reclamacao) {
+    public Resposta(String comentario, Date data, Usuario usuario, Reclamacao reclamacao) {
 
-        setId(id);
         setComentario(comentario);
         setData(data);
         setUsuario(usuario);

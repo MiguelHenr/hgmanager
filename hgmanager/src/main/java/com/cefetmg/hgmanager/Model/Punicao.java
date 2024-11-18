@@ -2,6 +2,7 @@ package com.cefetmg.hgmanager.Model;
 
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -15,6 +16,7 @@ public class Punicao {
     private Date inicio;
     private Date fim;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario professor;
@@ -22,11 +24,12 @@ public class Punicao {
     // constructors
     public Punicao() {}
 
-    public Punicao(Long id, Date inicio, Date fim, Usuario professor) {
-        setId(id);
+    public Punicao(Date inicio, Date fim, Usuario professor) {
+
         setInicio(inicio);
         setFim(fim);
         setProfessor(professor);
+
     }
 
     // getters

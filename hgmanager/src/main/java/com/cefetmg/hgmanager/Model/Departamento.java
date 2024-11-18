@@ -1,5 +1,6 @@
 package com.cefetmg.hgmanager.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,21 +17,35 @@ public class Departamento {
     private String email;
     private String campus;
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "departamento")
     private List<Usuario> usuarios;
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "departamento")
     private List<Recurso> recursos;
 
     // constructors
     public Departamento() {}
 
-    public Departamento(Long id, String telefone, String nome, String email, String campus) {
-        setId(id);
+    public Departamento(String telefone, String nome, String email, String campus) {
+
         setTelefone(telefone);
         setNome(nome);
         setEmail(email);
         setCampus(campus);
+        setUsuarios(null);
+        setRecursos(null);
+
+    }
+
+    public Departamento(String telefone, String nome, String email, String campus,
+                        List<Usuario> usuarios, List<Recurso> recursos) {
+
+        this(telefone, nome, email, campus);
+        setUsuarios(usuarios);
+        setRecursos(recursos);
+
     }
 
     // getters

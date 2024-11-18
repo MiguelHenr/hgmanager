@@ -1,5 +1,6 @@
 package com.cefetmg.hgmanager.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -13,6 +14,7 @@ public class Reclamacao {
     private String comentario;
     private Date data;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_reserva", nullable = false)
     private Reserva reserva;
@@ -20,11 +22,12 @@ public class Reclamacao {
     // constructors
     public Reclamacao(){}
 
-    public Reclamacao(Long id, String comentario, Date data, Reserva reserva) {
-        setId(id);
+    public Reclamacao(String comentario, Date data, Reserva reserva) {
+
         setComentario(comentario);
         setData(data);
         setReserva(reserva);
+
     }
 
     // getters

@@ -2,6 +2,7 @@ package com.cefetmg.hgmanager.Model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +19,7 @@ public class Usuario {
     private String foto;
     private String tipoUsuario;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
@@ -25,10 +27,9 @@ public class Usuario {
     // constructors
     public Usuario() {}
 
-    public Usuario(Long id, String nome, String email, String senha, String cpf,
+    public Usuario(String nome, String email, String senha, String cpf,
                    String foto, String tipoUsuario, Departamento departamento) {
 
-        setId(id);
         setNome(nome);
         setEmail(email);
         setSenha(senha);
