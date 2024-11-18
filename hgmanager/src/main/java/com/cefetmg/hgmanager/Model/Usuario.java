@@ -1,6 +1,6 @@
 package com.cefetmg.hgmanager.Model;
 
-
+import com.cefetmg.hgmanager.Model.Enum.Cargo;
 
 import jakarta.persistence.*;
 
@@ -11,22 +11,22 @@ public class Usuario {
     private Long id;
     private String nome;
     private String email;
-    private String senha;
     private String cpf;
     private String foto;
-    private String tipoUsuario;
+
+    @Enumerated(EnumType.STRING)
+    private Cargo tipoUsuario;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
 
     //constructor
-    public Usuario(Long id, String nome, String email, String senha, String cpf, String foto, String tipoUsuario, Departamento departamento) {
+    public Usuario(Long id, String nome, String email, String cpf, String foto, Cargo tipoUsuario, Departamento departamento) {
 
         setId(id);
         setNome(nome);
         setEmail(email);
-        setSenha(senha);
         setCpf(cpf);
         setFoto(foto);
         setTipoUsuario(tipoUsuario);
@@ -43,10 +43,6 @@ public class Usuario {
         return nome;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -59,7 +55,7 @@ public class Usuario {
         return foto;
     }
 
-    public String getTipoUsuario() {
+    public Cargo getTipoUsuario() {
         return tipoUsuario;
     }
 
@@ -76,10 +72,6 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -92,7 +84,7 @@ public class Usuario {
         this.foto = foto;
     }
 
-    public void setTipoUsuario(String tipoUsuario) {
+    public void setTipoUsuario(Cargo tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
