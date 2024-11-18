@@ -28,14 +28,11 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> validateLogin(@RequestBody Map<String, String> params, HttpServletRequest request, HttpServletResponse response) {
 
-        String login, password;
-
-        login = params.get("usuario");
-        password = params.get("senha");
+        String login = params.get("usuario");
+        String password = params.get("senha");
 
         try {
             Usuario user = service.LoginValidate(login, password);
-
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         catch (Exception e) {
