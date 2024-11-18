@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
     </head>
 
     <body>
-        <img src="/imagens/Logo.png" alt="logo do site" id="logo">
+        <img th:src="@{/imagens/Logo.png}" alt="logo do site" id="logo">
         <h1>Entre no HgManager</h1>
 
         <div class="campo">
@@ -27,6 +27,6 @@
                 <button type="submit" id="entrar">Entrar</button>
             </form>
         </div>
-        <script src="/script/login.js"></script>
+        <script th:src="@{/script/login.js}"></script>
     </body>
 </html>
