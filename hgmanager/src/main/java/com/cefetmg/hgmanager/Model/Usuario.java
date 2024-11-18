@@ -2,13 +2,16 @@ package com.cefetmg.hgmanager.Model;
 
 import com.cefetmg.hgmanager.Model.Enum.Cargo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String email;
     private String cpf;
@@ -17,14 +20,17 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Cargo tipoUsuario;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
 
-    //constructor
-    public Usuario(Long id, String nome, String email, String cpf, String foto, Cargo tipoUsuario, Departamento departamento) {
+    // constructors
+    public Usuario() {}
 
-        setId(id);
+    public Usuario(String nome, String email, String cpf, String foto, 
+                   String tipoUsuario, Departamento departamento) {
+
         setNome(nome);
         setEmail(email);
         setCpf(cpf);
@@ -34,7 +40,7 @@ public class Usuario {
 
     }
 
-    //getters
+    // getters
     public Long getId() {
         return id;
     }
@@ -45,6 +51,10 @@ public class Usuario {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public String getCpf() {
@@ -63,7 +73,7 @@ public class Usuario {
         return departamento;
     }
 
-    //setters
+    // setters
     public void setId(Long id) {
         this.id = id;
     }
@@ -74,6 +84,10 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public void setCpf(String cpf) {

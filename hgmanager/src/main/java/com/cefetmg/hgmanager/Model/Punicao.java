@@ -2,47 +2,64 @@ package com.cefetmg.hgmanager.Model;
 
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
 public class Punicao {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Date inicio;
     private Date fim;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario professor;
 
-    public Long getId() {
-        return id;
+    // constructors
+    public Punicao() {}
+
+    public Punicao(Date inicio, Date fim, Usuario professor) {
+
+        setInicio(inicio);
+        setFim(fim);
+        setProfessor(professor);
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    // getters
+    public Long getId() {
+        return id;
     }
 
     public Date getInicio() {
         return inicio;
     }
 
-    public void setInicio(Date inicio) {
-        this.inicio = inicio;
-    }
-
     public Date getFim() {
         return fim;
     }
 
-    public void setFim(Date fim) {
-        this.fim = fim;
-    }
-
     public Usuario getProfessor() {
         return professor;
+    }
+
+    // setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setInicio(Date inicio) {
+        this.inicio = inicio;
+    }
+
+    public void setFim(Date fim) {
+        this.fim = fim;
     }
 
     public void setProfessor(Usuario professor) {

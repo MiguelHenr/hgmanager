@@ -16,7 +16,7 @@
 	<description>Trabalho de conclusão de curso de automatização de empréstimo de materiais</description>
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.target>17</maven.compiler.target>
  	</properties>
 	<dependencies>
 		<dependency>

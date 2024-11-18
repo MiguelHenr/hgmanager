@@ -2,8 +2,7 @@ package com.cefetmg.hgmanager.Controller;
 
 import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Recurso;
-import com.cefetmg.hgmanager.Service.DepartamentoService;
-import com.cefetmg.hgmanager.Service.RecursoService;
+import com.cefetmg.hgmanager.Service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class TestController {
 
     @Autowired
-    private DepartamentoService dao;
-
-    @Autowired
-    private RecursoService recursoService;
+    private TestService service;
 
     @GetMapping("/dep")
     public String helloWorld() {
@@ -30,17 +26,17 @@ public class TestController {
         departamento.setEmail("cefetmg@gmail.com");
         departamento.setTelefone("319123128");
 
-        if(dao.inserir(departamento) != null) {
+        if(service.inserirDepartamento(departamento) != null) {
             System.out.println("inseriu");
         }else
             System.out.println("não inseriu");
-        return dao.recuperarTodos().toString();
+        return service.recuperarTodosDepartamentos().toString();
     }
 
     @PostMapping("/Recurso/cadastroRecurso")
     public ResponseEntity<String> CadastroRecurso(@RequestBody Recurso recurso) {
 
-        if(recursoService.inserir(recurso) == null) {
+        if(service.inserirRecurso(recurso) == null) {
             System.out.println("retornar erro aqui(não sei qual");
             return (ResponseEntity<String>) ResponseEntity.badRequest();
         }else {
@@ -53,7 +49,7 @@ public class TestController {
     @DeleteMapping("/Recurso/deletarRecurso/{id}")
     public ResponseEntity<String> deletarRecurso(@PathVariable Long id) {
         try{
-            recursoService.encontrarPorID(id);
+            service.encontrarRecursoPorID(id);
             return (ResponseEntity<String>) ResponseEntity.ok();
         } catch (Exception e) {
             return (ResponseEntity<String>) ResponseEntity.badRequest();
@@ -64,7 +60,7 @@ public class TestController {
     @DeleteMapping("Recurso/deletarRecurso")
     public ResponseEntity<String> deletarRecurso(@RequestBody Recurso recurso) {
         try{
-            recursoService.deletar(recurso);
+            service.deletarRecurso(recurso);
             return (ResponseEntity<String>) ResponseEntity.ok();
         }catch (Exception e) {
             return (ResponseEntity<String>) ResponseEntity.badRequest();
@@ -74,7 +70,7 @@ public class TestController {
     @PutMapping("Recurso/AtualizarRecurso")
     public ResponseEntity<String> AtualizarRecurso(@RequestBody Recurso recurso) {
         try{
-            recursoService.atualizar(recurso);
+            service.atualizarRecurso(recurso);
             return (ResponseEntity<String>) ResponseEntity.ok();
         }catch (Exception e){
             return (ResponseEntity<String>) ResponseEntity.badRequest();
@@ -84,7 +80,7 @@ public class TestController {
     @GetMapping("Recurso/resgatarRecurso/{id}")
     public ResponseEntity<String> ResgatarRecurso(@PathVariable Long id){
         try{
-            recursoService.encontrarPorID(id);
+            service.encontrarRecursoPorID(id);
             return (ResponseEntity<String>) ResponseEntity.ok();
         }catch(Exception e){
             return (ResponseEntity<String>) ResponseEntity.badRequest();
@@ -94,7 +90,7 @@ public class TestController {
    @GetMapping("Recurso/resgatarRecurso/{departamento}")
    public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento){
         try{
-            recursoService.listarPorDepartamento(departamento);
+            service.listarRecursosPorDepartamento(departamento);
             return (ResponseEntity<String>) ResponseEntity.ok();
         }catch (Exception e){
             return (ResponseEntity<String>) ResponseEntity.badRequest();

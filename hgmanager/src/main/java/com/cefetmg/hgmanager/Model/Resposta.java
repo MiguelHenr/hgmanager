@@ -2,61 +2,81 @@ package com.cefetmg.hgmanager.Model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
 public class Resposta {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String comentario;
     private Date data;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "id_reclamacao", nullable = false)
     private Reclamacao reclamacao;
 
-    public Long getId() {
-        return id;
+    // constructors
+    public Resposta() {}
+
+    public Resposta(String comentario, Date data, Usuario usuario, Reclamacao reclamacao) {
+
+        setComentario(comentario);
+        setData(data);
+        setUsuario(usuario);
+        setReclamacao(reclamacao);
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    // getters
+    public Long getId() {
+        return id;
     }
 
     public String getComentario() {
         return comentario;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public Date getData() {
+        return data;
     }
 
     public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     public Reclamacao getReclamacao() {
         return reclamacao;
+    }
+
+    // setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public void setReclamacao(Reclamacao reclamacao) {
         this.reclamacao = reclamacao;
     }
 
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
 }
