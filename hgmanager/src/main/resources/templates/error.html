@@ -13,17 +13,15 @@
 
 <body>
     <main>
-        <div>
-            <img th:src="@{/imagens/frown.png}" alt="Carinha triste">
-            <h1 th:text="${status == 403 ? 'Oops! Acesso negado.' :
-                           status == 404 ? 'Oops! Página não encontrada.' :
-                           status == 500 ? 'Oops! O sistema falhou.' :
-                           status == 503 ? 'Oops! Serviço indisponível.' :
-                           'Oops! Algo deu errado.'}">Texto</h1>
-            <h2 th:if="${status == 403}">Faça login e tente novamente.</h2>
-            <h2 th:if="${status == 503}">Tente novamente mais tarde.</h2>
-            <p th:text="'Error ' + ${status}">Erro</p>
-        </div>
+        <img th:src="@{/imagens/frown.png}" alt="Carinha triste" id="frown">
+        <h1 th:text="${status == 403 ? 'Oops! Acesso negado.' :
+                       status == 404 ? 'Oops! Página não encontrada.' :
+                       status == 500 ? 'Oops! O sistema falhou.' :
+                       status == 503 ? 'Oops! Serviço indisponível.' :
+                       'Oops! Algo deu errado.'}">Texto</h1>
+        <h2 th:if="${status == 403}">Faça login e tente novamente.</h2>
+        <h2 th:if="${status == 503}">Tente novamente mais tarde.</h2>
+        <p th:text="'Error ' + ${status}">Erro</p>
     </main>
 </body>
 </html>
