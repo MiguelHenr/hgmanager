@@ -3,6 +3,7 @@ package com.cefetmg.hgmanager.Service;
 import br.cefetmg.mockloginapi.dto.DepartamentoDTO;
 import br.cefetmg.mockloginapi.service.DepartamentoInfo;
 import com.cefetmg.hgmanager.Model.Departamento;
+import com.cefetmg.hgmanager.Model.Enum.Cargo;
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.DepartamentoRepository;
@@ -51,9 +52,8 @@ public class LoginService {
 
         model.setNome(dto.getNome());
         model.setEmail(dto.getEmail());
-        model.setSenha(dto.getSenha());
         model.setFoto(dto.getFoto());
-        model.setTipoUsuario(dto.getTipoUsuario());
+        model.setTipoUsuario(Cargo.ofName(dto.getTipoUsuario()));
         model.setDepartamento(departamento);
 
         usuarioRepository.save(model);
