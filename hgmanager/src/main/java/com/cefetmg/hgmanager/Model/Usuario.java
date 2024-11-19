@@ -29,7 +29,7 @@ public class Usuario {
     public Usuario() {}
 
     public Usuario(String nome, String email, String cpf, String foto, 
-                   String tipoUsuario, Departamento departamento) {
+                   Cargo tipoUsuario, Departamento departamento) {
 
         setNome(nome);
         setEmail(email);
@@ -51,10 +51,6 @@ public class Usuario {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getSenha() {
-        return senha;
     }
 
     public String getCpf() {
@@ -84,10 +80,6 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public void setCpf(String cpf) {
