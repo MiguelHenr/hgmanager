@@ -1,21 +1,35 @@
+html, body, * {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #233040;
-}
-
-h1, h2, p{
+    overflow: hidden;
     color: #FE6156;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    margin: auto;
-    margin-top: 1%;
-    
 }
 
-img {
+main {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
     justify-content: center;
-    display: block;
-    margin: auto;
-    margin-top: 10%;
+    align-items: center;
+    flex-direction: column;
+}
+
+#frown {
+    height: 37.6vh;
+}
+
+h1 {
+    font-size: 7.8vh;
+}
+
+h2 {
+    font-size: 5.4vh;
+}
+
+p {
+    font-size: 4.9vh;
 }
