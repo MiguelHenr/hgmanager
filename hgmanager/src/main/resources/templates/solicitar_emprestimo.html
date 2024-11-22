@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Solicitação de Empréstimos</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/estilos/solicitar_emprestimo.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/estilos/cabecalho.css}">
+        <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="/"><img src="/imagens/Menu.png" alt="menu" class="menu"></a></li>
+                    <li><a href="/"><img src="/imagens/Logo.png" alt="logo"></a></li>
+                    <li>
+                        <a href="/" class="background"></a>
+                    </li>
+                    <li><a href="index.html"><img src="/imagens/Avatar.png" alt="avatar" id="avatar"></a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="search-container">
+            <input type="text" placeholder="🔍 Pesquisar">
+                <select>
+                    <option value="nome">Nome</option>
+                    <option value="marca">Marca</option>
+                    <option value="estado">Estado</option>
+                </select>
+        </div>
+
+        <div class="item-list" th:if="${!recursos.isEmpty()}">
+            <div class="item" th:each="recurso : ${recursos}">
+                <p th:text="${recurso.getDepartamento().getNome()}"></p>
+                <p th:text="${recurso.getEstado().toString()}"></p>
+                <p th:text="${recurso.getMarca()}"></p>
+                <button class="clique-botao">Solicitar empréstimo</button>
+            </div>
+        </div>
+        <div class="nenhum-recurso" th:if="${recursos.isEmpty()}">
+            <h2>Nenhum recurso para empréstimo foi encontrado</h2>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+        <script src="/script/solicitar_emprestimo.js"></script>
+    </body>
+</html>

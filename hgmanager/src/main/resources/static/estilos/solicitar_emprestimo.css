@@ -1,0 +1,160 @@
+/* Estilo Geral */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 20% 0 20%;
+    padding: 0;
+    background-color: #06191E;
+    color: white;
+}
+
+/* Cabeçalho */
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1a1d21;
+    color: white;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-family: "Georgia", serif;
+}
+
+/* Caixa de busca */
+.search-container {
+    display: flex;
+    margin: 20px;
+}
+
+.search-container input, .search-container select {
+    margin: 7% 1% 0 1%;
+    border-radius: 50px;
+    border: none;
+    padding: 0.5%;
+    outline: none;
+    font-size: 1rem;
+    color: #000;
+}
+
+.search-container select:focus{
+    background-color: #007bff;
+}
+
+.search-container input::placeholder {
+    color: #c4c4c4;
+}
+
+.search-container, .item-list{
+    margin: 0 10% 0 10%;
+}
+
+
+/* Lista de Itens */
+.item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    margin-bottom: 2%;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ad9fea;
+    border-radius: 50px;
+    padding: 0.5%;
+    color: black;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.item button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Pop-Up */
+.popup {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #134f9c;
+    padding: 20px;
+    border-radius: 20px;
+    z-index: 1000;
+    color: white;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.popup-content{
+    margin: 20% 10% 20% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popup h2 {
+    font-size: 3.0rem;
+    color: white;
+    font-family: "Oswald", sans-serif;
+}
+
+.popup .popup-content h1{
+    font-size: 1.5rem;
+    font-family: "Host Grotesk", sans-serif;
+}
+
+.popup .popup-buttons button {
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.button-confirmar{
+    background-color: green;
+}
+
+.button-cancelar{
+    background-color: red;
+}
+
+.popup-date{
+    background-color: #134f9c;
+    border: none;
+    margin: 20px;
+}
+
+/* Overlay */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}

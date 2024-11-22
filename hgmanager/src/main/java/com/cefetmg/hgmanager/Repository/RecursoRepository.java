@@ -3,6 +3,7 @@ package com.cefetmg.hgmanager.Repository;
 import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 import com.cefetmg.hgmanager.Model.Recurso;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,4 +13,8 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
     List<Recurso> findByDepartamento(Departamento departamento);
 
     List<Recurso> findByEstado(Estado estado);
+
+    @Query(value = "SELECT r FROM Recurso r WHERE r.id NOT IN " +
+            "(SELECT s.recurso.id FROM Reserva s WHERE s.fim >= CURRENT_DATE)")
+    List<Recurso> listarPorDisponibilidade();
 }

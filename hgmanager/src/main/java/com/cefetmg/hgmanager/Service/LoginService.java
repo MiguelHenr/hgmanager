@@ -4,7 +4,6 @@ import br.cefetmg.mockloginapi.dto.DepartamentoDTO;
 import br.cefetmg.mockloginapi.service.DepartamentoInfo;
 import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Cargo;
-import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.DepartamentoRepository;
 import com.cefetmg.hgmanager.Repository.UsuarioRepository;
