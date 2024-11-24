@@ -1,40 +1,58 @@
 @import url('https://fonts.googleapis.com/css2Wfamily=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
 
+html, body, * {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #233040;
     font-family: "Kulim Park", sans-serif;
-    margin: 0;
+    color: #FCE1C1;
+    overflow: hidden;
 }
 
-#logo {
-    width: 150px;
-    height: 150px;
-    display: block;
-    margin: auto;
-    margin-top: 15px;
+body, button, input {
+    font-size: 3vh;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 6.4vh;
+}
+
+span {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    width: 100%;
 }
 
 h1 {
-    color: #FCE1C1;
-    text-align: center;
-    margin-bottom: 75px;
+    font-size: 5vh;
 }
 
-.campo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 30vh;
+#logo {
+    height: 25vh;
+    padding-bottom: 1.6vh;
 }
 
 .box {
-    width: 25.5%;
+    width: 30vw;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 25px 0px;
+    padding: 4vh 0;
     background: #06191E;
     border-radius: 20px;
     border: 1.5px solid #AD9FEA;
@@ -53,9 +71,9 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
-    margin: 10px 0px;
-    width: 50%;
+    justify-content: left;
+    margin: 1.6vh 0;
+    width: 75%;
 }
 
 .textfield > input {
@@ -63,24 +81,37 @@ a:hover {
     border: none;
     border-radius: 5px;
     background-color: #233040;
-    padding: 3px;
+    color: #FCE1C1;
+    padding: .4vh;
     outline: none;
     box-sizing: border-box;
 }
 
 .textfield > label {
-    color: #FCE1C1;
     font-family: sans-serif; 
 }
 
 button {
-    width: 43%;
-    padding: 10px 0px;
-    margin: 25px;
+    width: 50%;
+    padding: 1.6vh 0;
+    margin-top: 1.6vh;
     border: none;
     border-radius: 5px;
     outline: none;
     background-color: #AD9FEA;
     color: #06191E;
     font-weight: 750;
+    cursor: pointer;
+}
+
+button.error {
+    border: 2px solid #FE6156;
+}
+
+#error {
+    color: #FE6156;
+}
+
+.hide {
+    visibility: hidden;
 }
