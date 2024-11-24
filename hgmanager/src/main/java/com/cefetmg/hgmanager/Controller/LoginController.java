@@ -3,6 +3,9 @@ package com.cefetmg.hgmanager.Controller;
 import com.cefetmg.hgmanager.Model.Usuario;
 
 import com.cefetmg.hgmanager.Service.LoginService;
+
+import br.cefetmg.mockloginapi.exceptions.IncorrectPasswordException;
+import br.cefetmg.mockloginapi.exceptions.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -35,7 +38,7 @@ public class LoginController {
             Usuario user = service.LoginValidate(login, password);
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
-        catch (Exception e) {
+        catch (UserNotFoundException | IncorrectPasswordException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
