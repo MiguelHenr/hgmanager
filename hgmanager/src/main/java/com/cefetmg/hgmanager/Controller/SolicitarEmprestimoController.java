@@ -62,7 +62,7 @@ public class SolicitarEmprestimoController {
             Reserva reserva = new Reserva();
 
             Date dataEmprestimo = calendarioEmprestimo.getTime();
-            reserva.setIncio(dataEmprestimo);
+            reserva.setInicio(dataEmprestimo);
 
             calendarioEmprestimo.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horasFinal));
             calendarioEmprestimo.set(Calendar.MINUTE, Integer.parseInt(minutosFinal));
@@ -114,7 +114,7 @@ public class SolicitarEmprestimoController {
             Reserva reserva = new Reserva();
 
             Date dataEmprestimo = calendarioEmprestimo.getTime();
-            reserva.setIncio(dataEmprestimo);
+            reserva.setInicio(dataEmprestimo);
 
             calendarioEmprestimo.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horasFinal));
             calendarioEmprestimo.set(Calendar.MINUTE, Integer.parseInt(minutosFinal));

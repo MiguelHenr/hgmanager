@@ -1,5 +1,6 @@
 package com.cefetmg.hgmanager.Repository;
 
+import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Reserva;
 
 import java.util.List;

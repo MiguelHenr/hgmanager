@@ -20,6 +20,13 @@ public class ReservaService {
 
     @Autowired
     private ReservaRepository repository;
+
+    public Reserva inserir(Reserva reserva) {
+        if(reserva.getFim() == null || reserva.getInicio() == null || reserva.getProfessor().getId() == null || reserva.getRecurso().getId() == null || reserva.getStatus() == null) {
+            throw new NullPointerException();
+        }
+        return repository.save(reserva);
+    }
     
     public List<Reserva> listarTodas() {
         return repository.findAllOrdered();
