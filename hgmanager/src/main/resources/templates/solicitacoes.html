@@ -13,8 +13,8 @@
     <header th:replace="~{cabecalho}"></header>
     
     <main th:fragment="reqs" id="reqs">
-        <div th:each="s : ${requests}" th:with="u=${s.professor}, r=${s.recurso}" th:data-index="${s.id}">
-            <!--img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}"-->
+        <div th:each="s : ${requests}" th:with="u=${s.professor}, r=${s.recurso}" th:data-index="${s.id}" class="req">
+            <img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="req-img">
             <p>Requerinte: <span th:text="${u.nome}">Nome</span></p>
             <p>Recurso: <span th:text="${r.descricao}">Descrição</span></p>
             <p>Inicio: <span th:text="${#dates.format(s.inicio, 'dd/MM/yy HH:mm')}">Data</span></p>
@@ -28,4 +28,3 @@
     <script th:src="@{/script/cabecalho.js}"></script>
     <script th:src="@{/script/req.js}"></script>
 </body>
-</html>
