@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface ReservaRepository extends org.springframework.data.jpa.repository.JpaRepository<Reserva, Long> {
     @Query("SELECT r FROM Reserva r ORDER BY r.inicio DESC")
     public List<Reserva> findAllOrdered();
+
+    Reserva findReservaByRecurso(Recurso recurso);
 }
