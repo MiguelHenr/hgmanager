@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/estilos/req.css}">
+    <link rel="stylesheet" th:href="@{/estilos/cabecalho.css}">
+    <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
+    <title>Solicitacoes</title>
+</head>
+
+<body>
+    <header th:replace="~{cabecalho}"></header>
+    
+    <main th:fragment="reqs" id="reqs">
+        <div th:each="s : ${requests}" th:with="u=${s.professor}, r=${s.recurso}" th:data-index="${s.id}">
+            <!--img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}"-->
+            <p>Requerinte: <span th:text="${u.nome}">Nome</span></p>
+            <p>Recurso: <span th:text="${r.descricao}">Descrição</span></p>
+            <p>Inicio: <span th:text="${#dates.format(s.inicio, 'dd/MM/yy HH:mm')}">Data</span></p>
+            <p>Fim: <span th:text="${#dates.format(s.fim, 'dd/MM/yy HH:mm')}">Data</span></p>
+            <p>Status: <span th:text="${s.status}">Status</span></p>
+            <button th:if="${s.status == waiting}" class="reject">Rejeitar</button>
+            <button th:if="${s.status == waiting}" class="approve">Aprovar</button>
+        </div>
+    </main>
+
+    <script th:src="@{/script/cabecalho.js}"></script>
+    <script th:src="@{/script/req.js}"></script>
+</body>
+</html>

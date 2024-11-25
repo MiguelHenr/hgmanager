@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #06191E;
+    color: #FCE1C1;
+}
+
 a:hover {
     opacity: 0.7;
 }
@@ -32,12 +37,6 @@ nav {
     align-items: center;
     background-color: #233040;
     height: 10vh;
-}
-
-main {
-    background-color: #06191E;
-    background-size: cover;
-    height: 90vh;
 }
 
 .nav-list {
@@ -99,4 +98,8 @@ label {
     height: 2px;
     background: #AD9FEA;
     margin: 8px;
+}
+
+main div {
+    margin-bottom: 15px;
 }
