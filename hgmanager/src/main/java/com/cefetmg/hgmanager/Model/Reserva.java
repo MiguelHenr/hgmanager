@@ -25,7 +25,7 @@ public class Reserva {
     @JoinColumn(name = "id_recurso", nullable = false)
     private Recurso recurso;
 
-    private Date incio;
+    private Date inicio;
     private Date fim;
 
     @Enumerated(EnumType.STRING)
@@ -38,7 +38,7 @@ public class Reserva {
 
         setProfessor(professor);
         setRecurso(recurso);
-        setIncio(inicio);
+        setInicio(inicio);
         setFim(fim);
     }
 
@@ -55,8 +55,8 @@ public class Reserva {
         return recurso;
     }
 
-    public Date getIncio() {
-        return incio;
+    public Date getInicio() {
+        return inicio;
     }
 
     public Date getFim() {
@@ -80,8 +80,8 @@ public class Reserva {
         this.recurso = recurso;
     }
 
-    public void setIncio(Date incio) {
-        this.incio = incio;
+    public void setInicio(Date incio) {
+        this.inicio = incio;
     }
 
     public void setFim(Date fim) {

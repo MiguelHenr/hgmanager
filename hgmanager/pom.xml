@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.4</version>
+		<version>3.3.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cefetmg</groupId>
@@ -16,7 +16,7 @@
 	<description>Trabalho de conclusão de curso de automatização de empréstimo de materiais</description>
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.target>17</maven.compiler.target>
  	</properties>
 	<dependencies>
 		<dependency>
