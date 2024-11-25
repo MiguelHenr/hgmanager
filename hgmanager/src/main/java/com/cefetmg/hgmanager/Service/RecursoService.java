@@ -3,13 +3,12 @@ package com.cefetmg.hgmanager.Service;
 import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 import com.cefetmg.hgmanager.Model.Recurso;
-import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.RecursoRepository;
-import com.cefetmg.hgmanager.Repository.RespostaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RecursoService {
@@ -47,8 +46,8 @@ public class RecursoService {
     }
 
 
-    public boolean encontrarPorID(Long id) {
-        return repository.existsById(id);
+    public Optional<Recurso> encontrarPorID(Long id) {
+        return repository.findById(id);
     }
 
     public List<Recurso> listar() {

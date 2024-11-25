@@ -14,7 +14,7 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
 
     List<Recurso> findByEstado(Estado estado);
 
-    @Query(value = "SELECT r FROM Recurso r WHERE r.id NOT IN " +
-            "(SELECT s.recurso.id FROM Reserva s WHERE s.fim >= CURRENT_DATE)")
+    @Query(value = "SELECT r FROM Recurso r WHERE r.Id NOT IN " +
+            "(SELECT s.recurso.Id FROM Reserva s WHERE s.fim >= CURRENT_TIMESTAMP )")
     List<Recurso> listarPorDisponibilidade();
 }
