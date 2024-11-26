@@ -1,0 +1,14 @@
+<div th:each="s : ${requests}" th:with="u=${s.professor}, r=${s.recurso}" th:data-index="${s.id}" class="req">
+    <img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="req-img">
+
+    <p>Requerinte: <span th:text="${u.nome}">Nome</span></p>
+    <p>Recurso: <span th:text="${r.descricao}">Descrição</span></p>
+    <p>Início: <span th:text="${#dates.format(s.inicio, 'dd/MM/yy HH:mm')}">Data</span></p>
+    <p>Fim: <span th:text="${#dates.format(s.fim, 'dd/MM/yy HH:mm')}">Data</span></p>
+    <p th:unless="${s.status == waiting}" th:text="${s.status}">Status</p>
+
+    <div th:if="${s.status == waiting}" class="btn">
+        <button class="approve">Aprovar</button>
+        <button class="reject">Rejeitar</button>
+    </div>
+</div>
