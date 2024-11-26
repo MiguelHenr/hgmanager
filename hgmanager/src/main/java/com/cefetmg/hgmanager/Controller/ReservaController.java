@@ -30,7 +30,7 @@ public class ReservaController {
         model.addAttribute("waiting", Status.AGUARDANDO);
         model.addAttribute("requests", reservaService.listarTodas());
 
-        return "requests";
+        return "frag/requests";
     }
 
     @PostMapping("update-sol")

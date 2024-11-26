@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <header th:replace="~{cabecalho}"></header>
+    <header th:replace="~{frag/cabecalho}"></header>
 
     <main th:fragment="cmps" id="cmps">
         <div th:each="c : ${complaints}" th:with="r=${c.reserva}, re=${r.recurso}, u=${r.professor}, as=${c.respostas}">
