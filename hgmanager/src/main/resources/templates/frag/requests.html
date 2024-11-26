@@ -1,5 +1,7 @@
 <div th:each="s : ${requests}" th:with="u=${s.professor}, r=${s.recurso}" th:data-index="${s.id}" class="req">
-    <img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="req-img">
+    <figure class="rfig">
+        <img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="req-img">
+    </figure>
 
     <p>Requerinte: <span th:text="${u.nome}">Nome</span></p>
     <p>Recurso: <span th:text="${r.descricao}">Descrição</span></p>
