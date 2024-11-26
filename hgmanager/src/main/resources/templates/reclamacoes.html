@@ -13,25 +13,27 @@
     <header th:replace="~{cabecalho}"></header>
 
     <main th:fragment="cmps" id="cmps">
-        <div class="cmp" th:each="c : ${complaints}" th:with="r=${c.reserva}, re=${r.recurso}, u=${r.professor}, as=${c.respostas}">
-            <!--img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="perfil"-->
-            <p th:text="${u.nome}">Nome</p>
-            <p>Recurso: <span th:text="${re.descricao}">Descrição</span></p>
-            <p th:text="${c.comentario}">Reclamação</p>
-            <p th:text="${#dates.format(c.data, 'dd/MM/yy HH:mm')}">Data</p>
+        <div th:each="c : ${complaints}" th:with="r=${c.reserva}, re=${r.recurso}, u=${r.professor}, as=${c.respostas}">
+            <div class="cmp">
+                <img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="perfil">
+                <p th:text="${u.nome}">Nome</p>
+                <p>Recurso: <span th:text="${re.descricao}">Descrição</span></p>
+                <p th:text="${c.comentario}">Reclamação</p>
+                <p th:text="${#dates.format(c.data, 'dd/MM/yy HH:mm')}">Data</p>
+            </div>
+            
+            <form th:action="@{/responder}" method="post">
+                <input type="hidden" name="rid" th:value="${r.id}">
+                <textarea name="comentario" class="com" maxlength="255"></textarea>
+                <button type="submit">Responder</button>
+            </form>
 
             <div class="ans" th:each="a : ${as}" th:with="u=${a.usuario}">
-                <!--img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="perfil"-->
+                <img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="perfil">
                 <p th:text="${u.nome}">Nome</p>
                 <p th:text="${a.comentario}">Resposta</p>
                 <p th:text="${#dates.format(a.data, 'dd/MM/yy HH:mm')}">Data</p>
             </div>
-
-            <form th:action="@{/responder}" method="post">
-                <input type="hidden" name="rid" th:value="${r.id}">
-                <input type="text" name="comentario" class="com">
-                <button type="submit">Responder</button>
-            </form>
         </div>
     </main>
     <script th:src="@{/script/cabecalho.js}"></script>

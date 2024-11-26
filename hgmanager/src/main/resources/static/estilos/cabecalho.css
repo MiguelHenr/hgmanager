@@ -14,21 +14,16 @@ a:hover {
 }
 
 header {
-    margin: 0;
-    padding: 10px 20px;
+    margin-bottom: 1.6vh;
+    padding: 0px 0px;
     position: relative;
     align-items: center;
     justify-content: space-between;
     display: flex;
     background-color: #233040;
     border-bottom: 1px solid #AD9FEA;
-}
-
-header > img {
-    margin-top: 10px;
-    max-width: 100%;
-    display: block;
-    height: auto;
+    box-sizing: border-box;
+    height: 10vh;
 }
 
 nav {
@@ -58,11 +53,11 @@ nav {
     top: 50%;
     transform: translateY(-50%);
     max-width: 100px;
-    height: auto;
+    height: 8.5vh;
 }
 
 .nav-list img {
-    height: 70px;
+    height: 8.5vh;
     width: auto;
 }
 
@@ -82,8 +77,9 @@ nav {
     background-color: #06191E;
     background-image: url('../imagens/Lupa.png');
     background-size: 15px;
-    background-position: left 10px center;
+    background-position: right 10px center;
     background-repeat: no-repeat;
+    color: #FCE1C1;
 }
 
 .menu {
@@ -98,8 +94,4 @@ nav {
     height: 2px;
     background: #AD9FEA;
     margin: 8px;
-}
-
-main div {
-    margin-bottom: 15px;
 }
