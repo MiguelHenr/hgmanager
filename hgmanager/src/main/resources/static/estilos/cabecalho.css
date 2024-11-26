@@ -26,6 +26,25 @@ header {
     height: 10vh;
 }
 
+figure {
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+header figure {
+    height: 8.5vh;
+    width: 8.5vh;
+}
+
+figure img {
+    width: 100%;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
+
 nav {
     display: flex;
     justify-content: space-around;
@@ -49,14 +68,12 @@ nav {
 
 #avatar {
     position: absolute;
-    right: 20px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    max-width: 100px;
-    height: 8.5vh;
 }
 
-.nav-list img {
+.nav-list img:not(#avatar img) {
     height: 8.5vh;
     width: auto;
 }
