@@ -6,7 +6,9 @@ const submitBtn = document.getElementById('entrar');
 
 async function validarLogin(event) {
 
+    console.warn("click!");
     event.preventDefault();
+    submitBtn.disabled = true;
 
     // Captura os dados do formulário
     const formData = new FormData(forms);
@@ -24,9 +26,8 @@ async function validarLogin(event) {
     });
 
     if (!response.ok) {
-        /*const error = await response.text();
-        console.log(error);*/
-        sinalize();
+        sinalize(response.text());
+        submitBtn.disabled = false;
         return;
     }
 
@@ -35,11 +36,25 @@ async function validarLogin(event) {
     const result = await response.json();
 
     alert('Logado com sucesso! seja bem vindo: ' + result.nome);
-
     console.log(result);
+
+    submitBtn.disabled = true;
+
 }
 
-function sinalize() {
+async function redirect() {
+
+    const response = await fetch('login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+}
+
+function sinalize(err) {
     if (errorP.classList.contains('hide')) {
         errorP.classList.remove('hide');
         submitBtn.classList.add('error');
@@ -87,4 +102,4 @@ for (let inp of inputs)
 
 cpfInp.addEventListener('input', fixCpf);
 
-cpfInp.addEventListener('keydown', evt => reactCpf(evt));
+cpfInp.addEventListener('keydown', event => reactCpf(event));

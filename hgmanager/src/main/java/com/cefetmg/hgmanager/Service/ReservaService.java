@@ -9,10 +9,9 @@ import com.cefetmg.hgmanager.Model.Reserva;
 import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cefetmg.hgmanager.Model.Reserva;
 import com.cefetmg.hgmanager.Repository.ReservaRepository;
-import javax.persistence.PersistenceException;
+import jakarta.persistence.PersistenceException;
 import java.util.List;
 
 @Service

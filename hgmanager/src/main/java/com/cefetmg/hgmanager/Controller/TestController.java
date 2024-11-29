@@ -6,10 +6,11 @@ import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 public class TestController {
 
     @Autowired

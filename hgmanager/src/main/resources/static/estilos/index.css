@@ -104,6 +104,11 @@ button {
     cursor: pointer;
 }
 
+button[disabled] {
+    background-color: #585569;
+    color: #070e0f;
+}
+
 button.error {
     border: 2px solid #FE6156;
 }
