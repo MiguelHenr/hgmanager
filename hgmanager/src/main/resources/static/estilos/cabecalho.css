@@ -14,28 +14,41 @@ a:hover {
 }
 
 header {
-    margin: 0;
-    padding: 10px 20px;
+    margin-bottom: 1.6vh;
+    padding: 0px 0px;
     position: relative;
     align-items: center;
     justify-content: space-between;
     display: flex;
     background-color: #233040;
     border-bottom: 1px solid #AD9FEA;
+    box-sizing: border-box;
+    height: 10vh;
 }
 
-header > img {
-    margin-top: 10px;
-    max-width: 100%;
-    display: block;
-    height: auto;
+figure {
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+header figure {
+    height: 8.5vh;
+    width: 8.5vh;
+}
+
+figure img {
+    width: 100%;
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
 }
 
 nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #233040;
     height: 10vh;
 }
 
@@ -54,15 +67,13 @@ nav {
 
 #avatar {
     position: absolute;
-    right: 20px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
-    max-width: 100px;
-    height: auto;
 }
 
-.nav-list img {
-    height: 70px;
+.nav-list img:not(#avatar img) {
+    height: 8.5vh;
     width: auto;
 }
 
@@ -82,8 +93,9 @@ nav {
     background-color: #06191E;
     background-image: url('../imagens/Lupa.png');
     background-size: 15px;
-    background-position: left 10px center;
+    background-position: right 10px center;
     background-repeat: no-repeat;
+    color: #FCE1C1;
 }
 
 .menu {
@@ -98,8 +110,4 @@ nav {
     height: 2px;
     background: #AD9FEA;
     margin: 8px;
-}
-
-main div {
-    margin-bottom: 15px;
 }

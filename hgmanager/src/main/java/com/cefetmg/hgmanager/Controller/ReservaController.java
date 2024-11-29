@@ -22,16 +22,15 @@ public class ReservaController {
 
     @GetMapping("solicitacoes")
     public String getSol(Model model) {
-        setUp(model);
-
         return "solicitacoes";
     }
 
     @PostMapping("requests")
     public String getRequests(Model model) {
-        setUp(model);
+        model.addAttribute("waiting", Status.AGUARDANDO);
+        model.addAttribute("requests", reservaService.listarTodas());
 
-        return "solicitacoes :: reqs";
+        return "frag/requests";
     }
 
     @PostMapping("update-sol")
@@ -49,11 +48,6 @@ public class ReservaController {
             reject(res);
 
         return ResponseEntity.ok().body("Solicitação atualizada com sucesso");
-    }
-
-    private void setUp(Model model) {
-        model.addAttribute("waiting", Status.AGUARDANDO);
-        model.addAttribute("requests", reservaService.listarTodas());
     }
 
     private void approve(Reserva reserva) {

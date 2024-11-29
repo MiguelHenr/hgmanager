@@ -10,22 +10,21 @@
 </head>
 
 <body>
-    <header th:replace="~{cabecalho}"></header>
+    <header th:replace="~{frag/cabecalho}"></header>
     
-    <main th:fragment="reqs" id="reqs">
-        <div th:each="s : ${requests}" th:with="u=${s.professor}, r=${s.recurso}" th:data-index="${s.id}">
-            <!--img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}"-->
-            <p>Requerinte: <span th:text="${u.nome}">Nome</span></p>
-            <p>Recurso: <span th:text="${r.descricao}">Descrição</span></p>
-            <p>Inicio: <span th:text="${#dates.format(s.inicio, 'dd/MM/yy HH:mm')}">Data</span></p>
-            <p>Fim: <span th:text="${#dates.format(s.fim, 'dd/MM/yy HH:mm')}">Data</span></p>
-            <p>Status: <span th:text="${s.status}">Status</span></p>
-            <button th:if="${s.status == waiting}" class="reject">Rejeitar</button>
-            <button th:if="${s.status == waiting}" class="approve">Aprovar</button>
+    <section id="ghost">
+        <div class="greq" th:each="i : ${#numbers.sequence(1, 6)}">
+            <div class="gimg"></div>
+            <div class="grow"></div>
+            <div class="grow"></div>
+            <div class="grow dt"></div>
+            <div class="grow dt"></div>
+            <div class="grow stat"></div>
         </div>
-    </main>
+    </section>
+
+    <main id="reqs" class="shoo"></main>
 
     <script th:src="@{/script/cabecalho.js}"></script>
     <script th:src="@{/script/req.js}"></script>
 </body>
-</html>

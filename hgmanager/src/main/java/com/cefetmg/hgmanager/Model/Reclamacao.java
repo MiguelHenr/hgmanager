@@ -1,9 +1,12 @@
 package com.cefetmg.hgmanager.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Reclamacao {
@@ -18,6 +21,10 @@ public class Reclamacao {
     @ManyToOne
     @JoinColumn(name = "id_reserva", nullable = false)
     private Reserva reserva;
+
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "reclamacao")
+    List<Resposta> respostas;
 
     // constructors
     public Reclamacao(){}
@@ -64,4 +71,11 @@ public class Reclamacao {
         this.reserva = reserva;
     }
 
+    public List<Resposta> getRespostas() {
+        return respostas;
+    }
+
+    public void setRespostas(List<Resposta> respostas) {
+        this.respostas = respostas;
+    }
 }
