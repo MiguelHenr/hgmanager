@@ -14,18 +14,7 @@
         <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     </head>
     <body>
-        <header>
-            <nav>
-                <ul class="nav-list">
-                    <li><a href="/"><img src="/imagens/Menu.png" alt="menu" class="menu"></a></li>
-                    <li><a href="/"><img src="/imagens/Logo.png" alt="logo"></a></li>
-                    <li>
-                        <a href="/" class="background"></a>
-                    </li>
-                    <li><a href="index.html"><img src="/imagens/Avatar.png" alt="avatar" id="avatar"></a></li>
-                </ul>
-            </nav>
-        </header>
+    <header th:replace="~{cabecalho}"></header>
 
         <div class="lista-itens" th:if="${!recursos.isEmpty()}">
             <div class="container-busca">

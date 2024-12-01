@@ -75,7 +75,9 @@ public class RecursoService {
     }
 
     public List<Recurso> listarPorDisponibilidade() {
-        return repository.listarPorDisponibilidade();
+        return repository.listByAvailability();
     }
+
+    public boolean usuarioMesmoDepartamentoRecurso(Long idUsuario, Long idRecurso){ return repository.areUsuarioSameDepartamentoOfRecurso(idUsuario, idRecurso);}
 
 }

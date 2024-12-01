@@ -1,3 +1,23 @@
+let idRecurso;
+
+function getHorariosReservaRecurso(){
+    $.ajax({
+        url: '/recuperar_horarios_recurso',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: ('idRecurso=' + idRecurso),
+        success: function(data){
+            console.log(data);
+        }
+    }
+    )
+}
+
+function getIdRecurso() {
+    let idRecurso;
+}
+
 // Fechar popup de confirmação de empréstimo
 function fecharPopup() {
     document.querySelector(".lista-itens").style.display = 'flex';
@@ -18,8 +38,6 @@ function abrirPopup() {
     }
 }
 
-let idRecurso;
-
 // Confirmar empréstimo
 function confirmarEmprestimo(){
     const $datePickerEl = document.getElementById("datepicker-inline");
@@ -27,7 +45,7 @@ function confirmarEmprestimo(){
 
     let dateFormat = datePicker.getDate();
 
-    let dia = `${dateFormat.getDate().toString()}/${(datePicker.getDate().getMonth() + 1).toString()}/${dateFormat.getFullYear().toString()}-${idRecurso}`;
+    let dia = `${dateFormat.getDate().toString()}/${(datePicker.getDate().getMonth() + 1).toString()}/${dateFormat.getFullYear().toString()}`;
     let horario = document.querySelector('input[name="horario"]:checked').value;
 
     dateFormat.setHours(parseInt(horario.toString().split(":")[0]));
@@ -35,15 +53,17 @@ function confirmarEmprestimo(){
     horario += `-${dateFormat.getHours()}:${dateFormat.getMinutes()}`
 
     $.ajax({
-        url: '/emprestimo_departamento_igual',
+        url: '/confirmar_emprestimo',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
             dia: dia,
-            horario: horario
+            horario: horario,
+            idRecurso: idRecurso,
+            idProfessor: 3
         }),
         success: (data) => {
-            fecharPopup();
+            window.location.reload();
         }
     });
 }
@@ -62,7 +82,7 @@ function gerarHorariosEmprestimo() {
     horarios.forEach(horario => {
         let horas = horario.split(":").at(0);
         let minutos = horario.split(":").at(1);
-        divTime += `<div>
+        divTime += `<div class="h-[3em] w-[3em]">
             <input type="radio" id="time-${horarios.indexOf(horario)}" value="${horario}" name="horario" class="hidden peer">
             <label class="label-horario flex flex-col items-center justify-center bg-white p-2 w-full h-full border border-gray-300 
                     rounded-lg text-sm font-bold hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 
@@ -84,7 +104,7 @@ function criarCalendarioHora() {
 
     let element = `
         <div id="datepicker-inline" class="mb-4"></div>
-        <div class="grid grid-cols-6 gap-5 auto-rows-auto bg-gray-100 dark:bg-gray-900 p-4 w-[296px] h-[388px] rounded-md">
+        <div class="w-[20em] h-[20em] grid grid-cols-4 gap-5 auto-rows-auto bg-gray-100 dark:bg-gray-900 p-4 w-[296px] h-[388px] rounded-md">
             ${gerarHorariosEmprestimo()}
         </div>`;
 
@@ -147,16 +167,16 @@ document.querySelectorAll(".clique-botao").forEach(button => {
         // Adicionando div de botões na div principal
         divContainer.appendChild(divBotaoesEscolha);
 
-        // Encontrando recurso escolhido e adicionando eles a div de conteudo
+        // Encontrando recurso escolhido e adicionando eles a div de container
         let divItemMaisProximo = button.closest('.item')
         let listaParagrafos = divItemMaisProximo.querySelectorAll('p');
-        const titulos = ['Descrição', 'Marca', 'Estado', 'Departamento'];
+        const titulos = ['Departamento', 'Estado', 'Marca', 'Descrição'];
         let i = 0;
         listaParagrafos.forEach(paragrafo => {
             //Corrigir esse pq vai ficar feio
             if(paragrafo.style.display !== 'none'){
                 let novoParagrafo = document.createElement('h1');
-                novoParagrafo.textContent = `${titulos.at(i)}: ${paragrafo.textContent}`;
+                novoParagrafo.textContent = `${titulos[i]}: ${paragrafo.textContent}`;
                 divContentPopup.insertAdjacentElement("afterbegin", novoParagrafo);
                 i++
             } else{
