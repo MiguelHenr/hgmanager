@@ -17,7 +17,7 @@
             </header>
 
             <form class="box" id="formulario">
-                <p id="error" th:class="${loginError ? '' : 'hide'}" th:text="${loginErrorMessage}">Erro</p>
+                <p id="error" class="hide" th:text="${loginErrorMessage}">Erro</p>
                 <div class="textfield">
                     <label for="usuario">Usuário: </label>
                     <input type="text" id="usuario" name="usuario" inputmode="numeric" maxlength="14" required>
@@ -26,7 +26,7 @@
                     <span><label for="senha">Senha: </label><a href="recuperarsenha.html">Esqueci a senha</a></span>
                     <input type="password" id="senha" name="senha" required>
                 </div>
-                <button type="submit" id="entrar" th:class="${loginError ? 'error' : ''}">Entrar</button>
+                <button type="submit" id="entrar">Entrar</button>
             </form>
         </main>
 

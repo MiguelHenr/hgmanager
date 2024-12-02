@@ -17,7 +17,7 @@ async function validarLogin(event) {
     const data = Object.fromEntries(formData.entries());
 
     // Faz a requisição ao backend
-    const response = await fetch('login', {
+    var response = await fetch('login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ async function validarLogin(event) {
     alert('Logado com sucesso! seja bem vindo: ' + result.nome);
     console.log(result);
 
-    submitBtn.disabled = true;
+    window.location.replace('/profile_debug');
 
 }
 
