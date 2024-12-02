@@ -1,7 +1,7 @@
 package com.cefetmg.hgmanager.Controller;
 
 import com.cefetmg.hgmanager.Model.Usuario;
-import com.cefetmg.hgmanager.Service.LoginService;
+import com.cefetmg.hgmanager.Service.UserValidationService;
 
 import br.cefetmg.mockloginapi.exceptions.InvalidLoginException;
 
@@ -27,24 +27,17 @@ public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    LoginService service;
-
-    @GetMapping("/")
-    public String skipIndex(Model model) {
-        return validateLogin(model);
-    }
+    UserValidationService service;
 
     @GetMapping("/login")
-    public String validateLogin(Model model) {
-
-        model.addAttribute("loginStatus", false);
+    public String validateLogin() {
         
-        return "index";
+        return "login";
 
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> validateLogin(@RequestBody Map<String, String> params, HttpSession httpSession, Model model) {
+    public ResponseEntity<?> validateLogin(@RequestBody Map<String, String> params, HttpSession httpSession) {
 
         String login = params.get("usuario");
         String password = params.get("senha");
@@ -59,19 +52,9 @@ public class LoginController {
         }
         catch (Exception e) {
 
-            HttpStatus status;
-
-            if (!(e instanceof InvalidLoginException)) {
-
-                model.addAttribute("loginErrorMessage", "Erro interno do Servidor! Tente novamente mais tarde.");
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-                return new ResponseEntity<>(e.getMessage(), status);
-
-            }
-
-            model.addAttribute("loginErrorMessage", e.getMessage());
-            status = HttpStatus.BAD_REQUEST;
-            return new ResponseEntity<>(e.getMessage(), status);
+            if (!(e instanceof InvalidLoginException))
+                return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
 
         }
 
@@ -89,10 +72,10 @@ public class LoginController {
             id = -1;
         }
 
-        Usuario user = service.getUserDebug(id);
+        Usuario user = service.retrieveValidatedUser(id);
 
         if (user == null)
-            return new ModelAndView("redirect:/index", model);
+            return new ModelAndView("redirect:/login", model);
         model.addAttribute("userNome", user.getNome());
         model.addAttribute("userCpf", user.getCpf());
         model.addAttribute("userEmail", user.getEmail());

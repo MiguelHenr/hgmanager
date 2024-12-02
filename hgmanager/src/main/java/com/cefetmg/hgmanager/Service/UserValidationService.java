@@ -21,7 +21,7 @@ import br.cefetmg.mockloginapi.exceptions.UserNotFoundException;
 import java.util.Optional;
 
 @Service
-public class LoginService {
+public class UserValidationService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -86,11 +86,9 @@ public class LoginService {
 
     }
 
-    public Usuario getUserDebug(Long id) {
-
+    public Usuario retrieveValidatedUser(Long id) {
         Optional<Usuario> model = usuarioRepository.findById(id);
         return model.orElse(null);
-
     }
 
 }
