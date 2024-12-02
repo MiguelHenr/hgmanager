@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
             descricao: formData.get('descricao'),
             estado: formData.get('estado'), // 'estado' já é string
             departamento: {
-                id: parseInt(formData.get('departamento'), 10) // Garantindo tipo numérico
+                id: formData.get('departamentoSelect') // Garantindo tipo numérico
             }
         };
 
@@ -47,3 +47,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    alert('caralho');
+    listarDepartamentos();
+});
+
+function listarDepartamentos() {
+    const url = "http://localhost:8080/Departamento/listarDepartamento";
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                alert("departamento");
+                console.error("Erro ao resgatar departamentos:", response.status);
+                throw new Error(`Erro: ${response.status}`);
+            }
+            return response.json(); // Adicionado o retorno do JSON
+        })
+        .then(departamentos => {
+            const selecao = document.getElementById("departamentoSelect");
+            departamentos.forEach(opcao => {
+                console.log(opcao);
+                const op = document.createElement("option");
+                op.value = opcao.id;
+                op.textContent = opcao.nome;
+                selecao.appendChild(op);
+            });
+        })
+        .catch(error => console.error("Erro ao listar departamentos:", error));
+}

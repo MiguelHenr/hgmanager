@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/estilos/complaint.css}">
+    <link rel="stylesheet" th:href="@{/estilos/cabecalho.css}">
+    <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>listagem de Recursos</title>
+</head>
+<body>
+<header th:replace="~{frag/cabecalho}"></header>
+
+    <main>
+        <ul class="text-star">
+                <label class="text-start" for="barrapesquisa">
+                    <input type="text" id="barrapesquisa">
+                </label> 
+                <a href="/" class="background"></a>
+        </ul>
+        <h1 class="text-xxl-star text-md-start text-xl-center text-sm-center">pagina dos Recursos</h1>
+        <div>
+            <label for="filtroEstado">Filtrar por estado:</label>
+            <select id="filtroEstado" class="form-select" onchange="filtrarRecursos()">
+                <option value="TODOS">Todos</option>
+                <option value="NOVO">Novo</option>
+                <option value="CONSERVADO">Conservado</option>
+                <option value="VELHO">Velho</option>
+                <option value="ESTRAGADO">Estragado</option>
+            </select>
+        </div>
+
+        <div id="recursosDiv">
+
+
+        </div>
+    </main>
+</body>
+</html>
+
+<script>
+
+   document.addEventListener('DOMContentLoaded', function() {
+       listarRecursos();
+   });
+
+   let todosRecursos = []; // Variável global para armazenar todos os recursos
+
+   function listarRecursos() {
+       const url = "http://localhost:8080/Recurso/resgatarRecurso";
+       fetch(url)
+           .then(response => {
+               if (!response.ok) {
+                   console.log("Erro ao buscar recursos");
+                   throw new Error(`Erro: ${response.status}`);
+               }
+               return response.json();
+           })
+           .then(recursos => {
+               todosRecursos = recursos; // Armazena os recursos na variável global
+               renderizarRecursos(todosRecursos); // Renderiza todos os recursos inicialmente
+           })
+           .catch(error => {
+               console.log("Erro ao buscar recursos:", error);
+           });
+   }
+
+   function renderizarRecursos(recursos) {
+       const container = document.getElementById('recursosDiv');
+       container.innerHTML = ''; // Limpa os recursos existentes
+
+       container.classList.add('row', 'gx-3', 'gy-3');
+       recursos.forEach(recurso => {
+           const div = document.createElement('div');
+           div.classList.add('col-md-3', 'recurso');
+           div.id = `recurso-${recurso.id}`;
+
+           div.innerHTML = `
+            <div class="card p-3">
+                <h1>Material</h1>
+                <h2>nome: ${recurso.descricao}</h2>
+                <h2>estado: ${recurso.estado}</h2>
+                <h2>identificador: ${recurso.id}</h2>
+                <button type="button" class="btn btn-danger" onclick="deletarRecurso(${recurso.id})">Apagar</button>
+                <div>
+                    <button type="button" class="" onclick="atualizarRecurso(${recurso.id}, document.getElementById('estado-${recurso.id}').value)">Atualizar estado</button>
+                    <select name="estado" id="estado-${recurso.id}" class="form-select">
+                        <option value="NOVO" ${recurso.estado === 'NOVO' ? 'selected' : ''}>Novo</option>
+                        <option value="CONSERVADO" ${recurso.estado === 'CONSERVADO' ? 'selected' : ''}>Conservado</option>
+                        <option value="VELHO" ${recurso.estado === 'VELHO' ? 'selected' : ''}>Velho</option>
+                        <option value="ESTRAGADO" ${recurso.estado === 'ESTRAGADO' ? 'selected' : ''}>Estragado</option>
+                    </select>
+                </div>
+            </div>
+        `;
+           container.appendChild(div);
+       });
+   }
+
+   function filtrarRecursos() {
+       const estadoSelecionado = document.getElementById('filtroEstado').value;
+
+       if (estadoSelecionado === 'TODOS') {
+           renderizarRecursos(todosRecursos); // Exibe todos os recursos
+       } else {
+           const recursosFiltrados = todosRecursos.filter(recurso => recurso.estado === estadoSelecionado);
+           renderizarRecursos(recursosFiltrados); // Exibe apenas os recursos filtrados
+       }
+   }
+
+
+
+   function deletarRecurso(id) {
+       const url = `http://localhost:8080/Recurso/deletarRecurso/${id}`;
+
+       fetch(url, {
+           method: 'DELETE',
+       })
+           .then(response => {
+               if (!response.ok) {
+                   throw new Error(`Erro ao deletar recurso com ID ${id}: ${response.status}`);
+               }
+               return response.text(); // Espera o texto de resposta ("deletado com sucesso")
+           })
+           .then(data => {
+               console.log(data); // Exibe "deletado com sucesso" no console
+               alert(`Recurso com ID ${id} deletado com sucesso.`);
+
+               // Remover o elemento da tela, se necessário:
+               const recursoDiv = document.getElementById(`recurso-${id}`);
+               if (recursoDiv) {
+                   recursoDiv.remove(); // Remove o div do recurso da tela
+               } else {
+                   console.log(`Elemento com ID "recurso-${id}" não encontrado.`);
+               }
+           })
+           .catch(error => {
+               console.error(error); // Log no console para depuração
+               alert(`Erro ao deletar recurso: ${error.message}`);
+           });
+   }
+
+
+   function atualizarRecurso(id, estado) {
+       const url = `http://localhost:8080/Recurso/AtualizarRecurso/${id}/${estado}`;
+
+       fetch(url, {
+           method: 'PUT',
+       })
+           .then(response => {
+               if (!response.ok) {
+                   // Lê o corpo da resposta para obter a mensagem de erro do servidor
+                   return response.text().then(errorMessage => {
+                       throw new Error(errorMessage || `Erro ao atualizar recurso com ID ${id}: ${response.status}`);
+                   });
+               }
+               return response.text(); // Espera uma mensagem de sucesso (ou uma resposta vazia)
+           })
+           .then(() => {
+               alert(`Recurso com ID ${id} atualizado com sucesso para estado: ${estado}.`);
+
+               // Atualiza a interface para refletir a mudança
+               const recursoDiv = document.getElementById(`recurso-${id}`);
+               const estadoAtualizado = recursoDiv.querySelector('h2:nth-child(3)');
+               if (estadoAtualizado) {
+                   estadoAtualizado.textContent = `estado: ${estado}`;
+               }
+           })
+           .catch(error => {
+               console.error('Erro ao atualizar recurso:', error);
+               alert(`Erro ao atualizar recurso: ${error.message}`);
+           });
+   }
+
+
+
+
+
+</script>
+
+
+<Style>
+
+
+</Style>

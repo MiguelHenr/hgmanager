@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
+
 @Controller
 public class TestController {
 
@@ -18,7 +21,7 @@ public class TestController {
 
     @GetMapping("/dep")
     public ModelAndView helloWorld() {
-        return new ModelAndView("CadastrarRecurso");
+        return new ModelAndView("ListaRecurso");
     }
 
     @GetMapping("/cadastroDepartamento")
@@ -56,31 +59,23 @@ public class TestController {
     @DeleteMapping("/Recurso/deletarRecurso/{id}")
     public ResponseEntity<String> deletarRecurso(@PathVariable Long id) {
         try{
-            service.encontrarRecursoPorID(id);
-            return (ResponseEntity<String>) ResponseEntity.ok();
+            service.deletarRecurso(id);
+            System.out.println(id);
+            return ResponseEntity.ok("deletado com sucesso");
+
         } catch (Exception e) {
-            return (ResponseEntity<String>) ResponseEntity.badRequest();
+            return  ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }
 
-    @DeleteMapping("Recurso/deletarRecurso")
-    public ResponseEntity<String> deletarRecurso(@RequestBody Recurso recurso) {
+    @PutMapping("Recurso/AtualizarRecurso/{id}/{estado}")
+    public ResponseEntity<String> AtualizarRecurso(@PathVariable Long id, @PathVariable String estado) {
         try{
-            service.deletarRecurso(recurso);
-            return (ResponseEntity<String>) ResponseEntity.ok();
-        }catch (Exception e) {
-            return (ResponseEntity<String>) ResponseEntity.badRequest();
-        }
-    }
-
-    @PutMapping("Recurso/AtualizarRecurso")
-    public ResponseEntity<String> AtualizarRecurso(@RequestBody Recurso recurso) {
-        try{
-            service.atualizarRecurso(recurso);
-            return (ResponseEntity<String>) ResponseEntity.ok();
+            service.atualizarEstado(id, Estado.valueOf(estado));
+            return ResponseEntity.ok("");
         }catch (Exception e){
-            return (ResponseEntity<String>) ResponseEntity.badRequest();
+            return  ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -88,9 +83,9 @@ public class TestController {
     public ResponseEntity<String> ResgatarRecurso(@PathVariable Long id){
         try{
             service.encontrarRecursoPorID(id);
-            return (ResponseEntity<String>) ResponseEntity.ok();
+            return ResponseEntity.ok("");
         }catch(Exception e){
-            return (ResponseEntity<String>) ResponseEntity.badRequest();
+            return  ResponseEntity.badRequest().body(e.getMessage());
         }
         }
 
@@ -98,10 +93,31 @@ public class TestController {
    public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento){
         try{
             service.listarRecursosPorDepartamento(departamento);
-            return (ResponseEntity<String>) ResponseEntity.ok();
+            return ResponseEntity.ok("");
         }catch (Exception e){
-            return (ResponseEntity<String>) ResponseEntity.badRequest();
+            return  ResponseEntity.badRequest().body(e.getMessage());
         }
    }
+
+   @GetMapping("Recurso/resgatarRecurso")
+    public ResponseEntity<List<Recurso>> ResgatarRecurso(){
+        try{
+            System.out.println("entrou no resgatar recurso");
+            return ResponseEntity.ok(service.ListarTodosRecursos());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(null);
+        }
+   }
+
+   @GetMapping("Departamento/listarDepartamento")
+    public ResponseEntity<List<Departamento>> listarDepartamento(){
+        try{
+            System.out.println("entrou no listar departamento");
+            return ResponseEntity.ok(service.listarDepartamentos());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(null);
+        }
+   }
+
 
 }
