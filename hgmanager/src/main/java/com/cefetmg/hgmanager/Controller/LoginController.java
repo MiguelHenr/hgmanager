@@ -63,16 +63,7 @@ public class LoginController {
     @RequestMapping(value={"/profile_debug"}, method={RequestMethod.POST, RequestMethod.GET})
     public ModelAndView profileDebug(HttpSession session, ModelMap model) {
 
-        long id;
-
-        try {
-            id = (long) session.getAttribute("userId");
-        }
-        catch(Exception e) {
-            id = -1;
-        }
-
-        Usuario user = service.retrieveValidatedUser(id);
+        Usuario user = service.retrieveValidatedUser(session);
 
         if (user == null)
             return new ModelAndView("redirect:/login", model);

@@ -86,7 +86,8 @@ public class UserValidationService {
 
     }
 
-    public Usuario retrieveValidatedUser(Long id) {
+    public Usuario retrieveValidatedUser(HttpSession session) {
+        Long id = (Long) session.getAttribute("userId");
         Optional<Usuario> model = usuarioRepository.findById(id);
         return model.orElse(null);
     }
