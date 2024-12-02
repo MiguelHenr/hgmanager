@@ -6,17 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cefetmg.hgmanager.Model.Reclamacao;
 import com.cefetmg.hgmanager.Model.Resposta;
-import com.cefetmg.hgmanager.Model.Usuario;
-import com.cefetmg.hgmanager.Service.LoginService;
+import com.cefetmg.hgmanager.Service.UserValidationService;
 import com.cefetmg.hgmanager.Service.ReclamacaoService;
 import com.cefetmg.hgmanager.Service.RespostaService;
-import com.cefetmg.hgmanager.Service.TestService;
 
 @Controller
 public class ReclamacaoController {
@@ -27,7 +24,7 @@ public class ReclamacaoController {
     private RespostaService respostaService;
 
     @Autowired
-    private LoginService usuarioService;
+    private UserValidationService usuarioService;
 
     @GetMapping("reclamacoes")
     public String getComplaints(Model model) {

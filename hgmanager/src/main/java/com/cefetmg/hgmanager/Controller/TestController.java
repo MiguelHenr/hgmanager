@@ -21,6 +21,11 @@ public class TestController {
         return new ModelAndView("CadastrarRecurso");
     }
 
+    @GetMapping("/")
+    public ModelAndView Index() {
+        return new ModelAndView("Index");
+    }
+
     @GetMapping("/cadastroDepartamento")
     public String CadastroDepartamento() {
         Departamento departamento = new Departamento();

@@ -1,8 +1,7 @@
 package com.cefetmg.hgmanager.Controller;
 
 import com.cefetmg.hgmanager.Model.Usuario;
-
-import com.cefetmg.hgmanager.Service.LoginService;
+import com.cefetmg.hgmanager.Service.UserValidationService;
 
 import br.cefetmg.mockloginapi.exceptions.InvalidLoginException;
 
@@ -11,18 +10,14 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.ui.Model;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
@@ -32,24 +27,18 @@ public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    LoginService service;
-
-    @GetMapping("/")
-    public String skipIndex(Model model) {
-        return validateLogin(model);
-    }
+    UserValidationService service;
 
     @GetMapping("/login")
-    public String validateLogin(Model model) {
-
-        model.addAttribute("loginError", false);
-        model.addAttribute("loginErrorMessage", "STATUS 200 OK");
-        return "index";
+    public String validateLogin() {
+        
+        return "login";
 
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> validateLogin(@RequestBody Map<String, String> params, HttpSession httpSession, Model model) {
+    public ResponseEntity<?> validateLogin(@RequestBody Map<String, String> params, HttpSession httpSession) {
+
         String login = params.get("usuario");
         String password = params.get("senha");
 
@@ -57,39 +46,43 @@ public class LoginController {
 
             Usuario user = service.LoginValidate(login, password, httpSession);
 
-            model.addAttribute("loginError", false);
-            model.addAttribute("loginErrorMessage", "STATUS 200 OK");
-
+            httpSession.setAttribute("userId", user.getId());
             return new ResponseEntity<>(user, HttpStatus.OK);
 
         }
         catch (Exception e) {
 
-            HttpStatus status;
-
-            System.out.println("erro!!!! " + e.getMessage());
-            model.addAttribute("loginError", true);
-
-            if (!(e instanceof InvalidLoginException)) {
-
-                model.addAttribute("loginErrorMessage", "Erro interno do Servidor! Tente novamente mais tarde.");
-                status = HttpStatus.INTERNAL_SERVER_ERROR;
-                return new ResponseEntity<>(e.getMessage(), status);
-
-            }
-
-            model.addAttribute("loginErrorMessage", e.getMessage());
-            status = HttpStatus.BAD_REQUEST;
-            return new ResponseEntity<>(e.getMessage(), status);
+            if (!(e instanceof InvalidLoginException))
+                return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
 
         }
 
     }
 
-    @PostMapping("/debugProfile")
-    public ResponseEntity<?> redirectPage(HttpSession session, Model model) {
+    @RequestMapping(value={"/profile_debug"}, method={RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView profileDebug(HttpSession session, ModelMap model) {
 
-        
+        long id;
+
+        try {
+            id = (long) session.getAttribute("userId");
+        }
+        catch(Exception e) {
+            id = -1;
+        }
+
+        Usuario user = service.retrieveValidatedUser(id);
+
+        if (user == null)
+            return new ModelAndView("redirect:/login", model);
+        model.addAttribute("userNome", user.getNome());
+        model.addAttribute("userCpf", user.getCpf());
+        model.addAttribute("userEmail", user.getEmail());
+        model.addAttribute("userFuncao", user.getTipoUsuario());
+        model.addAttribute("userDepartamento", user.getDepartamento().getNome());
+
+        return new ModelAndView("debugProfile", model);
 
     }
 
