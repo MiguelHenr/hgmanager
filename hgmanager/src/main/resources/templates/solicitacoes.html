@@ -13,9 +13,9 @@
     <header th:replace="~{frag/cabecalho}"></header>
     
     <section id="ghost">
-        <div class="greq" th:each="i : ${#numbers.sequence(1, 6)}">
-            <div class="gimg"></div>
-            <div class="grow"></div>
+        <div class="greq" th:each="i : ${#numbers.sequence(1, 12)}">
+            <div class="gimg" th:unless="${mine}"></div>
+            <div class="grow" th:unless="${mine}"></div>
             <div class="grow"></div>
             <div class="grow dt"></div>
             <div class="grow dt"></div>
@@ -23,7 +23,7 @@
         </div>
     </section>
 
-    <main id="reqs" class="shoo"></main>
+    <main id="reqs" th:class="${mine ? 'mine' : ''}"></main>
 
     <script th:src="@{/script/cabecalho.js}"></script>
     <script th:src="@{/script/req.js}"></script>
