@@ -1,7 +1,7 @@
 const ghost = document.getElementById('ghost');
 const main = document.getElementById('reqs');
 
-function loadPage() {
+function loadAll() {
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", "requests", true);
@@ -11,6 +11,7 @@ function loadPage() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             main.innerHTML = xhr.responseText;
+            ghost.style.height = main.offsetHeight + 'px';
 
             const rejectBts = document.getElementsByClassName('reject');
             const approveBts = document.getElementsByClassName('approve');
@@ -21,8 +22,30 @@ function loadPage() {
             for (let btn of rejectBts)
                 btn.addEventListener("click", event => update(event, "reject"));
 
-            ghost.classList.add('shoo');
-            main.classList.remove('shoo');
+            shooGhost();
+        }
+    };
+
+    xhr.send();
+}
+
+function loadMine() {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "/my-requests", true);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            main.innerHTML = xhr.responseText;
+
+            const cancelBts = document.getElementsByClassName('cancel');
+        
+            for (let btn of cancelBts)
+                btn.addEventListener("click", event => update(event, "cancel"));
+
+            shooGhost();
         }
     };
 
@@ -57,13 +80,27 @@ function update(event, action) {
     xhr.send(dataToSend);
 }
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function shooGhost() {
+    await delay(1000);
+
+    ghost.classList.add('shoo');
+
+    await delay(500);
+
+    ghost.remove();
+}
+
 function updateReqs(el,action) {
     const btnEl = el.querySelector('.btn');
     const status = document.createElement('p');
 
-    status.innerHTML = action == 'approve' ? 'APROVADA' : 'REJEITADA';
+    status.innerHTML = action == 'approve' ? 'APROVADA' : action == 'reject' ? 'REJEITADA' : 'CANCELADA';
 
-    el.removeChild(btnEl);
+    btnEl.remove();
     el.appendChild(status);
 }
 
@@ -89,4 +126,7 @@ function enable(el) {
         btn.disabled = false;
 }
 
-window.onload = loadPage;
+if (main.classList.contains('mine'))
+    window.onload = loadMine;
+else
+    window.onload = loadAll;
