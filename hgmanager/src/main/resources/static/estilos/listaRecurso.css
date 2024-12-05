@@ -1,0 +1,54 @@
+
+body{
+    width: 100%;
+    min-height: 100%;
+    background-color: #06191e;
+}
+
+.card{
+    background-color: #233040;
+    border-color: #ad9fea;
+    color: #fce1c1;
+    margin-left: 10px;
+}
+.desc{
+    text-align: center;
+
+}
+
+.confirmacao-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.confirmacao-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+.confirmacao-container button {
+    margin: 10px;
+}
+#novo{
+    width: 50px;
+    height: 50px;
+    font-size: 35px;
+    text-align: center;
+}
+#filtroEstado{
+    max-width: 200px;
+    min-width: 100px;
+    margin: 10px;
+    background-color: #06191e;
+    border:3px fill #ad9fea;
+    color: #fce1c1;
+}

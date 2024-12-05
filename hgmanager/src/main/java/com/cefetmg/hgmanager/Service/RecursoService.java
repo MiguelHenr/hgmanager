@@ -16,11 +16,12 @@ public class RecursoService {
     @Autowired
     private RecursoRepository repository;
 
-    public Recurso inserir(Recurso recurso) {
+    public Recurso inserirRecurso(Recurso recurso) {
         if(recurso.getDepartamento() == null || recurso.getDepartamento().getId() == null || recurso.getEstado() == null || recurso.getMarca() == null) {
             throw new NullPointerException();
+        }else{
+            return repository.save(recurso);
         }
-        return repository.save(recurso);
     }
 
     public boolean deletar(Recurso recurso) {
@@ -32,12 +33,14 @@ public class RecursoService {
         }
     }
 
-    public boolean deletarPorID(Long id) {
+    public void deletarRecurso(Long id) {
         try {
             repository.deleteById(id);
-            return true;
+
         } catch (Exception e) {
-            return false;
+            System.out.println(e.getMessage());
+            throw new NullPointerException();
+
         }
     }
 
@@ -45,15 +48,11 @@ public class RecursoService {
         return repository.save(recurso);
     }
 
-
-    public Optional<Recurso> encontrarPorID(Long id) {
-        return repository.findById(id);
-    }
-
-    public List<Recurso> listar() {
+    public boolean encontrarRecursoPorID(Long id) {
         try{
-            return repository.findAll();
-        }catch(Exception e){
+            return repository.existsById(id);
+        }
+        catch(Exception e){
             throw new NullPointerException();
         }
     }
@@ -76,6 +75,43 @@ public class RecursoService {
 
     public List<Recurso> listarPorDisponibilidade() {
         return repository.listarPorDisponibilidade();
+    }
+
+    public List<Recurso> ListarTodosRecursos() {
+        try {
+
+
+            System.out.println("entrou lista recurso");
+            return repository.findAll();
+
+        }catch (Exception e) {
+            System.out.println("erro no ListarTodosrecursos, no arquivo TestService");
+            System.out.println("\n\nerro que deu :" + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    };
+
+    public Recurso atualizarRecurso(Recurso recurso) {
+        try{
+            return repository.save(recurso);
+        }catch(Exception e){
+            throw new NullPointerException();
+        }
+    }
+
+    public Boolean atualizarEstado(Long id, Estado estado) {
+        try{
+            Recurso recurso = repository.findById(id).get();
+            recurso.setEstado(estado);
+            repository.save(recurso);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+    public Optional<Recurso> encontrarPorID(Long id) {
+        return repository.findById(id);
     }
 
 }

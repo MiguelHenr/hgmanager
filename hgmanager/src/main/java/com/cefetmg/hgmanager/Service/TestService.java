@@ -106,8 +106,6 @@ public class TestService {
         }
     }
 
-
-
     public List<Departamento> listarDepartamentos() {
         try{
             System.out.println("entrou em listarDepartamentos no TestService");

@@ -15,6 +15,7 @@ public class Recurso {
 
     private String marca;
     private String descricao;
+    private String codigo;
 
     @Enumerated(EnumType.STRING)
   //  @Type(PostgreSQLEnumType.class)
@@ -88,6 +89,12 @@ public class Recurso {
         Id = id;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
 
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
 }
