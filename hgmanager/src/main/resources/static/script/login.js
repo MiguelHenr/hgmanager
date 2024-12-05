@@ -17,28 +17,29 @@ async function validarLogin(event) {
     const data = Object.fromEntries(formData.entries());
 
     // Faz a requisição ao backend
-    const response = await fetch('login', {
+    var response = await fetch('login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
         },
         body: JSON.stringify(data)
     });
 
+    console.log(response);
+    const result = await response.json();
+    console.log(result);
+
     if (!response.ok) {
-        sinalize(response.text());
+        console.log(result.message);
+        sinalize(result.message);
         submitBtn.disabled = false;
         return;
     }
 
-    console.log(response);
+    //alert('Logado com sucesso! seja bem vindo: ' + result);
 
-    const result = await response.json();
-
-    alert('Logado com sucesso! seja bem vindo: ' + result.nome);
-    console.log(result);
-
-    submitBtn.disabled = true;
+    window.location.replace('/profile_debug');
 
 }
 
@@ -57,6 +58,7 @@ async function redirect() {
 function sinalize(err) {
     if (errorP.classList.contains('hide')) {
         errorP.classList.remove('hide');
+        errorP.innerHTML = err;
         submitBtn.classList.add('error');
     }
 }
@@ -98,7 +100,7 @@ function reactCpf(e) {
 forms.addEventListener('submit', (event) => validarLogin(event));
 
 for (let inp of inputs)
-    inp.addEventListener('focus', normalize);
+    inp.addEventListener('input', normalize);
 
 cpfInp.addEventListener('input', fixCpf);
 

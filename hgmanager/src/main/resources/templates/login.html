@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/estilos/index.css}">
+    <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>HgManager - Login</title>
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <img th:src="@{/imagens/Logo.png}" alt="logo do site" id="logo">
+        <h1>Entre no HgManager</h1>
+      </header>
+
+      <form class="box" id="formulario">
+        <p id="error" class="hide">Erro</p>
+        <div class="textfield">
+          <label for="usuario">Usuário: </label>
+          <input type="text" id="usuario" name="usuario" inputmode="numeric" maxlength="14" required>
+        </div>
+        <div class="textfield">
+          <span><label for="senha">Senha: </label><a href="recuperarsenha.html">Esqueci a senha</a></span>
+          <input type="password" id="senha" name="senha" required>
+        </div>
+        <button type="submit" id="entrar">Entrar</button>
+      </form>
+    </main>
+
+    <script th:src="@{/script/login.js}"></script>
+  </body>
+</html>
