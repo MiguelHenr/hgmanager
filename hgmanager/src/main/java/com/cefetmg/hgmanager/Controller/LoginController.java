@@ -3,8 +3,7 @@ package com.cefetmg.hgmanager.Controller;
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Service.UserValidationService;
 
-import br.cefetmg.mockloginapi.exceptions.IncorrectPasswordException;
-import br.cefetmg.mockloginapi.exceptions.UserNotFoundException;
+import br.cefetmg.mockloginapi.exceptions.InvalidLoginException;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -51,12 +50,14 @@ public class LoginController {
             return new ResponseEntity<>(user, HttpStatus.OK);
 
         }
-        catch (UserNotFoundException | IncorrectPasswordException e) {
-            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
-        }
         catch (Exception e) {
-            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+
+            if (!(e instanceof InvalidLoginException))
+                return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+
         }
+
     }
 
     @RequestMapping(value={"/profile_debug"}, method={RequestMethod.POST, RequestMethod.GET})
