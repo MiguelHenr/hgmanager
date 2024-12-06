@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/estilos/req.css}">
+    <link rel="stylesheet" th:href="@{/estilos/cabecalho.css}">
+    <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
+    <title>Solicitacoes</title>
+</head>
+
+<body>
+    <header th:replace="~{frag/cabecalho}"></header>
+    
+    <section id="ghost">
+        <div class="greq" th:each="i : ${#numbers.sequence(1, 6)}">
+            <div class="gimg"></div>
+            <div class="grow"></div>
+            <div class="grow"></div>
+            <div class="grow dt"></div>
+            <div class="grow dt"></div>
+            <div class="grow stat"></div>
+        </div>
+    </section>
+
+    <main id="reqs" class="shoo"></main>
+
+    <script th:src="@{/script/cabecalho.js}"></script>
+    <script th:src="@{/script/req.js}"></script>
+</body>

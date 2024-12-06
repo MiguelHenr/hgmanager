@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
 
 import com.cefetmg.hgmanager.Model.Reserva;
@@ -37,9 +41,11 @@ public class ReservaController {
 
     @PostMapping("requests")
     public String getRequests(Model model) {
+        model.addAttribute("waiting", Status.AGUARDANDO);
+        model.addAttribute("requests", reservaService.listarTodas());
         setUp(model);
 
-        return "solicitacoes :: reqs";
+        return "frag/requests";
     }
 
     @PostMapping("update-sol")
@@ -73,7 +79,6 @@ public class ReservaController {
             // Definindo data de inicio do empréstimo
             Date dataEmprestimo = calendariosInicioFimEmprestimo.a.getTime();
             reservaModel.setInicio(dataEmprestimo);
-            System.out.println("Parei Inicio");
 
             // Definindo data de fim do empréstimo
             dataEmprestimo = calendariosInicioFimEmprestimo.b.getTime();
@@ -126,28 +131,31 @@ public class ReservaController {
     }
 
     private void reject(Reserva reserva) {
-        reserva.setStatus(Status.RECUSADA);
+        reserva.setStatus(Status.REJEITADA);
 
         reservaService.atualizar(reserva);
     }
 
     private Pair<Calendar, Calendar> reservaInicioFim(Map<String, String> bodyRetorno){
-        String dia = bodyRetorno.get("dia").split("-")[0].split("/")[0];
-        String mes = bodyRetorno.get("dia").split("-")[0].split("/")[1];
-        String ano = bodyRetorno.get("dia").split("-")[0].split("/")[2];
+        String[] retornoDias = bodyRetorno.get("dia").split("-");
+        String[] retornohoras = bodyRetorno.get("horario").split("-");
 
-        String horasInicio = bodyRetorno.get("horario").split("-")[0].split(":")[0];
-        String minutosInicio = bodyRetorno.get("horario").split("-")[0].split(":")[1];
+        String dia = retornoDias[0].split("/")[0];
+        String mes = retornoDias[0].split("/")[1];
+        String ano = retornoDias[0].split("/")[2];
 
-        String horasFinal = bodyRetorno.get("horario").split("-")[1].split(":")[0];
-        String minutosFinal = bodyRetorno.get("horario").split("-")[1].split(":")[1];
+        String horasInicio = retornohoras[0].split(":")[0];
+        String minutosInicio = retornohoras[0].split(":")[1];
+
+        String horasFinal = retornohoras[1].split(":")[0];
+        String minutosFinal = retornohoras[1].split(":")[1];
 
         Calendar calendarioDataInicio = Calendar.getInstance();
         calendarioDataInicio.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horasInicio));
         calendarioDataInicio.set(Calendar.MINUTE, Integer.parseInt(minutosInicio));
         calendarioDataInicio.set(Calendar.SECOND, 0);
         calendarioDataInicio.set(Calendar.MILLISECOND, 0);
-        calendarioDataInicio.set(Calendar.MONTH, Integer.parseInt(mes));
+        calendarioDataInicio.set(Calendar.MONTH, Integer.parseInt(mes) - 1);
         calendarioDataInicio.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dia));
         calendarioDataInicio.set(Calendar.YEAR, Integer.parseInt(ano));
 

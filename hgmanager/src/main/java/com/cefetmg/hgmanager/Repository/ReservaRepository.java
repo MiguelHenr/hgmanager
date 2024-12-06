@@ -3,6 +3,10 @@ package com.cefetmg.hgmanager.Repository;
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Reserva;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

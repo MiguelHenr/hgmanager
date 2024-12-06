@@ -14,7 +14,7 @@
         <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     </head>
     <body>
-    <header th:replace="~{cabecalho}"></header>
+    <header th:replace="~{frag/cabecalho}"></header>
 
         <div class="lista-itens" th:if="${!recursos.isEmpty()}">
             <div class="container-busca">
@@ -41,6 +41,6 @@
         <script src="https://cdn.jsdelivr.net/npm/flowbite-datepicker/js/Datepicker.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script type="module" src="/script/solicitar_emprestimo.js"></script>
+        <script src="/script/solicitar_emprestimo.js"></script>
     </body>
 </html>

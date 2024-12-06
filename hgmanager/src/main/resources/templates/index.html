@@ -10,23 +10,26 @@
     </head>
 
     <body>
-        <img th:src="@{/imagens/Logo.png}" alt="logo do site" id="logo">
-        <h1>Entre no HgManager</h1>
+        <main>
+            <header>
+                <img th:src="@{/imagens/Logo.png}" alt="logo do site" id="logo">
+                <h1>Entre no HgManager</h1>
+            </header>
 
-        <div class="campo">
             <form class="box" id="formulario">
+                <p id="error" th:class="${loginError ? '' : 'hide'}" th:text="${loginErrorMessage}">Erro</p>
                 <div class="textfield">
                     <label for="usuario">Usuário: </label>
-                    <input type="text" id="usuario" name="usuario" required>
+                    <input type="text" id="usuario" name="usuario" inputmode="numeric" maxlength="14" required>
                 </div>
                 <div class="textfield">
-                    <label for="senha">Senha: </label>
+                    <span><label for="senha">Senha: </label><a href="recuperarsenha.html">Esqueci a senha</a></span>
                     <input type="password" id="senha" name="senha" required>
                 </div>
-                <a href="recuperarsenha.html">Esqueci a senha</a>
-                <button type="submit" id="entrar">Entrar</button>
+                <button type="submit" id="entrar" th:class="${loginError ? 'error' : ''}">Entrar</button>
             </form>
-        </div>
+        </main>
+
         <script th:src="@{/script/login.js}"></script>
     </body>
 </html>

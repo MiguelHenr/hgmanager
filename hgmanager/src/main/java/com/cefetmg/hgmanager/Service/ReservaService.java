@@ -1,30 +1,27 @@
 package com.cefetmg.hgmanager.Service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Reserva;
 import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.PersistenceException;
+import jakarta.persistence.PersistenceException;
 
 @Service
 public class ReservaService {
-
+    
     @Autowired
     private ReservaRepository repository;
 
-    public void inserir(Reserva reserva) {
+    public Reserva inserir(Reserva reserva) {
         if(reserva.getFim() == null || reserva.getInicio() == null || reserva.getProfessor().getId() == null || reserva.getRecurso().getId() == null || reserva.getStatus() == null) {
             throw new NullPointerException();
         }
-        repository.save(reserva);
+        return repository.save(reserva);
     }
-    
+
     public List<Reserva> listarTodas() {
         return repository.findAllOrdered();
     }

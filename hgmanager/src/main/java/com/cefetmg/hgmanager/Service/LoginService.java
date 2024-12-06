@@ -8,15 +8,15 @@ import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.DepartamentoRepository;
 import com.cefetmg.hgmanager.Repository.UsuarioRepository;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import br.cefetmg.mockloginapi.service.UsuarioValidation;
 import br.cefetmg.mockloginapi.dto.UsuarioDTO;
 import br.cefetmg.mockloginapi.exceptions.IncorrectPasswordException;
 import br.cefetmg.mockloginapi.exceptions.UserNotFoundException;
-
-import java.util.List;
 
 @Service
 public class LoginService {
@@ -26,13 +26,14 @@ public class LoginService {
     @Autowired
     private DepartamentoRepository departamentoRepository;
 
-    public Usuario LoginValidate(String login, String password) throws UserNotFoundException, IncorrectPasswordException {
+    public Usuario LoginValidate(String login, String password, HttpSession httpSession)
+            throws UserNotFoundException, IncorrectPasswordException {
 
         UsuarioDTO dto = UsuarioValidation.validateLogin(login, password);
 
-        Usuario model = usuarioDtoToModel(dto);
+        httpSession.setAttribute("userId", dto.getId());
 
-        return model;
+        return usuarioDtoToModel(dto);
 
     }
 

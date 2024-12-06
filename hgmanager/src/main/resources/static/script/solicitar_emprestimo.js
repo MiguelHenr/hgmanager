@@ -1,22 +1,21 @@
-let idRecurso;
-
-function getHorariosReservaRecurso(){
+function getHorariosReservaRecurso(id){
     $.ajax({
         url: '/recuperar_horarios_recurso',
         type: 'GET',
         contentType: 'application/json',
         dataType: 'json',
-        data: ('idRecurso=' + idRecurso),
+        data: ('idRecurso=' + id),
         success: function(data){
-            console.log(data);
+            return data;
         }
     }
     )
 }
 
-function getIdRecurso() {
-    let idRecurso;
+function toDate(stringData){
+
 }
+
 
 // Fechar popup de confirmação de empréstimo
 function fecharPopup() {
@@ -40,17 +39,16 @@ function abrirPopup() {
 
 // Confirmar empréstimo
 function confirmarEmprestimo(){
-    const $datePickerEl = document.getElementById("datepicker-inline");
-    let datePicker = $datePickerEl.datepicker
+    let dateFormat = datePickerInstance.getDate();
 
-    let dateFormat = datePicker.getDate();
-
-    let dia = `${dateFormat.getDate().toString()}/${(datePicker.getDate().getMonth() + 1).toString()}/${dateFormat.getFullYear().toString()}`;
+    let dia = `${dateFormat.getDate().toString()}/${(dateFormat.getMonth() + 1).toString()}/${dateFormat.getFullYear().toString()}`;
     let horario = document.querySelector('input[name="horario"]:checked').value;
 
     dateFormat.setHours(parseInt(horario.toString().split(":")[0]));
     dateFormat.setMinutes(parseInt(horario.toString().split(":").at(1)) + 50);
     horario += `-${dateFormat.getHours()}:${dateFormat.getMinutes()}`
+
+    console.log(dia + " " + horario);
 
     $.ajax({
         url: '/confirmar_emprestimo',
@@ -59,8 +57,7 @@ function confirmarEmprestimo(){
         data: JSON.stringify({
             dia: dia,
             horario: horario,
-            idRecurso: idRecurso,
-            idProfessor: 3
+            idRecurso: localStorage.getItem('idRecursoSelecionado')
         }),
         success: (data) => {
             window.location.reload();
@@ -73,11 +70,11 @@ function filtrar(){
 }
 
 function gerarHorariosEmprestimo() {
-    // Variavel com todos os horário
+    // Variavel com todos os horários
     let horarios = ['07:00', '07:50', '08:40', '09:30', '10:20', '10:40', '11:30', '13:00', '13:50', '14:40', '15:30', '16:40'
         , '17:30', '19:00', '19:50', '20:50', '21:40', '22:30'];
 
-    // Criando os horarios
+    // Criando os horários
     let divTime = ``;
     horarios.forEach(horario => {
         let horas = horario.split(":").at(0);
@@ -97,7 +94,9 @@ function gerarHorariosEmprestimo() {
     return divTime;
 }
 
-function criarCalendarioHora() {
+let datePickerInstance;
+
+function criarCalendario() {
     // Criando calendario
     let divDatePopup = document.createElement('div');
     divDatePopup.classList.add('popup-date');
@@ -113,18 +112,18 @@ function criarCalendarioHora() {
     // Iniciando o calendário
     setTimeout(() => {
         let dataAtual = new Date();
-        dataAtual.setDate(dataAtual.getDate() + 1);
+        dataAtual.setDate(dataAtual.getDate());
 
         let dataMax = new Date();
         dataMax.setDate(dataAtual.getDate() + 7);
         const datepickerInline = document.querySelector('#datepicker-inline');
         if (datepickerInline) {
-            new window.Datepicker(datepickerInline, {
+            datePickerInstance = new window.Datepicker(datepickerInline, {
                 format: 'dd/mm/yyyy',
                 language: 'pt-BR',
                 title: 'Selecione a data do empréstimo',
                 minDate: dataAtual,
-                maxDate: dataMax
+                maxDate: dataMax,
             });
         }
     }, 0);
@@ -135,7 +134,6 @@ function criarCalendarioHora() {
 // Construir pop-up a partir do elemento clicado
 document.querySelectorAll(".clique-botao").forEach(button => {
     button.addEventListener('click', () => {
-
         // Div container geral
         let divContainer = document.createElement('div');
         divContainer.classList.add('popup');
@@ -180,7 +178,7 @@ document.querySelectorAll(".clique-botao").forEach(button => {
                 divContentPopup.insertAdjacentElement("afterbegin", novoParagrafo);
                 i++
             } else{
-                idRecurso = paragrafo.textContent;
+                localStorage.setItem("idRecursoSelecionado", paragrafo.textContent);
                 return;
             }
 
@@ -192,7 +190,7 @@ document.querySelectorAll(".clique-botao").forEach(button => {
         divContainer.insertAdjacentElement("afterbegin", nomeItem);
 
         // Criando calendario
-        let divDatePopup = criarCalendarioHora();
+        let divDatePopup = criarCalendario();
 
         // Div container para o calendario e para descrição do recurso selecionado
         let divCalendarioDescricaoContainer = document.createElement('div');
@@ -209,6 +207,16 @@ document.querySelectorAll(".clique-botao").forEach(button => {
 
         // Abrindo o popup de confirmação de empréstimo
         abrirPopup();
+
+        setHorarios();
     })
 })
 
+function setHorarios(){
+    document.querySelectorAll('.datepicker-cell').forEach(diaDatepicker => {
+        diaDatepicker.addEventListener('click', () => {
+            const selectedDate = datePickerInstance.getDate();
+            console.log(selectedDate);
+            });
+        });
+}

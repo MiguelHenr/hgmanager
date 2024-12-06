@@ -4,6 +4,7 @@ import com.cefetmg.hgmanager.Model.Enum.Estado;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 @Entity
 public class Recurso {
@@ -16,6 +17,7 @@ public class Recurso {
     private String descricao;
 
     @Enumerated(EnumType.STRING)
+  //  @Type(PostgreSQLEnumType.class)
     private Estado estado;
 
     @JsonBackReference
@@ -64,7 +66,16 @@ public class Recurso {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-
+    public void setEstado(String estado) {
+        if(estado.equals("NOVO"))
+            this.estado = Estado.NOVO;
+        if(estado.equals("CONSERVADO"))
+            this.estado = Estado.CONSERVADO;
+        if(estado.equals("VELHO"))
+            this.estado = Estado.VELHO;
+        if(estado.equals("ESTRAGADO"))
+            this.estado = Estado.ESTRAGADO;
+    }
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
