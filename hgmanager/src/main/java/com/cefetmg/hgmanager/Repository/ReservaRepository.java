@@ -20,6 +20,6 @@ public interface ReservaRepository extends org.springframework.data.jpa.reposito
 
     Reserva findReservaByRecurso(Recurso recurso);
 
-    @Query("SELECT r.inicio, r.fim FROM Reserva r WHERE r.recurso.Id = :idRecurso")
-    public List<Object[]> findReservaFromRecurso(@Param("idRecurso") Long idRecurso);
+    @Query("SELECT r.inicio FROM Reserva r WHERE r.recurso.Id = :idRecurso")
+    public List<String> findReservaFromRecurso(@Param("idRecurso") Long idRecurso);
 }

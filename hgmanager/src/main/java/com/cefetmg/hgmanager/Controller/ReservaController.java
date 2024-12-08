@@ -155,7 +155,7 @@ public class ReservaController {
 
     @GetMapping("/recuperar_horarios_recurso")
     @ResponseBody
-    public List<Object[]> recuperarHorariosReservadosRecurso(@RequestParam("idRecurso") String idRecursoString, Model model) {
+    public List<String> recuperarHorariosReservadosRecurso(@RequestParam("idRecurso") String idRecursoString, Model model) {
         Long idRecursoLong = Long.parseLong(idRecursoString);
 
         return reservaService.encontrarHorarioReservaPorRecurso(idRecursoLong);

@@ -36,15 +36,13 @@ function extrairDataEHora(arrayReservas) {
     let dataResultato = [];
 
     for (let i = 0; i < arrayReservas.length; i++) {
-        let primeiraDataHora = arrayReservas[i][0];
-        let [data, horas] = primeiraDataHora.split('T');
+        let primeiraDataHora = arrayReservas[i];
+        let [data, horas] = primeiraDataHora.split(' ');
         let [ano, mes, dia] = data.split('-');
         let hora = horas.split(':').slice(0, 2).join(':');
 
         dataResultato.push(`${dia}-${mes}-${ano} ${hora}`);
     }
-
-    console.log(dataResultato);
     return dataResultato;
 }
 
@@ -67,6 +65,23 @@ function isPresent(array, value){
     return array.indexOf(value);
 }
 
+function makeInputDisabled(input){
+    input.forEach(input => {
+        input.disabled = true;
+        input.checked = false;
+    });
+}
+
+function checkInput(inputs, data){
+    inputs.forEach(input => {
+        if (isPresent(data, input.value) === -1) {
+            input.disabled = false;
+        } else{
+            input.disabled = true;
+        }
+    });
+}
+
 // Define quais horários podem ou não ser clicáveis dependendo do dia escolhido
 function setHorariosReserva(){
     const containerToObserve = document.body;
@@ -79,18 +94,17 @@ function setHorariosReserva(){
             document.querySelectorAll('.datepicker-cell').forEach(diaDatepicker => {
                 diaDatepicker.addEventListener('click', () => {
                     setTimeout(() => {
+                        const inputsHorarios = document.querySelectorAll("input[name='horario']");
+                        makeInputDisabled(inputsHorarios);
+
                         const selectedDate = `${datePickerInstance.getDate().getDate()}-${datePickerInstance.getDate().getMonth() + 1}-${datePickerInstance.getDate().getFullYear()}`;
+
+                        console.log(resposta);
 
                         let datasIguais = comparaDatas(extrairDataEHora(resposta), selectedDate);
 
-                        const inputsHorarios = document.querySelectorAll("input[name='horario']");
-                        inputsHorarios.forEach(input => {
-                            if (isPresent(datasIguais, input.value) === -1) {
-                                input.disabled = false;
-                            } else{
-                                input.disabled = true;
-                            }
-                        });
+                        checkInput(inputsHorarios, datasIguais);
+
                     }, 0);
                 });
             });
@@ -103,7 +117,7 @@ function setHorariosReserva(){
 }
 
 // Confirmar empréstimo
-function confirmarEmprestimo(){
+function confirmarEmprestimo(botao){
     let dateFormat = datePickerInstance.getDate();
 
     let dia = `${dateFormat.getDate().toString()}/${(dateFormat.getMonth() + 1).toString()}/${dateFormat.getFullYear().toString()}`;
@@ -112,8 +126,6 @@ function confirmarEmprestimo(){
     dateFormat.setHours(parseInt(horario.toString().split(":")[0]));
     dateFormat.setMinutes(parseInt(horario.toString().split(":").at(1)) + 50);
     horario += `-${dateFormat.getHours()}:${dateFormat.getMinutes()}`
-
-    console.log(dia + " " + horario);
 
     $.ajax({
         url: '/confirmar_emprestimo',
@@ -209,7 +221,10 @@ document.querySelectorAll(".clique-botao").forEach(button => {
         let botaoConfirmar = document.createElement('button');
         botaoConfirmar.textContent = 'Confirmar empréstimo';
         botaoConfirmar.classList.add('button-confirmar');
-        botaoConfirmar.onclick = confirmarEmprestimo;
+        botaoConfirmar.addEventListener('click', () => {
+            botaoConfirmar.disabled = true;
+            confirmarEmprestimo(botaoConfirmar);
+        })
 
         // Criando botão para cancelar
         let botaoCancelar = document.createElement('button');
