@@ -60,11 +60,6 @@ function comparaDatas(dataHoraArray, data){
     return horarios;
 }
 
-// Checa se determinado valor existe ou não em um array
-function isPresent(array, value){
-    return array.indexOf(value);
-}
-
 function makeInputDisabled(input){
     input.forEach(input => {
         input.disabled = true;
@@ -74,10 +69,22 @@ function makeInputDisabled(input){
 
 function checkInput(inputs, data){
     inputs.forEach(input => {
-        if (isPresent(data, input.value) === -1) {
-            input.disabled = false;
-        } else{
+        if (data.includes(input.value)) {
+            input.nextElementSibling.classList.remove('dark:bg-gray-800');
+            input.nextElementSibling.classList.remove('dark:border-gray-500');
+            input.nextElementSibling.classList.remove('dark:hover:bg-gray-700');
+            input.nextElementSibling.classList.add('dark:bg-red-800');
+            input.nextElementSibling.classList.add('dark:border-red-500');
+            input.nextElementSibling.classList.add('dark:hover:bg-red-700');
             input.disabled = true;
+        } else{
+            input.nextElementSibling.classList.remove('dark:bg-red-800');
+            input.nextElementSibling.classList.remove('dark:border-red-500');
+            input.nextElementSibling.classList.remove('dark:hover:bg-red-700');
+            input.nextElementSibling.classList.add('dark:bg-gray-800');
+            input.nextElementSibling.classList.add('dark:border-gray-500');
+            input.nextElementSibling.classList.add('dark:hover:bg-gray-700');
+            input.disabled = false;
         }
     });
 }
@@ -97,13 +104,17 @@ function setHorariosReserva(){
                         const inputsHorarios = document.querySelectorAll("input[name='horario']");
                         makeInputDisabled(inputsHorarios);
 
-                        const selectedDate = `${datePickerInstance.getDate().getDate()}-${datePickerInstance.getDate().getMonth() + 1}-${datePickerInstance.getDate().getFullYear()}`;
+                        let ano = datePickerInstance.getDate().getFullYear().toString();
+                        let mes = (datePickerInstance.getDate().getMonth() + 1).toString();
+                        let dia = datePickerInstance.getDate().getDate().toString();
 
-                        console.log(resposta);
+                        const selectedDate = `${dia}-${mes}-${ano}`;
 
-                        let datasIguais = comparaDatas(extrairDataEHora(resposta), selectedDate);
+                        console.log("SELECTED DATE: " + selectedDate);
 
-                        checkInput(inputsHorarios, datasIguais);
+                        let horasIguais = comparaDatas(extrairDataEHora(resposta), selectedDate);
+
+                        checkInput(inputsHorarios, horasIguais);
 
                     }, 0);
                 });
@@ -119,7 +130,6 @@ function setHorariosReserva(){
 // Confirmar empréstimo
 function confirmarEmprestimo(botao){
     let dateFormat = datePickerInstance.getDate();
-
     let dia = `${dateFormat.getDate().toString()}/${(dateFormat.getMonth() + 1).toString()}/${dateFormat.getFullYear().toString()}`;
     let horario = document.querySelector('input[name="horario"]:checked').value;
 
@@ -176,7 +186,8 @@ function criarCalendarioHora() {
         <div id="datepicker-inline" class="mb-4"></div>
         <div class="w-[20em] h-[20em] grid grid-cols-4 gap-5 auto-rows-auto bg-gray-100 dark:bg-gray-900 p-4 w-[296px] h-[388px] rounded-md">
             ${gerarHorariosEmprestimo()}
-        </div>`;
+        </div>
+        <p class="mensagem-erro text-red-500 text-sm mt-2"></p>`;
 
     divDatePopup.insertAdjacentHTML("afterbegin", element);
 
