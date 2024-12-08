@@ -6,6 +6,7 @@ import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Reserva;
+import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,6 @@ import java.util.List;
 
 @Service
 public class ReservaService {
-
     @Autowired
     private ReservaRepository repository;
 
@@ -29,6 +29,10 @@ public class ReservaService {
 
     public List<Reserva> listarTodas() {
         return repository.findAllOrdered();
+    }
+
+    public List<Reserva> listarPorUsuario(Usuario usuario) {
+        return repository.findAllByProfessorOrdered(usuario);
     }
 
     public boolean encontrar(long id) {
