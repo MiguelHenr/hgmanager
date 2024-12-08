@@ -1,21 +1,15 @@
-function getHorariosReservaRecurso(id){
-    $.ajax({
+let datePickerInstance;
+
+// Recuperar horários de reserva do empréstimo selecionado para confimração
+async function getHorariosReserva(id) {
+    return await $.ajax({
         url: '/recuperar_horarios_recurso',
         type: 'GET',
         contentType: 'application/json',
         dataType: 'json',
-        data: ('idRecurso=' + id),
-        success: function(data){
-            return data;
-        }
-    }
-    )
+        data: ('idRecurso=' + id)
+    });
 }
-
-function toDate(stringData){
-
-}
-
 
 // Fechar popup de confirmação de empréstimo
 function fecharPopup() {
@@ -35,6 +29,77 @@ function abrirPopup() {
     if (popup) {
         popup.style.display = 'flex';
     }
+}
+
+// Extrai data e hora início em um array com data e hora de início e de fim
+function extrairDataEHora(arrayReservas) {
+    let dataResultato = [];
+
+    for (let i = 0; i < arrayReservas.length; i++) {
+        let primeiraDataHora = arrayReservas[i][0];
+        let [data, horas] = primeiraDataHora.split('T');
+        let [ano, mes, dia] = data.split('-');
+        let hora = horas.split(':').slice(0, 2).join(':');
+
+        dataResultato.push(`${dia}-${mes}-${ano} ${hora}`);
+    }
+
+    console.log(dataResultato);
+    return dataResultato;
+}
+
+// Compara datas do array com data passada
+function comparaDatas(dataHoraArray, data){
+    let horarios = [];
+
+    for (let i = 0; i < dataHoraArray.length; i++) {
+        let [dataReserva, horaReserva] = dataHoraArray[i].split(" ");
+
+        if(dataReserva === data){
+            horarios.push(horaReserva);
+        }
+    }
+    return horarios;
+}
+
+// Checa se determinado valor existe ou não em um array
+function isPresent(array, value){
+    return array.indexOf(value);
+}
+
+// Define quais horários podem ou não ser clicáveis dependendo do dia escolhido
+function setHorariosReserva(){
+    const containerToObserve = document.body;
+
+    const callbackFuncao = async () => {
+        const datepickerEl = document.querySelector("#datepicker-inline");
+        let resposta = await getHorariosReserva(localStorage.getItem("idRecursoSelecionado"));
+
+        if (datepickerEl !== null) {
+            document.querySelectorAll('.datepicker-cell').forEach(diaDatepicker => {
+                diaDatepicker.addEventListener('click', () => {
+                    setTimeout(() => {
+                        const selectedDate = `${datePickerInstance.getDate().getDate()}-${datePickerInstance.getDate().getMonth() + 1}-${datePickerInstance.getDate().getFullYear()}`;
+
+                        let datasIguais = comparaDatas(extrairDataEHora(resposta), selectedDate);
+
+                        const inputsHorarios = document.querySelectorAll("input[name='horario']");
+                        inputsHorarios.forEach(input => {
+                            if (isPresent(datasIguais, input.value) === -1) {
+                                input.disabled = false;
+                            } else{
+                                input.disabled = true;
+                            }
+                        });
+                    }, 0);
+                });
+            });
+        }
+    };
+
+    const containerObserver = new MutationObserver(callbackFuncao);
+    const observaConfig = { childList: true, subtree: true };
+    containerObserver.observe(containerToObserve, observaConfig);
 }
 
 // Confirmar empréstimo
@@ -65,10 +130,6 @@ function confirmarEmprestimo(){
     });
 }
 
-function filtrar(){
-    
-}
-
 function gerarHorariosEmprestimo() {
     // Variavel com todos os horários
     let horarios = ['07:00', '07:50', '08:40', '09:30', '10:20', '10:40', '11:30', '13:00', '13:50', '14:40', '15:30', '16:40'
@@ -80,8 +141,8 @@ function gerarHorariosEmprestimo() {
         let horas = horario.split(":").at(0);
         let minutos = horario.split(":").at(1);
         divTime += `<div class="h-[3em] w-[3em]">
-            <input type="radio" id="time-${horarios.indexOf(horario)}" value="${horario}" name="horario" class="hidden peer">
-            <label class="label-horario flex flex-col items-center justify-center bg-white p-2 w-full h-full border border-gray-300 
+            <input type="radio" id="time-${horarios.indexOf(horario)}" value="${horario}" name="horario" class="hidden peer" disabled>
+            <label class="label-horario flex flex-col items-center justify-center p-2 w-full h-full border border-gray-300 
                     rounded-lg text-sm font-bold hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 
                     peer-checked:bg-blue-600 peer-checked:text-white"
                     for="time-${horarios.indexOf(horario)}">
@@ -94,9 +155,7 @@ function gerarHorariosEmprestimo() {
     return divTime;
 }
 
-let datePickerInstance;
-
-function criarCalendario() {
+function criarCalendarioHora() {
     // Criando calendario
     let divDatePopup = document.createElement('div');
     divDatePopup.classList.add('popup-date');
@@ -171,17 +230,14 @@ document.querySelectorAll(".clique-botao").forEach(button => {
         const titulos = ['Departamento', 'Estado', 'Marca', 'Descrição'];
         let i = 0;
         listaParagrafos.forEach(paragrafo => {
-            //Corrigir esse pq vai ficar feio
-            if(paragrafo.style.display !== 'none'){
-                let novoParagrafo = document.createElement('h1');
-                novoParagrafo.textContent = `${titulos[i]}: ${paragrafo.textContent}`;
-                divContentPopup.insertAdjacentElement("afterbegin", novoParagrafo);
-                i++
-            } else{
+            if(paragrafo.style.display === 'none'){
                 localStorage.setItem("idRecursoSelecionado", paragrafo.textContent);
                 return;
             }
-
+            let novoParagrafo = document.createElement('h1');
+            novoParagrafo.textContent = `${titulos[i]}: ${paragrafo.textContent}`;
+            divContentPopup.insertAdjacentElement("afterbegin", novoParagrafo);
+            i++
         })
 
         // Adicionando título ao container principal
@@ -190,7 +246,7 @@ document.querySelectorAll(".clique-botao").forEach(button => {
         divContainer.insertAdjacentElement("afterbegin", nomeItem);
 
         // Criando calendario
-        let divDatePopup = criarCalendario();
+        let divDatePopup = criarCalendarioHora();
 
         // Div container para o calendario e para descrição do recurso selecionado
         let divCalendarioDescricaoContainer = document.createElement('div');
@@ -208,15 +264,38 @@ document.querySelectorAll(".clique-botao").forEach(button => {
         // Abrindo o popup de confirmação de empréstimo
         abrirPopup();
 
-        setHorarios();
+        setHorariosReserva();
     })
 })
 
-function setHorarios(){
-    document.querySelectorAll('.datepicker-cell').forEach(diaDatepicker => {
-        diaDatepicker.addEventListener('click', () => {
-            const selectedDate = datePickerInstance.getDate();
-            console.log(selectedDate);
-            });
+document.addEventListener("DOMContentLoaded", () => {
+    const inputTexto = document.querySelector(".container-busca input");
+    const categoriaPesquisa = document.querySelector(".container-busca select");
+    const itens = document.querySelectorAll(".item");
+
+    inputTexto.addEventListener("input", () => {
+        const textoPesquisa = inputTexto.value.toLowerCase();
+        const categoria = categoriaPesquisa.value;
+
+        itens.forEach(item => {
+            const departamento = item.querySelector("p:nth-child(1)").textContent.toLowerCase();
+            const estado = item.querySelector("p:nth-child(2)").textContent.toLowerCase();
+            const marca = item.querySelector("p:nth-child(3)").textContent.toLowerCase();
+            const descricao = item.querySelector("p:nth-child(4)").textContent.toLowerCase();
+
+            let isVisible = false;
+
+            if (categoria === "departamento") {
+                isVisible = departamento.includes(textoPesquisa);
+            } else if (categoria === "marca") {
+                isVisible = marca.includes(textoPesquisa);
+            } else if (categoria === "estado") {
+                isVisible = estado.includes(textoPesquisa);
+            } else{
+                isVisible = descricao.includes(textoPesquisa);
+            }
+
+            item.style.display = isVisible ? "flex" : "none";
         });
-}
+    });
+});

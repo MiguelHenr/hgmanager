@@ -18,8 +18,10 @@ import br.cefetmg.mockloginapi.dto.UsuarioDTO;
 import br.cefetmg.mockloginapi.exceptions.IncorrectPasswordException;
 import br.cefetmg.mockloginapi.exceptions.UserNotFoundException;
 
+import java.util.Optional;
+
 @Service
-public class LoginService {
+public class UserValidationService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -82,6 +84,12 @@ public class LoginService {
         departamentoRepository.save(departamento);
         return departamento;
 
+    }
+
+    public Usuario retrieveValidatedUser(HttpSession session) {
+        Long id = (Long) session.getAttribute("userId");
+        Optional<Usuario> model = usuarioRepository.findById(id);
+        return model.orElse(null);
     }
 
 }

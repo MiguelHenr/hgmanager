@@ -2,16 +2,21 @@ package com.cefetmg.hgmanager.Service;
 
 import java.util.List;
 
+import com.cefetmg.hgmanager.Model.Departamento;
+import com.cefetmg.hgmanager.Model.Enum.Estado;
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Reserva;
 import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.cefetmg.hgmanager.Model.Reserva;
+import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import jakarta.persistence.PersistenceException;
+import java.util.List;
 
 @Service
 public class ReservaService {
-    
+
     @Autowired
     private ReservaRepository repository;
 
@@ -38,7 +43,6 @@ public class ReservaService {
         return repository.save(reserva);
     }
 
-
     public boolean encontrarPorID(Long id) {
         return repository.existsById(id);
     }
@@ -61,7 +65,7 @@ public class ReservaService {
 
     public List<Object[]> encontrarHorarioReservaPorRecurso(Long idRecurso){
         try {
-            return repository.findTimestampReservaFromRecurso(idRecurso);
+            return repository.findReservaFromRecurso(idRecurso);
         }catch (Exception e){
             throw new PersistenceException();
         }

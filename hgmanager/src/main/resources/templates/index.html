@@ -13,23 +13,9 @@
         <main>
             <header>
                 <img th:src="@{/imagens/Logo.png}" alt="logo do site" id="logo">
-                <h1>Entre no HgManager</h1>
             </header>
 
-            <form class="box" id="formulario">
-                <p id="error" th:class="${loginError ? '' : 'hide'}" th:text="${loginErrorMessage}">Erro</p>
-                <div class="textfield">
-                    <label for="usuario">Usuário: </label>
-                    <input type="text" id="usuario" name="usuario" inputmode="numeric" maxlength="14" required>
-                </div>
-                <div class="textfield">
-                    <span><label for="senha">Senha: </label><a href="recuperarsenha.html">Esqueci a senha</a></span>
-                    <input type="password" id="senha" name="senha" required>
-                </div>
-                <button type="submit" id="entrar" th:class="${loginError ? 'error' : ''}">Entrar</button>
-            </form>
         </main>
 
-        <script th:src="@{/script/login.js}"></script>
     </body>
 </html>

@@ -20,16 +20,17 @@
             <div class="container-busca">
                 <input type="text" placeholder="🔍 Pesquisar">
                 <select>
-                    <option value="nome">Nome</option>
+                    <option value="departamento">Departamento</option>
                     <option value="marca">Marca</option>
                     <option value="estado">Estado</option>
+                    <option value="descricao">Descrição</option>
                 </select>
             </div>
             <div class="item" th:each="recurso : ${recursos}">
-                <p th:text="${recurso.getDepartamento().getNome()}"></p>
-                <p th:text="${recurso.getEstado().toString()}"></p>
-                <p th:text="${recurso.getMarca()}"></p>
-                <p th:text="${recurso.getDescricao()}"></p>
+                <p id="departamento" th:text="${recurso.getDepartamento().getNome()}"></p>
+                <p id="estado" th:text="${recurso.getEstado().toString()}"></p>
+                <p id="marca" th:text="${recurso.getMarca()}"></p>
+                <p id="descricao" th:text="${recurso.getDescricao()}"></p>
                 <p th:text="${recurso.getId()}" style="display: none"></p>
                 <button class="clique-botao">Solicitar empréstimo</button>
             </div>

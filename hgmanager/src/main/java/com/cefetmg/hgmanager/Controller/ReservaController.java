@@ -6,6 +6,8 @@ import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.UsuarioRepository;
 import com.cefetmg.hgmanager.Service.RecursoService;
+import com.cefetmg.hgmanager.Service.UserValidationService;
+import jakarta.servlet.http.HttpSession;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,9 @@ public class ReservaController {
 
     @Autowired
     private RecursoService recursoService;
+
+    @Autowired
+    private UserValidationService validationService;
 
     @GetMapping("solicitacoes")
     public String getSol(Model model) {
@@ -66,10 +71,12 @@ public class ReservaController {
     }
 
     @PostMapping("/confirmar_emprestimo")
-    public ResponseEntity<Boolean> confirmarEmprestimo(@RequestBody Map<String, String> bodyRetorno) {
+    public ResponseEntity<Boolean> confirmarEmprestimo(@RequestBody Map<String, String> bodyRetorno, HttpSession session) {
         try{
+            Usuario usuarioSession = validationService.retrieveValidatedUser(session);
+
             Long idRecurso = Long.parseLong(bodyRetorno.get("idRecurso"));
-            Long idProfessor = Long.parseLong(bodyRetorno.get("idProfessor"));
+            Long idProfessor = usuarioSession.getId();
 
             // Retornando datas de inicio e de fim do empréstimo, respectivamente
             Pair<Calendar, Calendar> calendariosInicioFimEmprestimo = reservaInicioFim(bodyRetorno);
@@ -109,14 +116,7 @@ public class ReservaController {
     public List<Object[]> recuperarHorariosReservadosRecurso(@RequestParam("idRecurso") String idRecursoString, Model model) {
         Long idRecursoLong = Long.parseLong(idRecursoString);
 
-        List<Object[]> test = reservaService.encontrarHorarioReservaPorRecurso(idRecursoLong);
-
-        for (int i = 0; i < test.size(); i++) {
-            System.out.println("Inicio: " + test.get(i)[0]);
-            System.out.println("Fim: " + test.get(i)[1]);
-        }
-
-        return test;
+        return reservaService.encontrarHorarioReservaPorRecurso(idRecursoLong);
     }
 
     private void setUp(Model model) {

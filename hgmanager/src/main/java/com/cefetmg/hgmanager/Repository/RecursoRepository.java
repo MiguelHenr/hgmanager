@@ -3,6 +3,7 @@ package com.cefetmg.hgmanager.Repository;
 import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 import com.cefetmg.hgmanager.Model.Recurso;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,10 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
             "ON u.departamento.id = r.departamento.id " +
             "WHERE u.id = :idUsuario AND r.Id = :idRecurso)")
     boolean areUsuarioSameDepartamentoOfRecurso(@Param("idUsuario") Long idUsuario, @Param("idRecurso") Long idRecurso);
+
+    @Modifying
+    @Query("DELETE FROM Recurso r WHERE r.Id = :id")
+    void deleteById(@Param("id") Long id);
+
+    void delete(Recurso recurso);
 }
