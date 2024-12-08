@@ -12,21 +12,66 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cefetmg.hgmanager.Model.Reserva;
+import com.cefetmg.hgmanager.Model.Usuario;
+import com.cefetmg.hgmanager.Model.Enum.Cargo;
 import com.cefetmg.hgmanager.Model.Enum.Status;
 import com.cefetmg.hgmanager.Service.ReservaService;
+import com.cefetmg.hgmanager.Service.UserValidationService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ReservaController {
     @Autowired
     private ReservaService reservaService;
 
+    @Autowired
+    private UserValidationService userService;
+
     @GetMapping("solicitacoes")
-    public String getSol(Model model) {
+    public String getSol(Model model, HttpSession session) {
+        Usuario usuario = userService.retrieveValidatedUser(session);
+
+        if (usuario.getTipoUsuario() == Cargo.PROFESSOR)
+            return getMySol(model,usuario);
+
+        model.addAttribute("mine", false);
+
         return "solicitacoes";
+    }
+
+    @GetMapping("eu/solicitacoes")
+    public String getMySol(Model model, HttpSession session) {
+        Usuario usuario = userService.retrieveValidatedUser(session);
+
+        return getMySol(model,usuario);
+    }
+
+    private String getMySol(Model model, Usuario usuario) {
+        model.addAttribute("mine", true);
+
+        return "solicitacoes";
+    }
+
+    @PostMapping("eu/my-requests")
+    public String getEuMyRequests(Model model, HttpSession session) {
+        return getMyRequests(model, session);
+    }
+
+    @PostMapping("my-requests")
+    public String getMyRequests(Model model, HttpSession session) {
+        Usuario usuario = userService.retrieveValidatedUser(session);
+
+        model.addAttribute("mine", true);
+        model.addAttribute("waiting", Status.AGUARDANDO);
+        model.addAttribute("requests", reservaService.listarPorUsuario(usuario));
+
+        return "frag/requests";
     }
 
     @PostMapping("requests")
     public String getRequests(Model model) {
+        model.addAttribute("mine", false);
         model.addAttribute("waiting", Status.AGUARDANDO);
         model.addAttribute("requests", reservaService.listarTodas());
 

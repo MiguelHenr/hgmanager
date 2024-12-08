@@ -23,8 +23,21 @@ body, button, input {
     gap: 2vh; 
 }
 
-#ghost.shoo, #reqs.shoo {
-    display: none;
+#ghost {
+    opacity: 1;
+    top: 11.6vh;
+    z-index: 100;
+    position: absolute;
+    visibility: visible;
+    box-sizing: border-box;
+    align-items: flex-start;
+    background-color: #06191E;
+    transition: all .5s ease-in-out;
+}
+
+#ghost.shoo {
+    opacity: 0;
+    visibility: hidden;
 }
 
 .rfig, .gimg {
@@ -78,7 +91,7 @@ body, button, input {
 }
 
 .clicked button {
-    cursor: not-allowed;
+    cursor: wait;
     color: #FE6156;
     background-color: #233040;
 }
