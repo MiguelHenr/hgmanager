@@ -1,105 +1,108 @@
-@import url('https://fonts.googleapis.com/css2Wfamily=Kulim+Park:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200;1,300;1,400;1,600;1,700&display=swap');
-
-html, body, * {
+body {
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #12181b;
+    color: #e1e1e6;
+    line-height: 1.6;
 }
 
-body {
-    background-color: #233040;
-    font-family: "Kulim Park", sans-serif;
-    color: #FCE1C1;
-}
-
-body, button, input {
-    font-size: 3vh;
-}
-
-#cmps {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    width: 100%;
-}
-
-#cmps img {
-    width: 100%;
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
 }
 
 .cmp {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
     gap: 10px;
-    background-color: white;
-    border-radius: 8px;
+    margin-bottom: 20px;
     padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    margin-bottom: 10px;
-    width: 100%;
+    background-color: #233040;
+    border-radius: 8px;
+    position: relative;
 }
 
-.cmp .perfil {
-    width: 40px;
-    height: 40px;
+.cmp img.perfil {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    object-fit: cover;
+    border: 2px solid #AD9FEA;
+    margin-bottom: 10px;
 }
 
 .cmp p {
-    margin: 0;
-    line-height: 1.5;
+    margin: 5px 0;
     font-size: 14px;
-    color: #333;
+    color: #e1e1e6;
 }
 
-.cmp p:first-child {
+.cmp p span {
     font-weight: bold;
-    font-size: 15px;
-    color: #000;
-}
-
-.cmp span {
-    font-weight: normal;
-    color: #555;
-}
-
-.cmp p:last-child {
-    font-size: 12px;
-    color: #888;
+    color: #AD9FEA;
 }
 
 form {
     display: flex;
     flex-direction: column;
-}
-
-textarea {
-    width: 35%;
-    border: none;
-    border-radius: 5px;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
     background-color: #233040;
+    border-radius: 8px;
+}
+
+form textarea.com {
+    resize: none;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #AD9FEA;
+    border-radius: 5px;
+    background-color: #06191E;
     color: #FCE1C1;
-    padding: .4vh;
-    outline: none;
-    box-sizing: border-box;
+    height: 80px;
 }
 
-.perfil {
-    width: 30%;
-    border-radius: 50%;
-    align-items: center;
-}
-
-button {
-    width: 25%;
-    padding: 1vh 0;
-    margin-top: 1.6vh;
+form button {
+    align-self: flex-start;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #06191E;
+    background-color: #AD9FEA;
     border: none;
     border-radius: 5px;
-    outline: none;
-    background-color: #AD9FEA;
-    color: #06191E;
-    font-weight: 750;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #AD9FEA;
+}
+
+.ans {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #233040;
+    border-radius: 8px;
+    align-items: flex-start;
+}
+
+.ans img.perfil {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #AD9FEA;
+}
+
+.ans p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.ans p:first-of-type {
+    font-weight: bold;
+    color: #AD9FEA;
 }
