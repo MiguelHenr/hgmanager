@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Validação
         if (!data.marca || !data.descricao || !data.estado || !data.departamento.id || !data.codigo)  {
-            alert('Preencha todos os campos!');
+           
             return;
         }
 
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         } catch (error) {
             console.error('Erro:', error);
-            alert('Erro ao conectar ao servidor. Verifique sua conexão ou o endereço do servidor.' + error);
+           
         }
     });
 });

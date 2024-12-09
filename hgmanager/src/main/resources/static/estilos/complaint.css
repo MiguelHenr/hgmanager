@@ -24,12 +24,13 @@ main {
     position: relative;
 }
 
-.cmp img.perfil {
+.cmp .perfil {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     border: 2px solid #AD9FEA;
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .cmp p {
@@ -76,10 +77,6 @@ form button {
     transition: background-color 0.3s;
 }
 
-form button:hover {
-    background-color: #AD9FEA;
-}
-
 .ans {
     display: flex;
     gap: 10px;
@@ -90,11 +87,12 @@ form button:hover {
     align-items: flex-start;
 }
 
-.ans img.perfil {
+.ans .perfil {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     border: 2px solid #AD9FEA;
+    overflow: hidden;
 }
 
 .ans p {
@@ -105,4 +103,14 @@ form button:hover {
 .ans p:first-of-type {
     font-weight: bold;
     color: #AD9FEA;
+}
+
+img {
+    width: 100%;
+}
+
+.clicked {
+    cursor: wait;
+    color: #FE6156;
+    background-color: #06191E;
 }

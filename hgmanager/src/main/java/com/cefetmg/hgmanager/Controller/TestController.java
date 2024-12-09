@@ -25,7 +25,7 @@ public class TestController {
     }
     @GetMapping("/ListaRec")
     public ModelAndView listar(){
-        return new ModelAndView("ListarRecurso");
+        return new ModelAndView("ListaRecurso");
     }
 
     @GetMapping("/")

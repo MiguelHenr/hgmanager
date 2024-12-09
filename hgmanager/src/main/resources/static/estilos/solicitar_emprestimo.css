@@ -45,12 +45,13 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    background-color: #ad9fea;
+    background-color: #233040;
     border-radius: 10rem;
     padding: 0.5%;
-    color: black;
+    color: #ffffff;
     font-weight: bold;
     font-size: 0.9rem;
+    border: 1.5px solid #ad9fea;
 }
 
 .item button {
@@ -75,23 +76,17 @@
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #134f9c;
+    background-color: #233040;
     padding: 20px;
     border-radius: 20px;
     z-index: 1000;
     color: white;
-    gap: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 75vh;
-    height: 70vh;
-}
-
-.content-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 50vw;
+    height: 86vh;
+    border: 1.5px solid #ad9fea;
 }
 
 .popup-content{
@@ -131,7 +126,7 @@
 }
 
 .popup-date{
-    background-color: #134f9c;
+    background-color: #233040;
     border: none;
     margin: 20px;
     display: flex;

@@ -14,17 +14,17 @@ function atualizarRecurso(id, estado) {
             return response.text(); // Espera uma mensagem de sucesso (ou uma resposta vazia)
         })
         .then(() => {
-            alert(`Recurso com ID ${id} atualizado com sucesso para estado: ${estado}.`);
+           
 
             // Atualiza a interface para refletir a mudança
             const recursoDiv = document.getElementById(`recurso-${id}`);
-            const estadoAtualizado = recursoDiv.querySelector('h3:nth-of-type(1)');
+            const estadoAtualizado = recursoDiv.querySelector('h2:nth-of-type(1)');
             if (estadoAtualizado) {
-                estadoAtualizado.textContent = `estado: ${estado}`;
+                estadoAtualizado.textContent = `${estado}`;
             }
         })
         .catch(error => {
             console.error('Erro ao atualizar recurso:', error);
-            alert(`Erro ao atualizar recurso: ${error.message}`);
+           
         });
 }

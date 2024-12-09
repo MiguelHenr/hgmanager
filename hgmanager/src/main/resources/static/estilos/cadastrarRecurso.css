@@ -42,3 +42,7 @@ h1{
     background-color: #AD9FEA;
     color: #233040;
 }
+
+input::placeholder{
+    color: white;
+}
