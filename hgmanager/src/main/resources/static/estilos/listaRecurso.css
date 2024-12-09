@@ -1,19 +1,24 @@
-
-body{
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     width: 100%;
     min-height: 100%;
     background-color: #06191e;
 }
 
-.card{
+.card {
     background-color: #233040;
-    border-color: #ad9fea;
+    border: 2px solid #ad9fea;
     color: #fce1c1;
-    margin-left: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-.desc{
-    text-align: center;
 
+.desc {
+    text-align: center;
+    line-height: 1.5;
 }
 
 .confirmacao-overlay {
@@ -27,6 +32,7 @@ body{
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    transition: opacity 0.3s ease-in-out;
 }
 .confirmacao-container {
     background: white;
@@ -34,21 +40,41 @@ body{
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
 }
 .confirmacao-container button {
     margin: 10px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    background-color: #ad9fea;
+    color: #233040;
+    border: none;
+    cursor: pointer;
 }
-#novo{
+.confirmacao-container button:hover {
+    background-color: #8c7fc0;
+}
+
+#novo {
     width: 50px;
     height: 50px;
     font-size: 35px;
     text-align: center;
+    border-radius: 50%;
+    background-color: #ad9fea;
+    color: #233040;
+    border: none;
+    cursor: pointer;
+    line-height: 50px;
 }
-#filtroEstado{
+#filtroEstado {
     max-width: 200px;
     min-width: 100px;
     margin: 10px;
+    padding: 5px;
     background-color: #06191e;
-    border:3px fill #ad9fea;
+    border: 3px solid #ad9fea;
     color: #fce1c1;
+    border-radius: 4px;
 }

@@ -54,6 +54,22 @@
 </div>
 <script th:src="@{/script/cabecalho.js}"></script>
 </body>
+
+<div id="sucesso" class="confirmacao-overlay">
+    <div class="confirmacao-container">
+        <p>Recurso cadastrado com sucesso</p>
+    </div>
+</div>
+<div id="error" class="confirmacao-overlay">
+    <div class="confirmacao-container">
+        <p>Recurso cadastrado com sucesso</p>
+    </div>
+</div>
+<div id="erroServidor" class="confirmacao-overlay">
+    <div class="confirmacao-container">
+        <p>Recurso cadastrado com sucesso</p>
+    </div>
+</div>
 </html>
 
 <style>
@@ -101,6 +117,9 @@
     #enviar{
         background-color: #AD9FEA;
         color: #233040;
+    }
+    #error, #erroServidor, #sucesso{
+        display: none;
     }
 </style>
 

@@ -1,10 +1,10 @@
+
 document.addEventListener('DOMContentLoaded', function () {
-    alert("Script carregado");
+
 
     document.getElementById('formulario').addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        alert("Capturando os dados do formulário...");
 
         const formData = new FormData(this);
 
@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    alert('caralho');
     listarDepartamentos();
 });
 
@@ -62,7 +61,6 @@ function listarDepartamentos() {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                alert("departamento");
                 console.error("Erro ao resgatar departamentos:", response.status);
                 throw new Error(`Erro: ${response.status}`);
             }

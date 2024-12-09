@@ -30,14 +30,16 @@ function renderizarRecursos(recursos) {
     container.classList.add('row', 'gx-3', 'gy-3');
     recursos.forEach(recurso => {
         const div = document.createElement('div');
-        div.classList.add('col-md-3', 'recurso');
+        div.classList.add('col-md-3', 'recurso', 'col-sm-3', 'col-lg-3');
         div.id = `recurso-${recurso.id}`;
 
         div.innerHTML = `
-            <div class="card p-3">
+            <div class="card p-3 container">
                 <h1 class="desc">${recurso.descricao}</h1>
-                <h3>estado: ${recurso.estado}</h3>
-                <h3>codigo: ${recurso.codigo}</h3>
+                <h3 class="recurso_estado">ESTADO</h3>
+                <h2>${recurso.estado}</h2>
+                <h3 class="recurso_codigo">CODIGO</h3>
+                <h2>${recurso.codigo}</h2>
                 <select name="estado" id="estado-${recurso.id}" class="form-select">
                         <option value="NOVO" ${recurso.estado === 'NOVO' ? 'selected' : ''}>Novo</option>
                         <option value="CONSERVADO" ${recurso.estado === 'CONSERVADO' ? 'selected' : ''}>Conservado</option>

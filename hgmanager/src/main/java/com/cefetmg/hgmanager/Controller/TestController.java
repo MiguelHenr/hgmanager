@@ -19,9 +19,13 @@ public class TestController {
     @Autowired
     private TestService service;
 
-    @GetMapping("/dep")
+    @GetMapping("/CadastraRec")
     public ModelAndView helloWorld() {
-        return new ModelAndView("ListaRecurso");
+        return new ModelAndView("CadastrarRecurso");
+    }
+    @GetMapping("/ListaRec")
+    public ModelAndView listar(){
+        return new ModelAndView("ListarRecurso");
     }
 
     @GetMapping("/")
