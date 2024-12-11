@@ -27,13 +27,4 @@ public class TestController {
     public ModelAndView listar(){
         return new ModelAndView("ListaRecurso");
     }
-
-    @GetMapping("/")
-    public ModelAndView Index() {
-        return new ModelAndView("Index");
-    }
-
-
-
-
 }
