@@ -16,10 +16,10 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class HomeController {
     @Autowired
-    UserValidationService uService;
+    private UserValidationService uService;
 
     @Autowired
-    HeaderService hService;
+    private HeaderService hService;
 
     @GetMapping("/")
     public String home(Model model, HttpSession session) {
