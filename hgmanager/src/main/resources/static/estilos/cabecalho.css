@@ -72,6 +72,10 @@ nav {
     transform: translateY(-50%);
 }
 
+#avatar:not(.default) {
+    border: 1.5px solid #AD9FEA;
+}
+
 .nav-list img:not(#avatar img) {
     height: 8.5vh;
     width: auto;

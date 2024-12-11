@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Model.Enum.Cargo;
+import com.cefetmg.hgmanager.Service.HeaderService;
 import com.cefetmg.hgmanager.Service.UserValidationService;
 
 import jakarta.servlet.http.HttpSession;
@@ -15,17 +16,18 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class HomeController {
     @Autowired
-    UserValidationService service;
+    UserValidationService uService;
+
+    @Autowired
+    HeaderService hService;
 
     @GetMapping("/")
     public String home(Model model, HttpSession session) {
-        Usuario usr = service.retrieveValidatedUser(session);
-        boolean tae = usr.getTipoUsuario() == Cargo.TAE;
+        Usuario usr = uService.retrieveValidatedUser(session);
 
-        model.addAttribute("foto", usr.getFoto());
-        model.addAttribute("nome", usr.getNome());
-        model.addAttribute("tae", tae);
+        hService.setAttributes(model, usr);
 
-        return tae ? "forward:/solicitacoes" : "forward:/solicitar_emprestimo";
+        return usr.getTipoUsuario() == Cargo.TAE ? "forward:/solicitacoes" 
+                                        : "forward:/solicitar_emprestimo";
     }
 }
