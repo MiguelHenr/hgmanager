@@ -1,6 +1,7 @@
 <div th:each="s : ${requests}" th:with="u=${s.professor}, r=${s.recurso}" th:data-index="${s.id}" class="req">
     <figure class="rfig" th:unless="${mine}">
-        <img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="req-img" loading="lazy">
+        <img th:unless="${u.foto}" th:src="@{/imagens/Avatar.png}" alt="Avatar" class="req-img" loading="lazy">
+        <img th:if="${u.foto}" th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="req-img" loading="lazy">
     </figure>
 
     <p th:unless="${mine}">Requerinte: <span th:text="${u.nome}">Nome</span></p>

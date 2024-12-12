@@ -4,7 +4,7 @@
             <li><a href="/"><img th:src="@{/imagens/Menu.png}" alt="menu" class="menu"></a></li>
             <li><a href="/"><img th:src="@{/imagens/Logo.png}" alt="logo"></a></li>
             
-            <li><a href="/"><figure id="avatar" th:class="${foto == null ? 'default' : ''}">
+            <li><a href="/eu"><figure id="avatar" th:class="${foto == null ? 'default' : ''}">
                 <img th:unless="${foto}" th:src="@{/imagens/Avatar.png}" alt="avatar">
                 <img th:if="${foto}" th:src="${foto}" alt="avatar">
             </figure></a></li>

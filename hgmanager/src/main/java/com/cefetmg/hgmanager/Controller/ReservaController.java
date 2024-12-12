@@ -81,7 +81,7 @@ public class ReservaController {
 
         model.addAttribute("mine", true);
         model.addAttribute("waiting", Status.AGUARDANDO);
-        model.addAttribute("requests", reservaService.listarPorUsuario(usuario));
+       // model.addAttribute("requests", reservaService.listarPorUsuario(usuario));
 
         return "frag/requests";
     }
@@ -90,7 +90,7 @@ public class ReservaController {
     public String getRequests(Model model) {
         model.addAttribute("mine", false);
         model.addAttribute("waiting", Status.AGUARDANDO);
-        model.addAttribute("requests", reservaService.listarTodas());
+        //model.addAttribute("requests", reservaService.listarTodas());
 
         return "frag/requests";
     }
@@ -163,7 +163,7 @@ public class ReservaController {
 
     private void setUp(Model model) {
         model.addAttribute("waiting", Status.AGUARDANDO);
-        model.addAttribute("requests", reservaService.listarTodas());
+       // model.addAttribute("requests", reservaService.listarTodas());
     }
 
     private void approve(Reserva reserva) {

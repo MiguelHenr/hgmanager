@@ -60,7 +60,7 @@ public class LoginController {
 
     }
 
-    @RequestMapping(value={"/profile_debug"}, method={RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value={"/eu"}, method={RequestMethod.POST, RequestMethod.GET})
     public ModelAndView profileDebug(HttpSession session, ModelMap model) {
 
         Usuario user = service.retrieveValidatedUser(session);
@@ -72,8 +72,9 @@ public class LoginController {
         model.addAttribute("userEmail", user.getEmail());
         model.addAttribute("userFuncao", user.getTipoUsuario());
         model.addAttribute("userDepartamento", user.getDepartamento().getNome());
+        model.addAttribute("foto", user.getFoto());
 
-        return new ModelAndView("debugProfile", model);
+        return new ModelAndView("perfil", model);
 
     }
 
