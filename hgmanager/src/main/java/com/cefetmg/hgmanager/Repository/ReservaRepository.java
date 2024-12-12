@@ -1,5 +1,6 @@
 package com.cefetmg.hgmanager.Repository;
 
+import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Reserva;
 import com.cefetmg.hgmanager.Model.Usuario;
@@ -18,6 +19,8 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     Page<Reserva> findAllByOrderByInicioDesc(Pageable pageable);
 
     Page<Reserva> findAllByProfessorOrderByInicioDesc(Usuario professor, Pageable pageable);
+
+    Page<Reserva> findAllByRecursoDepartamentoOrderByInicioDesc(Departamento departamento, Pageable pageable);
 
     Reserva findReservaByRecurso(Recurso recurso);
 

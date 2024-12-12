@@ -72,7 +72,7 @@ nav {
 }
 
 #avatar:not(.default) {
-    border: 1.5px solid #AD9FEA;
+    border: 2px solid #AD9FEA;
 }
 
 .nav-list img:not(#avatar img) {

@@ -2,6 +2,7 @@ package com.cefetmg.hgmanager.Controller;
 
 import java.util.*;
 
+import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.UsuarioRepository;
@@ -92,13 +93,14 @@ public class ReservaController {
 
     @PostMapping("requests")
     public String getRequests(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
+        Departamento dpto = userService.retrieveValidatedUser(session).getDepartamento();
         int paginas = reservaService.paginas(PAGE_SIZE);
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
 
         model.addAttribute("mine", false);
         model.addAttribute("waiting", Status.AGUARDANDO);
         model.addAttribute("pages", paginas);
-        model.addAttribute("requests", reservaService.listarTodas(pageable));
+        model.addAttribute("requests", reservaService.listarPorDepartamento(dpto,pageable));
 
         hService.setAttributes(model, session);
 
