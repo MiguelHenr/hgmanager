@@ -25,7 +25,7 @@ public class HomeController {
     public String home(Model model, HttpSession session) {
         Usuario usr = uService.retrieveValidatedUser(session);
 
-        hService.setAttributes(model, usr);
+        hService.setAttributes(model, session);
 
         return usr.getTipoUsuario() == Cargo.TAE ? "forward:/solicitacoes" 
                                         : "forward:/solicitar_emprestimo";

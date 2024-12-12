@@ -6,12 +6,11 @@ function loadAll() {
 
     xhr.open("POST", "requests", true);
 
-    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             main.innerHTML = xhr.responseText;
-            ghost.style.height = main.offsetHeight + 'px';
 
             const rejectBts = document.getElementsByClassName('reject');
             const approveBts = document.getElementsByClassName('approve');
@@ -34,7 +33,7 @@ function loadMine() {
 
     xhr.open("POST", "/my-requests", true);
 
-    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
