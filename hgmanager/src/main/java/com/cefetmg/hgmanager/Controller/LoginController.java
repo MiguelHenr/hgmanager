@@ -1,6 +1,7 @@
 package com.cefetmg.hgmanager.Controller;
 
 import com.cefetmg.hgmanager.Model.Usuario;
+import com.cefetmg.hgmanager.Service.HeaderService;
 import com.cefetmg.hgmanager.Service.UserValidationService;
 
 import br.cefetmg.mockloginapi.exceptions.IncorrectPasswordException;
@@ -28,6 +29,9 @@ public class LoginController {
 
     @Autowired
     UserValidationService service;
+
+    @Autowired
+    private HeaderService hService;
 
     @GetMapping("/login")
     public String validateLogin() {
@@ -72,7 +76,8 @@ public class LoginController {
         model.addAttribute("userEmail", user.getEmail());
         model.addAttribute("userFuncao", user.getTipoUsuario());
         model.addAttribute("userDepartamento", user.getDepartamento().getNome());
-        model.addAttribute("foto", user.getFoto());
+
+        hService.setAttributes(model, user);
 
         return new ModelAndView("perfil", model);
 
