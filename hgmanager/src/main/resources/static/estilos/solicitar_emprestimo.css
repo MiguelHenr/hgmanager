@@ -32,6 +32,7 @@
 
 
 /* Lista de Itens */
+
 .lista-itens {
     display: flex;
     flex-direction: column;
@@ -42,15 +43,17 @@
 
 .item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     flex-direction: row;
-    background-color: #ad9fea;
+    background-color: #233040;
     border-radius: 10rem;
     padding: 0.5%;
-    color: black;
+    margin-bottom: 10px;
+    color: #ffffff;
     font-weight: bold;
     font-size: 0.9rem;
+    border: 1.5px solid #ad9fea;
 }
 
 .item button {
@@ -67,6 +70,7 @@
 .item p{
     font-family: "Oswald", sans-serif;
     font-size: 20px;
+    flex: 1;
 }
 
 /* Pop-Up */
@@ -75,34 +79,32 @@
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #134f9c;
+    background-color: #233040;
     padding: 20px;
     border-radius: 20px;
     z-index: 1000;
     color: white;
-    gap: 10px;
+    width: 90%;
+    max-width: 640px;
+    max-height: 90vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 75vh;
-    height: 70vh;
-}
-
-.content-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    gap: 20px;
+    border: 1.5px solid #ad9fea;
 }
 
 .popup-content{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
 }
 
 .popup h2 {
-    font-size: 2em;
-    color: white;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 10px;
     font-family: "Oswald", sans-serif;
 }
 
@@ -112,6 +114,12 @@
     padding: 1%;
 }
 
+.popup .popup-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
 .popup .popup-buttons button {
     color: white;
     border: none;
@@ -119,7 +127,6 @@
     padding: 10px 20px;
     cursor: pointer;
     font-weight: bold;
-    margin: 10px;
 }
 
 .button-confirmar{
@@ -131,12 +138,16 @@
 }
 
 .popup-date{
-    background-color: #134f9c;
+    background-color: #233040;
     border: none;
-    margin: 20px;
     display: flex;
-    align-content: space-between;
-    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+    width: 100%;
+}
+
+.popuo-date div {
+    flex: 1;
 }
 
 /* Nenhum recursos */
@@ -161,4 +172,11 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 999;
+}
+
+@media screen and (max-width: 706px) {
+    .popup-date {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

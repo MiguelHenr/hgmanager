@@ -67,7 +67,7 @@ public class ReservaService {
         }
     }
 
-    public List<Object[]> encontrarHorarioReservaPorRecurso(Long idRecurso){
+    public List<String> encontrarHorarioReservaPorRecurso(Long idRecurso){
         try {
             return repository.findReservaFromRecurso(idRecurso);
         }catch (Exception e){
