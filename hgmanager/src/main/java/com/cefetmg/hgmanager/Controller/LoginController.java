@@ -83,4 +83,10 @@ public class LoginController {
 
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        service.logout(session);
+
+        return "redirect:/login";
+    }
 }
