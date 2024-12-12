@@ -77,7 +77,7 @@ public class LoginController {
         model.addAttribute("userFuncao", user.getTipoUsuario());
         model.addAttribute("userDepartamento", user.getDepartamento().getNome());
 
-        hService.setAttributes(model, user);
+        hService.setAttributes(model, session);
 
         return new ModelAndView("perfil", model);
 
