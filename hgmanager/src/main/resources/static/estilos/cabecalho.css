@@ -129,19 +129,21 @@ nav {
 
 #dropdown-content {
     display: none;
-    position: absolute;
     background-color: #233040;
-    min-width: 160px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    z-index: 200;
     list-style-type: none;
     padding: 0;
     list-style: none;
-    width: fit-content;
+    position: fixed;
+    left: 0;
+    top: 10vh;
+    font-size: 16px;
 }
 
 #dropdown-content li {
     border-bottom: 1px solid #AD9FEA;
+    border-right: 1px solid #AD9FEA;
     padding: 12px 16px;
     letter-spacing: 0;
 }
