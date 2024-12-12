@@ -3,14 +3,10 @@
         <ul class="nav-list">
             <li><a href="/"><img th:src="@{/imagens/Menu.png}" alt="menu" class="menu"></a></li>
             <li><a href="/"><img th:src="@{/imagens/Logo.png}" alt="logo"></a></li>
-            <li>
-                <label class="label" for="pesquisa">
-                    <input type="text" id="barrapesquisa"> 
-                </label> 
-                <a href="/" class="background"></a>
-            </li>
-            <li><a href="/"><figure id="avatar">
-                <img th:src="@{/imagens/Avatar.png}" alt="avatar">
+            
+            <li><a href="/"><figure id="avatar" th:class="${foto == null ? 'default' : ''}">
+                <img th:unless="${foto}" th:src="@{/imagens/Avatar.png}" alt="avatar">
+                <img th:if="${foto}" th:src="${foto}" alt="avatar">
             </figure></a></li>
         </ul>
     </nav>

@@ -9,11 +9,10 @@ import com.cefetmg.hgmanager.Model.Reserva;
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.cefetmg.hgmanager.Model.Reserva;
-import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import jakarta.persistence.PersistenceException;
-import java.util.List;
 
 @Service
 public class ReservaService {
@@ -27,12 +26,17 @@ public class ReservaService {
         return repository.save(reserva);
     }
 
-    public List<Reserva> listarTodas() {
-        return repository.findAllOrdered();
+    public int paginas(int pageSize) {
+        long totalRequests = repository.count();  
+        return (int) Math.ceil((double) totalRequests / pageSize);
     }
 
-    public List<Reserva> listarPorUsuario(Usuario usuario) {
-        return repository.findAllByProfessorOrdered(usuario);
+    public Page<Reserva> listarTodas(Pageable pageable) {
+        return repository.findAllByOrderByInicioDesc(pageable);
+    }
+
+    public Page<Reserva> listarPorUsuario(Usuario usuario, Pageable pageable) {
+        return repository.findAllByProfessorOrderByInicioDesc(usuario, pageable);
     }
 
     public boolean encontrar(long id) {
