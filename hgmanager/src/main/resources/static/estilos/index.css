@@ -120,3 +120,9 @@ button.error {
 .hide {
     visibility: hidden;
 }
+
+#perfil {
+    width: 10vw;
+    height: 10vw;
+    margin-bottom: 1.6vh;
+}

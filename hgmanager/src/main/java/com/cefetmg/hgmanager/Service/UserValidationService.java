@@ -92,4 +92,7 @@ public class UserValidationService {
         return model.orElse(null);
     }
 
+    public void logout(HttpSession session) {
+        session.removeAttribute("userId");
+    }
 }

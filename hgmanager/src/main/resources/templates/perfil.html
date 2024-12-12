@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/estilos/index.css}">
+    <link rel="stylesheet" th:href="@{/estilos/cabecalho.css}">
+    <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Meu perfil</title>
+</head>
+
+<body>
+    <header th:replace="~{frag/cabecalho}"></header>
+
+    <main>
+        <div class="box" id="formulario">
+            <figure id="perfil">
+                <img th:unless="${foto}" th:src="@{/imagens/Avatar.png}" alt="Foto de perfil" class="pfp">
+                <img th:if="${foto}" th:src="${foto}" alt="Foto de perfil" class="pfp">
+            </figure>
+            <h1 th:text="${'Usuário: '} + ${userNome}"></h1>
+            <p th:text="${'Cpf: '} + ${userCpf}"></p>
+            <p th:text="${'Email: '} + ${userEmail}"></p>
+            <p th:text="${userFuncao} + ${' do '} + ${userDepartamento}"></p>
+        </div>
+    </main>
+</body>
+</html>
