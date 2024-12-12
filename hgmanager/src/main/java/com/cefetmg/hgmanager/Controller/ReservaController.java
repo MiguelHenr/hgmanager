@@ -2,21 +2,21 @@ package com.cefetmg.hgmanager.Controller;
 
 import java.util.*;
 
+import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.UsuarioRepository;
+import com.cefetmg.hgmanager.Service.HeaderService;
 import com.cefetmg.hgmanager.Service.RecursoService;
 import com.cefetmg.hgmanager.Service.UserValidationService;
 import jakarta.servlet.http.HttpSession;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
 
 import com.cefetmg.hgmanager.Model.Reserva;
@@ -30,6 +30,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ReservaController {
+    private static final int PAGE_SIZE = 12;
+
     @Autowired
     private ReservaService reservaService;
 
@@ -45,52 +47,62 @@ public class ReservaController {
     @Autowired
     private UserValidationService validationService;
 
+    @Autowired
+    private HeaderService hService;
+
     @GetMapping("solicitacoes")
     public String getSol(Model model, HttpSession session) {
         Usuario usuario = userService.retrieveValidatedUser(session);
 
         if (usuario.getTipoUsuario() == Cargo.PROFESSOR)
-            return getMySol(model,usuario);
+            return getMySol(model,session);
 
         model.addAttribute("mine", false);
+        model.addAttribute("waiting", Status.AGUARDANDO);
+        model.addAttribute("pages", reservaService.paginas(PAGE_SIZE));
+        hService.setAttributes(model, session);
 
         return "solicitacoes";
     }
 
     @GetMapping("eu/solicitacoes")
     public String getMySol(Model model, HttpSession session) {
-        Usuario usuario = userService.retrieveValidatedUser(session);
-
-        return getMySol(model,usuario);
-    }
-
-    private String getMySol(Model model, Usuario usuario) {
         model.addAttribute("mine", true);
+        model.addAttribute("waiting", Status.AGUARDANDO);
+        model.addAttribute("pages", reservaService.paginas(PAGE_SIZE));
+        hService.setAttributes(model, session);
 
         return "solicitacoes";
     }
 
-    @PostMapping("eu/my-requests")
-    public String getEuMyRequests(Model model, HttpSession session) {
-        return getMyRequests(model, session);
-    }
-
-    @PostMapping("my-requests")
-    public String getMyRequests(Model model, HttpSession session) {
+    @PostMapping({"my-requests","eu/my-requests"})
+    public String getMyRequests(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
         Usuario usuario = userService.retrieveValidatedUser(session);
+        int paginas = reservaService.paginas(PAGE_SIZE);
+        Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
 
         model.addAttribute("mine", true);
         model.addAttribute("waiting", Status.AGUARDANDO);
-       // model.addAttribute("requests", reservaService.listarPorUsuario(usuario));
+        model.addAttribute("pages", paginas);
+        model.addAttribute("requests", reservaService.listarPorUsuario(usuario,pageable));
+        
+        hService.setAttributes(model, session);
 
         return "frag/requests";
     }
 
     @PostMapping("requests")
-    public String getRequests(Model model) {
+    public String getRequests(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
+        Departamento dpto = userService.retrieveValidatedUser(session).getDepartamento();
+        int paginas = reservaService.paginas(PAGE_SIZE);
+        Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
+
         model.addAttribute("mine", false);
         model.addAttribute("waiting", Status.AGUARDANDO);
-        //model.addAttribute("requests", reservaService.listarTodas());
+        model.addAttribute("pages", paginas);
+        model.addAttribute("requests", reservaService.listarPorDepartamento(dpto,pageable));
+
+        hService.setAttributes(model, session);
 
         return "frag/requests";
     }
@@ -159,11 +171,6 @@ public class ReservaController {
         Long idRecursoLong = Long.parseLong(idRecursoString);
 
         return reservaService.encontrarHorarioReservaPorRecurso(idRecursoLong);
-    }
-
-    private void setUp(Model model) {
-        model.addAttribute("waiting", Status.AGUARDANDO);
-       // model.addAttribute("requests", reservaService.listarTodas());
     }
 
     private void approve(Reserva reserva) {

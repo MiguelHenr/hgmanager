@@ -39,6 +39,10 @@ public class ReservaService {
         return repository.findAllByProfessorOrderByInicioDesc(usuario, pageable);
     }
 
+    public Page<Reserva> listarPorDepartamento(Departamento departamento, Pageable pageable) {
+        return repository.findAllByRecursoDepartamentoOrderByInicioDesc(departamento, pageable);
+    }
+
     public boolean encontrar(long id) {
         return repository.existsById(id);
     }
