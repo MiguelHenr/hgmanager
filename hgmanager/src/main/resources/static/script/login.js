@@ -37,8 +37,6 @@ async function validarLogin(event) {
         return;
     }
 
-    //alert('Logado com sucesso! seja bem vindo: ' + result);
-
     window.location.replace('/');
 
 }

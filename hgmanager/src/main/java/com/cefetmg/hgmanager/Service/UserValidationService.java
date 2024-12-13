@@ -1,6 +1,7 @@
 package com.cefetmg.hgmanager.Service;
 
 import br.cefetmg.mockloginapi.dto.DepartamentoDTO;
+import br.cefetmg.mockloginapi.exceptions.InvalidLoginCredentialsException;
 import br.cefetmg.mockloginapi.service.DepartamentoInfo;
 import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Cargo;
@@ -15,8 +16,6 @@ import org.springframework.stereotype.Service;
 
 import br.cefetmg.mockloginapi.service.UsuarioValidation;
 import br.cefetmg.mockloginapi.dto.UsuarioDTO;
-import br.cefetmg.mockloginapi.exceptions.IncorrectPasswordException;
-import br.cefetmg.mockloginapi.exceptions.UserNotFoundException;
 
 import java.util.Optional;
 
@@ -29,7 +28,7 @@ public class UserValidationService {
     private DepartamentoRepository departamentoRepository;
 
     public Usuario LoginValidate(String login, String password, HttpSession httpSession)
-            throws UserNotFoundException, IncorrectPasswordException {
+            throws InvalidLoginCredentialsException {
 
         UsuarioDTO dto = UsuarioValidation.validateLogin(login, password);
 
