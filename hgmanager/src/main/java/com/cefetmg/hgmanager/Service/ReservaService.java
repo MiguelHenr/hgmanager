@@ -31,6 +31,16 @@ public class ReservaService {
         return (int) Math.ceil((double) totalRequests / pageSize);
     }
 
+    public int paginas(int pageSize, Departamento dpto) {
+        long totalRequests = repository.countByRecursoDepartamento(dpto);  
+        return (int) Math.ceil((double) totalRequests / pageSize);
+    }
+
+    public int paginas(int pageSize, Usuario usuario) {
+        long totalRequests = repository.countByProfessor(usuario);  
+        return (int) Math.ceil((double) totalRequests / pageSize);
+    }
+
     public Page<Reserva> listarTodas(Pageable pageable) {
         return repository.findAllByOrderByInicioDesc(pageable);
     }

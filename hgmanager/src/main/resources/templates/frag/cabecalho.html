@@ -34,7 +34,7 @@
                     </ul>
                 </div>
             </li>
-            <li><a href="/"><img src="/imagens/Logo.png" alt="logo"></a></li>
+            <li><a href="/"><img th:src="@{/imagens/HgLilac.png}" alt="logo"></a></li>
             
             <li><a href="/eu"><figure id="avatar" th:class="${foto == null ? 'default' : ''}">
                 <img th:unless="${foto}" th:src="@{/imagens/Avatar.png}" alt="avatar">
