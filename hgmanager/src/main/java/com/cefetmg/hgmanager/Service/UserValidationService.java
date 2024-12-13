@@ -94,5 +94,6 @@ public class UserValidationService {
 
     public void logout(HttpSession session) {
         session.removeAttribute("userId");
+        session.invalidate();
     }
 }

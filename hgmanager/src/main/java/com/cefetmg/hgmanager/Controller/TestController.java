@@ -25,7 +25,9 @@ public class TestController {
     private HeaderService service;
 
     @GetMapping("/CadastraRec")
-    public ModelAndView helloWorld() {
+    public ModelAndView helloWorld(ModelMap model, HttpSession session) {
+        service.setAttributes(model, session);
+        
         return new ModelAndView("CadastrarRecurso");
     }
     @GetMapping("/ListaRec")

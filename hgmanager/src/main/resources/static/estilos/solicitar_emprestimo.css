@@ -6,28 +6,34 @@
 
 .container-busca input, .container-busca select {
     margin: 7% 1% 0 1%;
-    border-radius: 50px;
+    border-radius: 10px;
     border: none;
     padding: 0.5%;
     outline: none;
     font-size: 1rem;
-    color: #000;
+    color: #ad9fea;
+    background-color: #233040;
 }
 
 .container-busca input[type=text]{
     width: 70%;
+    border-radius: 50px;
 }
 
-.container-busca select:focus{
-    background-color: #007bff;
+.container-busca input {
+    background-image: url("../imagens/Lupa.png");
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    padding-left: 35px;
 }
 
 .container-busca input::placeholder {
-    color: #c4c4c4;
+    color: #ad9fea;
 }
 
 .container-busca, .lista-itens{
-    margin: 0 10% 0 10%;
+    margin: 0 10% 20px 10%;
 }
 
 
@@ -35,7 +41,7 @@
 .lista-itens {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 15px;
     padding: 2%;
     margin-bottom: 2%;
 }
@@ -46,19 +52,19 @@
     align-items: center;
     flex-direction: row;
     background-color: #233040;
-    border-radius: 10rem;
+    border-radius: 15px;
     padding: 0.5%;
-    color: #ffffff;
+    color: #FCE1C1;
     font-weight: bold;
     font-size: 0.9rem;
     border: 1.5px solid #ad9fea;
 }
 
 .item button {
-    background-color: red;
-    color: white;
+    background-color: #ad9fea;
+    color: #233040;
     border: none;
-    border-radius: 10rem;
+    border-radius: 15px;
     padding: 1%;
     cursor: pointer;
     font-weight: bold;
@@ -80,7 +86,7 @@
     padding: 20px;
     border-radius: 20px;
     z-index: 1000;
-    color: white;
+    color: #233040;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,7 +103,7 @@
 
 .popup h2 {
     font-size: 2em;
-    color: white;
+    color: #FCE1C1;
     font-family: "Oswald", sans-serif;
 }
 
@@ -108,9 +114,9 @@
 }
 
 .popup .popup-buttons button {
-    color: white;
+    color: #233040;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 10px 20px;
     cursor: pointer;
     font-weight: bold;
@@ -118,11 +124,11 @@
 }
 
 .button-confirmar{
-    background-color: green;
+    background-color: #ad9fea;
 }
 
 .button-cancelar{
-    background-color: red;
+    background-color: #FE6156;
 }
 
 .popup-date{
@@ -154,6 +160,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #233040;
     z-index: 999;
 }
+

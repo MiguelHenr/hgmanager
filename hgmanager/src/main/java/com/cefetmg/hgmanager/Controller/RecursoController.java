@@ -5,8 +5,12 @@ import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Service.DepartamentoService;
+import com.cefetmg.hgmanager.Service.HeaderService;
 import com.cefetmg.hgmanager.Service.RecursoService;
 import com.cefetmg.hgmanager.Service.TestService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,10 +30,14 @@ public class RecursoController {
     @Autowired
     private DepartamentoService departamentoService;
 
+    @Autowired
+    private HeaderService hService;
+
     @GetMapping("/solicitar_emprestimo")
-    public String carregarRecursos(Model model) {
+    public String carregarRecursos(Model model, HttpSession session) {
         List<Recurso> recursos = service.listarPorDisponibilidade();
         model.addAttribute("recursos", recursos);
+        hService.setAttributes(model, session);
 
         return "solicitar_emprestimo";
     }
