@@ -15,21 +15,20 @@ a:hover {
 
 header {
     margin-bottom: 1.6vh;
-    padding: 0px 0px;
+    padding: 0;
     position: relative;
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    display: flex;
     background-color: #233040;
     border-bottom: 1px solid #AD9FEA;
-    box-sizing: border-box;
     height: 10vh;
 }
 
 figure {
     border-radius: 50%;
-    position: relative;
     overflow: hidden;
+    position: relative;
 }
 
 header figure {
@@ -39,13 +38,13 @@ header figure {
 
 figure img {
     width: 100%;
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
-nav {
+header nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -60,7 +59,7 @@ nav {
     padding: 0;
 }
 
-.nav-list li {
+.nav-list > li {
     letter-spacing: 1000px;
     margin-left: 10px;
 }
@@ -70,6 +69,10 @@ nav {
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
+}
+
+#avatar:not(.default) {
+    border: 2px solid #AD9FEA;
 }
 
 .nav-list img:not(#avatar img) {
@@ -105,9 +108,67 @@ nav {
     cursor: pointer;
 }
 
-.menu div{
+.menu div {
     width: 32px;
     height: 2px;
     background: #AD9FEA;
     margin: 8px;
+}
+
+#dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#dropbtn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+#dropdown-content {
+    display: none;
+    background-color: #233040;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 200;
+    list-style-type: none;
+    padding: 0;
+    list-style: none;
+    position: fixed;
+    left: 0;
+    top: 10vh;
+    font-size: 16px;
+}
+
+#dropdown-content li {
+    border-bottom: 1px solid #AD9FEA;
+    border-right: 1px solid #AD9FEA;
+    padding: 12px 16px;
+    letter-spacing: 0;
+}
+
+#dropdown-content a {
+    color: #FCE1C1;
+    text-decoration: none;
+    display: block;
+    padding: 12px 16px;
+}
+
+#dropdown:hover #dropdown-content {
+    display: block;
+}
+
+nav.active {
+    display: flex; 
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    background-color: #233040;
+    padding: 1rem;
+}
+
+.nav-list.active {
+    display: block;
 }

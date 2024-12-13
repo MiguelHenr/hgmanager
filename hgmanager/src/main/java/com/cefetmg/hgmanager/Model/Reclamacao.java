@@ -24,6 +24,7 @@ public class Reclamacao {
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "reclamacao")
+    @OrderBy("data DESC")
     List<Resposta> respostas;
 
     // constructors

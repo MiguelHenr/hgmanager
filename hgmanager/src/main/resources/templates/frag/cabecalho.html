@@ -1,16 +1,44 @@
 <header id="cabecalho">
     <nav>
         <ul class="nav-list">
-            <li><a href="/"><img th:src="@{/imagens/Menu.png}" alt="menu" class="menu"></a></li>
-            <li><a href="/"><img th:src="@{/imagens/Logo.png}" alt="logo"></a></li>
-            <li>
-                <label class="label" for="pesquisa">
-                    <input type="text" id="barrapesquisa"> 
-                </label> 
-                <a href="/" class="background"></a>
+            <li id="dropdown">
+                <div>
+                    <a id="dropbtn" href="#">
+                        <img src="/imagens/Menu.png" alt="menu" class="menu">
+                    </a>
+                    <ul id="dropdown-content">
+                        <li th:unless="${tae}">    
+                            <a href="/solicitar_emprestimo">Fazer solicitação</a>
+                        </li>
+                        <li th:if="${tae}">
+                            <a href="/solicitacoes">Solicitações</a>
+                        </li>
+                        <li>
+                            <a th:href="${tae ? '/eu/solicitacoes' : '/solicitacoes'}">Minhas solicitações</a>
+                        </li>
+                        <li>
+                            <a href="/reclamacoes">Reclamações</a>
+                        </li>
+                        <li th:if="${tae}">
+                            <a href="/ListaRec">Recursos</a>
+                        </li>
+                        <li th:if="${tae}">
+                            <a href="/CadastraRec">Cadastrar recurso</a>
+                        </li>
+                        <li>
+                            <a href="/eu">Meu perfil</a>
+                        </li>
+                        <li>
+                            <a href="/logout">Sair</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
-            <li><a href="/"><figure id="avatar">
-                <img th:src="@{/imagens/Avatar.png}" alt="avatar">
+            <li><a href="/"><img th:src="@{/imagens/HgLilac.png}" alt="logo"></a></li>
+            
+            <li><a href="/eu"><figure id="avatar" th:class="${foto == null ? 'default' : ''}">
+                <img th:unless="${foto}" th:src="@{/imagens/Avatar.png}" alt="avatar">
+                <img th:if="${foto}" th:src="${foto}" alt="avatar">
             </figure></a></li>
         </ul>
     </nav>

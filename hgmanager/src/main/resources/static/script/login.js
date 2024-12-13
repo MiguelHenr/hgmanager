@@ -39,7 +39,7 @@ async function validarLogin(event) {
 
     //alert('Logado com sucesso! seja bem vindo: ' + result);
 
-    window.location.replace('/profile_debug');
+    window.location.replace('/');
 
 }
 

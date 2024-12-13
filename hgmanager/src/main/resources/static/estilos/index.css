@@ -105,8 +105,9 @@ button {
 }
 
 button[disabled] {
-    background-color: #585569;
-    color: #070e0f;
+    cursor: wait;
+    color: #FE6156;
+    background-color: #233040;
 }
 
 button.error {
@@ -119,4 +120,10 @@ button.error {
 
 .hide {
     visibility: hidden;
+}
+
+#perfil {
+    width: 10vw;
+    height: 10vw;
+    margin-bottom: 1.6vh;
 }

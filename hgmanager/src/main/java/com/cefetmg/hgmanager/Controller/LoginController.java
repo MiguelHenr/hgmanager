@@ -1,6 +1,7 @@
 package com.cefetmg.hgmanager.Controller;
 
 import com.cefetmg.hgmanager.Model.Usuario;
+import com.cefetmg.hgmanager.Service.HeaderService;
 import com.cefetmg.hgmanager.Service.UserValidationService;
 
 import br.cefetmg.mockloginapi.exceptions.IncorrectPasswordException;
@@ -28,6 +29,9 @@ public class LoginController {
 
     @Autowired
     UserValidationService service;
+
+    @Autowired
+    private HeaderService hService;
 
     @GetMapping("/login")
     public String validateLogin() {
@@ -60,7 +64,7 @@ public class LoginController {
 
     }
 
-    @RequestMapping(value={"/profile_debug"}, method={RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value={"/eu"}, method={RequestMethod.POST, RequestMethod.GET})
     public ModelAndView profileDebug(HttpSession session, ModelMap model) {
 
         Usuario user = service.retrieveValidatedUser(session);
@@ -73,8 +77,16 @@ public class LoginController {
         model.addAttribute("userFuncao", user.getTipoUsuario());
         model.addAttribute("userDepartamento", user.getDepartamento().getNome());
 
-        return new ModelAndView("debugProfile", model);
+        hService.setAttributes(model, session);
+
+        return new ModelAndView("perfil", model);
 
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        service.logout(session);
+
+        return "redirect:/login";
+    }
 }

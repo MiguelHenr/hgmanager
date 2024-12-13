@@ -1,8 +1,9 @@
 function deletarRecurso(id) {
     // Obtém os elementos de confirmação
-    const confirmacaoDiv = document.getElementById('confirmacaoDiv');
+
     const confirmarBtn = document.getElementById('confirmar');
     const cancelarBtn = document.getElementById('cancelar');
+    const confirmacaoDiv =document.getElementById('confirma');
 
     if (confirmacaoDiv) {
         confirmacaoDiv.style.display = 'flex';

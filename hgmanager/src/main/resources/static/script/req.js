@@ -1,17 +1,19 @@
 const ghost = document.getElementById('ghost');
 const main = document.getElementById('reqs');
+const nav = document.getElementById('pages');
+const totalPages = parseInt(nav.getAttribute('data-number'));
+let currentPage;
 
-function loadAll() {
+function loadAll(page = 1) {
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", "requests", true);
 
-    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             main.innerHTML = xhr.responseText;
-            ghost.style.height = main.offsetHeight + 'px';
 
             const rejectBts = document.getElementsByClassName('reject');
             const approveBts = document.getElementsByClassName('approve');
@@ -23,18 +25,19 @@ function loadAll() {
                 btn.addEventListener("click", event => update(event, "reject"));
 
             shooGhost();
+            fixPagination(page);
         }
     };
 
-    xhr.send();
+    xhr.send(`page=${encodeURIComponent(page)}`);
 }
 
-function loadMine() {
+function loadMine(page = 1) {
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", "/my-requests", true);
 
-    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -46,10 +49,34 @@ function loadMine() {
                 btn.addEventListener("click", event => update(event, "cancel"));
 
             shooGhost();
+            fixPagination(page);
         }
     };
 
-    xhr.send();
+    xhr.send(`page=${encodeURIComponent(page)}`);
+}
+
+function load(page=1) {
+    const mine = main.classList.contains('mine');
+    conjureGhost();
+    main.innerHTML = '';
+
+    const basePath = window.location.pathname;
+    const newUrl = `${basePath}?page=${page}`;
+    window.history.pushState({ page }, '', newUrl);
+
+    if (mine)
+        loadMine(page);
+    else
+        loadAll(page);
+}
+
+function getEl(tag,classes='') {
+    const el = document.createElement(tag);
+
+    el.classList = classes;
+
+    return el;
 }
 
 function update(event, action) {
@@ -87,11 +114,22 @@ function delay(ms) {
 async function shooGhost() {
     await delay(1000);
 
+    if (ghost.classList.contains('show'))
+        ghost.classList.remove('show');
+
     ghost.classList.add('shoo');
 
     await delay(500);
 
-    ghost.remove();
+    ghost.style.display = 'none';
+}
+
+function conjureGhost() {
+    if (ghost.classList.contains('shoo'))
+        ghost.classList.remove('shoo');
+
+    ghost.classList.add('show');
+    ghost.style.display = 'flex';
 }
 
 function updateReqs(el,action) {
@@ -126,7 +164,73 @@ function enable(el) {
         btn.disabled = false;
 }
 
-if (main.classList.contains('mine'))
-    window.onload = loadMine;
-else
-    window.onload = loadAll;
+function fixPagination(page=1) {
+    nav.innerHTML = '';
+
+    if (totalPages <= 1)
+        return;
+
+    currentPage = page;
+
+    if (currentPage > 1) {
+        const first = getEl('span','first clickable');
+        const prev = getEl('span','prev clickable');
+
+        first.setAttribute('data-page',1);
+        prev.setAttribute('data-page',page-1);
+
+        first.innerHTML = 'Primeira';
+        prev.innerHTML = 'Anterior';
+
+        nav.appendChild(first);
+        nav.appendChild(prev);
+    }
+
+    const current = getEl('span','current');
+
+    current.innerHTML = 'Página ' + currentPage + ' de ' + totalPages;
+
+    nav.appendChild(current);
+
+    if (currentPage < totalPages) {
+        const next = getEl('span','next clickable');
+        const last = getEl('span','last clickable');
+
+        next.setAttribute('data-page',page+1);
+        last.setAttribute('data-page',totalPages);
+
+        next.innerHTML = 'Próxima';
+        last.innerHTML = 'Última';
+
+        nav.appendChild(next);
+        nav.appendChild(last);
+    }
+
+    addListeners();
+}
+
+function addListeners() {
+    const spans = nav.querySelectorAll('span:not(.current)');
+
+    for (const spn of spans)
+        spn.addEventListener('click', e => {
+            const page = parseInt(e.target.getAttribute('data-page'));
+            load(page);
+        })
+}
+
+function getPageFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return parseInt(params.get('page')) || 1;
+}
+
+window.onload = () => {
+    const page = getPageFromUrl();
+    load(page);
+};
+
+window.addEventListener('popstate', event => {
+    const state = event.state;
+    const page = state && state.page ? state.page : getPageFromUrl();
+    load(page);
+});

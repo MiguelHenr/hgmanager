@@ -26,15 +26,18 @@ public class Recurso {
     @JoinColumn(name = "id_departamento", nullable = false)
     private Departamento departamento;
 
+    private boolean deletado;
+
     // constructors
     public Recurso() {}
 
-    public Recurso(String marca, String descricao, Estado estado, Departamento departamento) {
+    public Recurso(String marca, String descricao, Estado estado, Departamento departamento, boolean deletado) {
 
         setMarca(marca);
         setDescricao(descricao);
         setEstado(estado);
         setDepartamento(departamento);
+        setDeletado(deletado);
 
     }
 
@@ -97,4 +100,11 @@ public class Recurso {
         this.codigo = codigo;
     }
 
+    public boolean isDeletado() {
+        return deletado;
+    }
+
+    public void setDeletado(boolean deletado) {
+        this.deletado = deletado;
+    }
 }

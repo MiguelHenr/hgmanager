@@ -4,8 +4,13 @@ package com.cefetmg.hgmanager.Controller;
 import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 import com.cefetmg.hgmanager.Model.Recurso;
+import com.cefetmg.hgmanager.Service.DepartamentoService;
+import com.cefetmg.hgmanager.Service.HeaderService;
 import com.cefetmg.hgmanager.Service.RecursoService;
 import com.cefetmg.hgmanager.Service.TestService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,10 +27,17 @@ public class RecursoController {
     @Autowired
     private RecursoService service;
 
+    @Autowired
+    private DepartamentoService departamentoService;
+
+    @Autowired
+    private HeaderService hService;
+
     @GetMapping("/solicitar_emprestimo")
-    public String carregarRecursos(Model model) {
+    public String carregarRecursos(Model model, HttpSession session) {
         List<Recurso> recursos = service.listarPorDisponibilidade();
         model.addAttribute("recursos", recursos);
+        hService.setAttributes(model, session);
 
         return "solicitar_emprestimo";
     }
@@ -92,6 +104,15 @@ public class RecursoController {
             System.out.println("entrou no resgatar recurso");
             return ResponseEntity.ok(service.ListarTodosRecursos());
         }catch (Exception e){
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("Departamento/listarDepartamento")
+    public ResponseEntity<List<Departamento>> listarDepartamento(){
+        try{
+            return ResponseEntity.ok(departamentoService.listar());
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }

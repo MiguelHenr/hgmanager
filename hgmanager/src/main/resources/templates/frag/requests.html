@@ -1,13 +1,14 @@
 <div th:each="s : ${requests}" th:with="u=${s.professor}, r=${s.recurso}" th:data-index="${s.id}" class="req">
     <figure class="rfig" th:unless="${mine}">
-        <img th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="req-img" loading="lazy">
+        <img th:unless="${u.foto}" th:src="@{/imagens/Avatar.png}" alt="Avatar" class="req-img default" loading="lazy">
+        <img th:if="${u.foto}" th:src="${u.foto}" th:alt="${'Foto de ' + u.nome}" class="req-img" loading="lazy">
     </figure>
 
     <p th:unless="${mine}">Requerinte: <span th:text="${u.nome}">Nome</span></p>
     <p>Recurso: <span th:text="${r.descricao}">Descrição</span></p>
     <p>Início: <span th:text="${#dates.format(s.inicio, 'dd/MM/yy HH:mm')}">Data</span></p>
     <p>Fim: <span th:text="${#dates.format(s.fim, 'dd/MM/yy HH:mm')}">Data</span></p>
-    <p th:unless="${s.status == waiting}" th:text="${s.status}">Status</p>
+    <p th:unless="${s.status == waiting}" th:text="${s.status}" th:class="${s.status.color}">Status</p>
 
     <div th:if="${s.status == waiting && mine}" class="btn">
         <button class="cancel">Cancelar</button>

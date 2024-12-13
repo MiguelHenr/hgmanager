@@ -1,19 +1,28 @@
-
-body{
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     width: 100%;
     min-height: 100%;
     background-color: #06191e;
 }
 
-.card{
+.card {
+    display: flex;
+    align-items: left;
+    justify-content: center;
+    flex-direction: column;
     background-color: #233040;
-    border-color: #ad9fea;
+    border: 2px solid #ad9fea;
     color: #fce1c1;
-    margin-left: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    height: 100%;
 }
-.desc{
-    text-align: center;
 
+.desc {
+    text-align: center;
+    line-height: 1.5;
 }
 
 .confirmacao-overlay {
@@ -27,28 +36,95 @@ body{
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    transition: opacity 0.3s ease-in-out;
 }
+
 .confirmacao-container {
-    background: white;
+    background: #233040;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
+    transform: scale(1);
+    transition: transform 0.3s ease-in-out;
 }
+
 .confirmacao-container button {
     margin: 10px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    background-color: #ad9fea;
+    color: #233040;
+    border: none;
+    cursor: pointer;
 }
-#novo{
-    width: 50px;
-    height: 50px;
-    font-size: 35px;
-    text-align: center;
+
+.confirmacao-container button:hover {
+    background-color: #ad9fea;
+    color: #233040;
 }
-#filtroEstado{
-    max-width: 200px;
-    min-width: 100px;
-    margin: 10px;
-    background-color: #06191e;
-    border:3px fill #ad9fea;
+
+.confirmacao-container .btn-secondary, .confirmacao-container .btn-secondary:hover {
+    background-color: #FE6156;
+    color: #233040;
+}
+
+#novo {
     color: #fce1c1;
+    background-color: #06191e;
+}
+
+#filtroEstado {
+    appearance: none;
+    padding: 8px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+#confirma{
+    display: none;
+}
+#divisoes{
+    display: none;
+}
+
+.form-select {
+    background-color: #233040;
+    color: #fce1c1; 
+    margin-bottom: 5%;
+}
+
+button {
+    border-radius: 8px;
+    margin-left: 2%;
+    background-color: #ad9fea;
+}
+
+.btn-danger {
+    background-color: #FE6156;
+    color: #233040;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #FE6156;
+    color: #233040;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 15px;
+}
+
+.clicked button, .btn-danger:disabled {
+    cursor: wait;
+    color: #FE6156;
+    background-color: #06191e;
 }
