@@ -8,7 +8,7 @@
     <p>Recurso: <span th:text="${r.descricao}">Descrição</span></p>
     <p>Início: <span th:text="${#dates.format(s.inicio, 'dd/MM/yy HH:mm')}">Data</span></p>
     <p>Fim: <span th:text="${#dates.format(s.fim, 'dd/MM/yy HH:mm')}">Data</span></p>
-    <p th:unless="${s.status == waiting}" th:text="${s.status}">Status</p>
+    <p th:unless="${s.status == waiting}" th:text="${s.status}" th:class="${s.status.color}">Status</p>
 
     <div th:if="${s.status == waiting && mine}" class="btn">
         <button class="cancel">Cancelar</button>

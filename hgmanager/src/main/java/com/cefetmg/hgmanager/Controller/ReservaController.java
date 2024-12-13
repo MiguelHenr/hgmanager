@@ -20,13 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.cefetmg.hgmanager.Model.Reserva;
-import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Model.Enum.Cargo;
 import com.cefetmg.hgmanager.Model.Enum.Status;
 import com.cefetmg.hgmanager.Service.ReservaService;
-import com.cefetmg.hgmanager.Service.UserValidationService;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ReservaController {
@@ -59,7 +55,7 @@ public class ReservaController {
 
         model.addAttribute("mine", false);
         model.addAttribute("waiting", Status.AGUARDANDO);
-        model.addAttribute("pages", reservaService.paginas(PAGE_SIZE));
+        model.addAttribute("pages", reservaService.paginas(PAGE_SIZE,usuario.getDepartamento()));
         hService.setAttributes(model, session);
 
         return "solicitacoes";
@@ -67,9 +63,11 @@ public class ReservaController {
 
     @GetMapping("eu/solicitacoes")
     public String getMySol(Model model, HttpSession session) {
+        Usuario usuario = userService.retrieveValidatedUser(session);
+
         model.addAttribute("mine", true);
         model.addAttribute("waiting", Status.AGUARDANDO);
-        model.addAttribute("pages", reservaService.paginas(PAGE_SIZE));
+        model.addAttribute("pages", reservaService.paginas(PAGE_SIZE,usuario));
         hService.setAttributes(model, session);
 
         return "solicitacoes";
@@ -78,7 +76,7 @@ public class ReservaController {
     @PostMapping({"my-requests","eu/my-requests"})
     public String getMyRequests(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
         Usuario usuario = userService.retrieveValidatedUser(session);
-        int paginas = reservaService.paginas(PAGE_SIZE);
+        int paginas = reservaService.paginas(PAGE_SIZE,usuario);
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
 
         model.addAttribute("mine", true);
@@ -94,7 +92,7 @@ public class ReservaController {
     @PostMapping("requests")
     public String getRequests(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
         Departamento dpto = userService.retrieveValidatedUser(session).getDepartamento();
-        int paginas = reservaService.paginas(PAGE_SIZE);
+        int paginas = reservaService.paginas(PAGE_SIZE,dpto);
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
 
         model.addAttribute("mine", false);

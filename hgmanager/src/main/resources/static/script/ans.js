@@ -126,7 +126,7 @@ function updateCmps(el,comment) {
     ans.appendChild(com);
     ans.append(data);
 
-    box.appendChild(ans);
+    box.insertBefore(ans,box.querySelector('.ans'));
     enable(el);
 }
 
