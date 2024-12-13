@@ -24,6 +24,10 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
     Reserva findReservaByRecurso(Recurso recurso);
 
+    long countByRecursoDepartamento(Departamento departamento);
+
+    long countByProfessor(Usuario professor);
+
     @Query("SELECT r.inicio FROM Reserva r WHERE r.recurso.Id = :idRecurso")
     public List<String> findReservaFromRecurso(@Param("idRecurso") Long idRecurso);
 }

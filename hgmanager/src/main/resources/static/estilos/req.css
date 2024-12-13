@@ -30,7 +30,6 @@ body, button, input {
     position: absolute;
     visibility: visible;
     box-sizing: border-box;
-    align-items: flex-start;
     background-color: #06191E;
     transition: all .5s ease-in-out;
 }
@@ -38,6 +37,12 @@ body, button, input {
 #ghost.shoo {
     opacity: 0;
     visibility: hidden;
+}
+
+#ghost.show {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0s ease-in-out;
 }
 
 .rfig, .gimg {
@@ -65,7 +70,7 @@ body, button, input {
     width: 35%;
 }
 
-.gimg, .grow {
+.gimg, .grow, .gbrow {
     background-color: #233040;
     animation: pulse 1.5s infinite;
 }
@@ -82,7 +87,7 @@ body, button, input {
     justify-content: center;
 }
 
-.btn {
+.btn, .gbtn {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -96,16 +101,23 @@ body, button, input {
     background-color: #233040;
 }
 
-button {
+.gbrow {
+    height: 6.5vh;
+}
+
+button, .gbrow {
     width: 50%;
     padding: 1vh 0;
     margin-top: 1.6vh;
     border: none;
     border-radius: 5px;
     outline: none;
-    background-color: #AD9FEA;
     color: #06191E;
     font-weight: 750;
+}
+
+button {
+    background-color: #AD9FEA;
     cursor: pointer;
 }
 
@@ -119,4 +131,25 @@ button {
     100% {
         background-color: #233040;
     }
+}
+
+.lilac, .clickable {
+    color: #AD9FEA;
+}
+
+.red {
+    color: #FE6156;
+}
+
+#pages {
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    gap: 2vh;
+}
+
+.clickable {
+    cursor: pointer;
 }

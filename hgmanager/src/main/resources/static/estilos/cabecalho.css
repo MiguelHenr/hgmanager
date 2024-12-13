@@ -44,7 +44,7 @@ figure img {
     transform: translate(-50%, -50%);
 }
 
-nav {
+header nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -160,7 +160,7 @@ nav {
 }
 
 nav.active {
-    display: flex; /* This is for mobile toggle visibility */
+    display: flex; 
     position: absolute;
     top: 0;
     right: 0;
