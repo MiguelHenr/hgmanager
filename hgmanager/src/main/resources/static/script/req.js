@@ -1,7 +1,7 @@
 const ghost = document.getElementById('ghost');
 const main = document.getElementById('reqs');
 const nav = document.getElementById('pages');
-const totalPages = nav.getAttribute('data-number');
+const totalPages = parseInt(nav.getAttribute('data-number'));
 let currentPage;
 
 function loadAll(page = 1) {
@@ -166,6 +166,10 @@ function enable(el) {
 
 function fixPagination(page=1) {
     nav.innerHTML = '';
+
+    if (totalPages <= 1)
+        return;
+
     currentPage = page;
 
     if (currentPage > 1) {

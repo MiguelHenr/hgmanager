@@ -40,7 +40,7 @@ body, html {
 }
 
 .confirmacao-container {
-    background: white;
+    background: #233040;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -60,7 +60,13 @@ body, html {
 }
 
 .confirmacao-container button:hover {
-    background-color: #06191e;
+    background-color: #ad9fea;
+    color: #233040;
+}
+
+.confirmacao-container .btn-secondary, .confirmacao-container .btn-secondary:hover {
+    background-color: #FE6156;
+    color: #233040;
 }
 
 #novo {
@@ -115,4 +121,10 @@ h2 {
 
 h3 {
     font-size: 15px;
+}
+
+.clicked button, .btn-danger:disabled {
+    cursor: wait;
+    color: #FE6156;
+    background-color: #06191e;
 }
