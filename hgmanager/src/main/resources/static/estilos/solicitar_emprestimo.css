@@ -74,6 +74,7 @@
 .item p{
     font-family: "Oswald", sans-serif;
     font-size: 20px;
+    flex: 1;
 }
 
 /* Pop-Up */
@@ -86,22 +87,29 @@
     padding: 20px;
     border-radius: 20px;
     z-index: 1000;
-    color: #233040;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 50vw;
-    height: 86vh;
+    justify-content: space-between;
+    height: auto;
     border: 1.5px solid #ad9fea;
+    color: white;
+    overflow-y: auto;
+    width: 90%;
+    max-width: 640px;
+    max-height: 90vh;
+    gap: 20px;
+    margin: 0 auto;
 }
 
 .popup-content{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
 }
 
 .popup h2 {
+    text-align: center;
     font-size: 2em;
     color: #FCE1C1;
     font-family: "Oswald", sans-serif;
@@ -137,7 +145,12 @@
     margin: 20px;
     display: flex;
     align-content: space-between;
-    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.popup-date div{
+    flex: 1;
 }
 
 /* Nenhum recursos */
@@ -163,4 +176,16 @@
     background-color: #233040;
     z-index: 999;
 }
+
+@media screen and (max-width: 700px) {
+    .popup-date {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .popup {
+        max-width: 55%;
+    }
+}
+
 
