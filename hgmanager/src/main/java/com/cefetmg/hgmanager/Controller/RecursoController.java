@@ -47,7 +47,7 @@ public class RecursoController {
         return "solicitar_emprestimo";
     }
 
-    @PostMapping("/Recurso/cadastroRecurso")
+    @PostMapping("/recurso/cadastro_recurso")
     public ResponseEntity<String> CadastroRecurso(@RequestBody Recurso recurso) {
 
         if (service.inserirRecurso(recurso) == null) {
@@ -61,7 +61,7 @@ public class RecursoController {
     }
 
 
-    @DeleteMapping("/Recurso/deletarRecurso/{id}")
+    @DeleteMapping("/Recurso/deletar_recurso/{id}")
     public ResponseEntity<String> deletarRecurso(@PathVariable Long id) {
         try{
             service.apagarRecurso(id);
@@ -72,7 +72,7 @@ public class RecursoController {
 
     }
 
-    @PutMapping("Recurso/AtualizarRecurso/{id}/{estado}")
+    @PutMapping("Recurso/atualizar_recurso/{id}/{estado}")
     public ResponseEntity<String> AtualizarRecurso(@PathVariable Long id, @PathVariable String estado) {
         try{
             service.atualizarEstado(id, Estado.valueOf(estado));
@@ -82,7 +82,7 @@ public class RecursoController {
         }
     }
 
-    @GetMapping("Recurso/resgatarRecurso/{id}")
+    @GetMapping("Recurso/resgatar_recurso/{id}")
     public ResponseEntity<String> ResgatarRecurso(@PathVariable Long id){
         try{
             service.encontrarRecursoPorID(id);
@@ -92,7 +92,7 @@ public class RecursoController {
         }
     }
 
-    @GetMapping("Recurso/resgatarRecurso/{departamento}")
+    @GetMapping("Recurso/resgatar_recurso/{departamento}")
     public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento){
         try{
             service.listarPorDepartamento(departamento);
@@ -103,7 +103,7 @@ public class RecursoController {
     }
 
 
-    @GetMapping("Recurso/resgatarRecurso")
+    @GetMapping("Recurso/resgatar_recurso")
     public ResponseEntity<List<Recurso>> ResgatarRecurso(HttpSession session){
 
         try{
@@ -114,7 +114,7 @@ public class RecursoController {
         }
     }
 
-    @GetMapping("Departamento/listarDepartamento")
+    @GetMapping("Departamento/listar_departamento")
     public ResponseEntity<List<Departamento>> listarDepartamento(){
         try{
             return ResponseEntity.ok(departamentoService.listar());
@@ -129,13 +129,13 @@ public class RecursoController {
         return recursoService.listarPorDepartamento(dep);
     }
 
-    @GetMapping("/CadastraRec")
+    @GetMapping("/cadastra_recurso")
     public ModelAndView helloWorld(ModelMap model, HttpSession session) {
         hService.setAttributes(model, session);
 
         return new ModelAndView("CadastrarRecurso");
     }
-    @GetMapping("/ListaRec")
+    @GetMapping("/Lista_recurso")
     public ModelAndView listar(ModelMap model, HttpSession session){
         hService.setAttributes(model, session);
 

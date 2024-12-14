@@ -23,7 +23,7 @@ function atualizarRecurso(evt,id, estado) {
         .then(() => {
            
 
-            // Atualiza a interface para refletir a mudança
+            // Atualiza a "interface" para refletir a mudança
             const recursoDiv = document.getElementById(`recurso-${id}`);
             const estadoAtualizado = recursoDiv.querySelector('h3:nth-of-type(1)');
             if (estadoAtualizado) {
