@@ -121,7 +121,7 @@ button {
     cursor: pointer;
 }
 
-#report {
+.report {
     max-height: 1.4em;
     width: 1.4em;
     border-radius: 10px;
@@ -130,11 +130,11 @@ button {
     padding: 0;
 }
 
-#report-button {
+.report-button {
     /*background: none;*/
 }
 
-#report-button img {
+.report-button img {
     height: 0.6em;
     width: 0.6em;
 }

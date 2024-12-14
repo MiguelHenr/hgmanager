@@ -44,9 +44,13 @@ function loadMine(page = 1) {
             main.innerHTML = xhr.responseText;
 
             const cancelBts = document.getElementsByClassName('cancel');
-        
+            const reportBts = document.getElementsByClassName('report-button')
+
             for (let btn of cancelBts)
                 btn.addEventListener("click", event => update(event, "cancel"));
+
+            for (let btn of reportBts)
+                btn.addEventListener("click", event => report(event));
 
             shooGhost();
             fixPagination(page);
@@ -105,6 +109,15 @@ function update(event, action) {
     };
 
     xhr.send(dataToSend);
+}
+
+function report(event) {
+
+    const requestElement = event.target.closest("[data-index]");
+    const id = requestElement.getAttribute("data-index");
+
+    window.location.replace("/registrar_reclamacao?id=".concat(id));
+
 }
 
 function delay(ms) {

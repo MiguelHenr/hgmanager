@@ -14,8 +14,8 @@
         <button class="cancel">Cancelar</button>
     </div>
 
-    <div th:if="${mine}" class="btn" id="report">
-        <button id="report-button" href="#"><img src="/imagens/report.png"></button>
+    <div th:if="${mine}" class="btn report">
+        <button class="report-button" href="#"><img src="/imagens/report.png"></button>
     </div>
 
     <div th:if="${s.status == waiting && !mine}" class="btn">
