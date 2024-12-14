@@ -57,7 +57,7 @@ public class RecursoService {
 
     public List<Recurso> listarPorDepartamento(Departamento departamento) {
         try{
-            return repository.findByDepartamento(departamento);
+            return repository.findByDepartamento(departamento.getId());
         }catch(Exception e){
             throw new NullPointerException();
         }

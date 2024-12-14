@@ -12,7 +12,9 @@ import java.util.List;
 
 @Repository
 public interface RecursoRepository extends org.springframework.data.jpa.repository.JpaRepository<Recurso, Long> {
-    List<Recurso> findByDepartamento(Departamento departamento);
+
+    @Query("SELECT r FROM Recurso r WHERE r.deletado = false AND r.departamento.id = :idDepartamento")
+    List<Recurso> findByDepartamento(@Param("idDepartamento") Long idDepartamento );
 
     List<Recurso> findByEstado(Estado estado);
 

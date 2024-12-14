@@ -25,27 +25,27 @@ function deletarRecurso(id) {
                 if (!response.ok) {
                     throw new Error(`Erro ao deletar recurso com ID ${id}: ${response.status}`);
                 }
-                return response.text(); // Espera o texto de resposta ("deletado com sucesso")
+                return response.text();
             })
             .then(data => {
-                console.log(data); // Exibe "deletado com sucesso" no console
+                console.log(data);
 
-                // Remover o elemento da tela, se necessário:
+
                 const recursoDiv = document.getElementById(`recurso-${id}`);
                 if (recursoDiv) {
-                    recursoDiv.remove(); // Remove o div do recurso da tela
+                    recursoDiv.remove();
                 } else {
                     console.log(`Elemento com ID "recurso-${id}" não encontrado.`);
                 }
             })
             .catch(error => {
-                console.error(error.message); // Log no console para depuração
+                console.error(error.message);
             });
     };
 
-    // Adiciona o comportamento ao botão "Cancelar"
+
     cancelarBtn.onclick = () => {
-        confirmacaoDiv.style.display = 'none'; // Apenas esconde a confirmação
+        confirmacaoDiv.style.display = 'none';
         console.log("Ação de exclusão cancelada pelo usuário.");
     };
 }

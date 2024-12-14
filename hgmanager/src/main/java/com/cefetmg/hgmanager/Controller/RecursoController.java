@@ -50,11 +50,12 @@ public class RecursoController {
     @PostMapping("/recurso/cadastro_recurso")
     public ResponseEntity<String> CadastroRecurso(@RequestBody Recurso recurso) {
 
-        if (service.inserirRecurso(recurso) == null) {
+        try{
+            service.inserirRecurso(recurso);
             return ResponseEntity
                     .badRequest()
                     .body("Erro: não foi possível cadastrar o recurso.");
-        } else {
+        }catch(Exception e){
             return ResponseEntity
                     .ok("Recurso cadastrado com sucesso!");
         }

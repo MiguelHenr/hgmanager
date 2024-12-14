@@ -1,5 +1,5 @@
 function atualizarRecurso(evt,id, estado) {
-    const url = `http://localhost:8080/Recurso/AtualizarRecurso/${id}/${estado}`;
+    const url = `http://localhost:8080/Recurso/atualizar_recurso/${id}/${estado}`;
     const div = evt.target.parentNode;
     div.classList.add('clicked');
 

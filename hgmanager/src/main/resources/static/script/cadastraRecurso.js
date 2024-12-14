@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         };
 
-        // Validação
+
         if (!data.marca || !data.descricao || !data.estado || !data.departamento.id || !data.codigo)  {
             console.log('preencha todos os campos');
             return;
