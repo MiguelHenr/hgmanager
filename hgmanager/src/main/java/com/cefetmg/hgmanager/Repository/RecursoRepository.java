@@ -36,5 +36,6 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
     @Query("SELECT r FROM Recurso r WHERE r.deletado = false")
     List<Recurso> ListaRecursoAtivos();
 
-    void tornarInativo(Long id);
+    @Query("UPDATE Recurso r SET r.deletado = true WHERE r.Id = :idRecurso")
+    void tornarInativo(@Param("idRecurso") Long id);
 }

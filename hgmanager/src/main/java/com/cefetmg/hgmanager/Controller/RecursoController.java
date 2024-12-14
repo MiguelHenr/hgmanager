@@ -38,7 +38,7 @@ public class RecursoController {
     private RecursoService recursoService;
 
 
-    @GetMapping("/solicitar_emprestimo")
+    @GetMapping("/Recurso/solicitar_emprestimo")
     public String carregarRecursos(Model model, HttpSession session) {
         List<Recurso> recursos = service.listarPorDisponibilidade();
         model.addAttribute("recursos", recursos);
