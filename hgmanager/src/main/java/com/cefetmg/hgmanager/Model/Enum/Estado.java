@@ -4,6 +4,5 @@ public enum Estado {
     NOVO,
     CONSERVADO,
     VELHO,
-    ESTRAGADOx
+    ESTRAGADO
 }
-
