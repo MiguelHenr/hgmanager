@@ -1,5 +1,5 @@
 function deletarRecurso(id) {
-    // Obtém os elementos de confirmação
+
 
     const confirmarBtn = document.getElementById('confirmar');
     const cancelarBtn = document.getElementById('cancelar');
@@ -12,11 +12,11 @@ function deletarRecurso(id) {
     }
 
 
-    // Adiciona o comportamento ao botão "Sim"
-    confirmarBtn.onclick = () => {
-        confirmacaoDiv.style.display = 'none'; // Esconde a confirmação
 
-        const url = `http://localhost:8080/Recurso/deletarRecurso/${id}`;
+    confirmarBtn.onclick = () => {
+        confirmacaoDiv.style.display = 'none';
+
+        const url = `http://localhost:8080/Recurso/deletar_recurso/${id}`;
 
         fetch(url, {
             method: 'DELETE',

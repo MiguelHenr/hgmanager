@@ -13,17 +13,17 @@ function atualizarRecurso(evt,id, estado) {
     })
         .then(response => {
             if (!response.ok) {
-                // Lê o corpo da resposta para obter a mensagem de erro do servidor
+
                 return response.text().then(errorMessage => {
                     throw new Error(errorMessage || `Erro ao atualizar recurso com ID ${id}: ${response.status}`);
                 });
             }
-            return response.text(); // Espera uma mensagem de sucesso (ou uma resposta vazia)
+            return response.text();
         })
         .then(() => {
            
 
-            // Atualiza a "interface" para refletir a mudança
+
             const recursoDiv = document.getElementById(`recurso-${id}`);
             const estadoAtualizado = recursoDiv.querySelector('h3:nth-of-type(1)');
             if (estadoAtualizado) {

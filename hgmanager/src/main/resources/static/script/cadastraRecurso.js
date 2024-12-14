@@ -65,7 +65,7 @@ function listarDepartamentos() {
                 console.error("Erro ao resgatar departamentos:", response.status);
                 throw new Error(`Erro: ${response.status}`);
             }
-            return response.json(); // Adicionado o retorno do JSON
+            return response.json();
         })
         .then(departamentos => {
             const selecao = document.getElementById("departamentoSelect");
