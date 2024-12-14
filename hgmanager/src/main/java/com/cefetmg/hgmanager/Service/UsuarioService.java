@@ -21,10 +21,11 @@ import br.cefetmg.mockloginapi.exceptions.UserNotFoundException;
 import java.util.Optional;
 
 @Service
-public class UserValidationService {
+public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
     @Autowired
     private DepartamentoRepository departamentoRepository;
 

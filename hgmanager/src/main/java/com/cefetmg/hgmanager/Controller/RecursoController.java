@@ -4,10 +4,8 @@ package com.cefetmg.hgmanager.Controller;
 import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Estado;
 import com.cefetmg.hgmanager.Model.Recurso;
-import com.cefetmg.hgmanager.Service.DepartamentoService;
-import com.cefetmg.hgmanager.Service.HeaderService;
-import com.cefetmg.hgmanager.Service.RecursoService;
-import com.cefetmg.hgmanager.Service.TestService;
+import com.cefetmg.hgmanager.Model.Usuario;
+import com.cefetmg.hgmanager.Service.*;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -26,6 +24,9 @@ public class RecursoController {
 
     @Autowired
     private RecursoService service;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Autowired
     private DepartamentoService departamentoService;

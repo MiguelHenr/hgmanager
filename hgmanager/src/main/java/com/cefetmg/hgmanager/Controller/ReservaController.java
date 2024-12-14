@@ -8,7 +8,7 @@ import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Repository.UsuarioRepository;
 import com.cefetmg.hgmanager.Service.HeaderService;
 import com.cefetmg.hgmanager.Service.RecursoService;
-import com.cefetmg.hgmanager.Service.UserValidationService;
+import com.cefetmg.hgmanager.Service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @Autowired
-    private UserValidationService userService;
+    private UsuarioService userService;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -41,7 +41,7 @@ public class ReservaController {
     private RecursoService recursoService;
 
     @Autowired
-    private UserValidationService validationService;
+    private UsuarioService validationService;
 
     @Autowired
     private HeaderService hService;

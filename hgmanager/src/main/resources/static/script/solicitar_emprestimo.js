@@ -298,6 +298,8 @@ document.querySelectorAll(".clique-botao").forEach(button => {
         // Abrindo o popup de confirmação de empréstimo
         abrirPopup();
 
+        setTest();
+
         setHorariosReserva();
     })
 })

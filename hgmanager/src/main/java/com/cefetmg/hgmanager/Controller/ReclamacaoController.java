@@ -12,14 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.expression.Dates;
 
 import com.cefetmg.hgmanager.Model.Reclamacao;
 import com.cefetmg.hgmanager.Model.Resposta;
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Model.Enum.Cargo;
-import com.cefetmg.hgmanager.Service.UserValidationService;
+import com.cefetmg.hgmanager.Service.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -35,7 +33,7 @@ public class ReclamacaoController {
     private RespostaService respostaService;
 
     @Autowired
-    private UserValidationService usuarioService;
+    private UsuarioService usuarioService;
 
     @GetMapping("reclamacoes")
     public String getComplaints(Model model, HttpSession session) {
