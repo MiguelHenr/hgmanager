@@ -32,5 +32,9 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
     @Query("DELETE FROM Recurso r WHERE r.Id = :id")
     void deleteById(@Param("id") Long id);
 
-    void delete(Recurso recurso);
+
+    @Query("SELECT r FROM Recurso r WHERE r.deletado = false")
+    List<Recurso> ListaRecursoAtivos();
+
+    void tornarInativo(Long id);
 }

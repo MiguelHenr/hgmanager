@@ -36,11 +36,9 @@ public class RecursoService {
     public void deletarRecurso(Long id) {
         try {
             repository.deleteById(id);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw new NullPointerException();
-
         }
     }
 
@@ -81,10 +79,8 @@ public class RecursoService {
 
     public List<Recurso> ListarTodosRecursos() {
         try {
-
-
             System.out.println("entrou lista recurso");
-            return repository.findAll();
+            return repository.ListaRecursoAtivos();
 
         }catch (Exception e) {
             System.out.println("erro no ListarTodosrecursos, no arquivo TestService");
@@ -116,4 +112,11 @@ public class RecursoService {
         return repository.findById(id);
     }
 
+    public void apagarRecurso(Long id){
+        try{
+            repository.tornarInativo(id);
+        }catch (Exception e){
+            throw new NullPointerException();
+        }
+    }
 }

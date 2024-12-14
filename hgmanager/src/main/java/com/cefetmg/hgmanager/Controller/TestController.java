@@ -21,19 +21,6 @@ import java.util.List;
 @Controller
 public class TestController {
 
-    @Autowired
-    private HeaderService service;
 
-    @GetMapping("/CadastraRec")
-    public ModelAndView helloWorld(ModelMap model, HttpSession session) {
-        service.setAttributes(model, session);
-        
-        return new ModelAndView("CadastrarRecurso");
-    }
-    @GetMapping("/ListaRec")
-    public ModelAndView listar(ModelMap model, HttpSession session){
-        service.setAttributes(model, session);
 
-        return new ModelAndView("ListaRecurso",model);
-    }
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +34,9 @@ public class RecursoController {
 
     @Autowired
     private HeaderService hService;
+    @Autowired
+    private RecursoService recursoService;
+
 
     @GetMapping("/solicitar_emprestimo")
     public String carregarRecursos(Model model, HttpSession session) {
@@ -60,9 +64,8 @@ public class RecursoController {
     @DeleteMapping("/Recurso/deletarRecurso/{id}")
     public ResponseEntity<String> deletarRecurso(@PathVariable Long id) {
         try{
-            service.deletarRecurso(id);
+            service.apagarRecurso(id);
             return ResponseEntity.ok("deletado com sucesso");
-
         } catch (Exception e) {
             return  ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -99,11 +102,13 @@ public class RecursoController {
         }
     }
 
+
     @GetMapping("Recurso/resgatarRecurso")
-    public ResponseEntity<List<Recurso>> ResgatarRecurso(){
+    public ResponseEntity<List<Recurso>> ResgatarRecurso(HttpSession session){
+
         try{
             System.out.println("entrou no resgatar recurso");
-            return ResponseEntity.ok(service.ListarTodosRecursos());
+            return ResponseEntity.ok(listaRecursoDepartamento(session));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(null);
         }
@@ -116,5 +121,24 @@ public class RecursoController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
+    }
+
+    public List<Recurso> listaRecursoDepartamento(HttpSession session){
+        Usuario usuario = usuarioService.retrieveValidatedUser(session);
+        Departamento dep = departamentoService.encontrarPorIdUsuario(usuario.getId());
+        return recursoService.listarPorDepartamento(dep);
+    }
+
+    @GetMapping("/CadastraRec")
+    public ModelAndView helloWorld(ModelMap model, HttpSession session) {
+        hService.setAttributes(model, session);
+
+        return new ModelAndView("CadastrarRecurso");
+    }
+    @GetMapping("/ListaRec")
+    public ModelAndView listar(ModelMap model, HttpSession session){
+        hService.setAttributes(model, session);
+
+        return new ModelAndView("ListaRecurso",model);
     }
 }
