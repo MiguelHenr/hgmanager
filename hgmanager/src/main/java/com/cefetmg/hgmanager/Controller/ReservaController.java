@@ -121,8 +121,10 @@ public class ReservaController {
 
         if (action.equalsIgnoreCase("approve"))
             approve(res);
-        else
+        else if (action.equalsIgnoreCase("reject"))
             reject(res);
+        else 
+            cancel(res);
 
         return ResponseEntity.ok().body("Solicitação atualizada com sucesso");
     }
@@ -193,6 +195,12 @@ public class ReservaController {
 
     private void reject(Reserva reserva) {
         reserva.setStatus(Status.REJEITADA);
+
+        reservaService.atualizar(reserva);
+    }
+
+    private void cancel(Reserva reserva) {
+        reserva.setStatus(Status.CANCELADA);
 
         reservaService.atualizar(reserva);
     }
