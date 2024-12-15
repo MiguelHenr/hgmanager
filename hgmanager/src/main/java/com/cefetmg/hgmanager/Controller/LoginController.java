@@ -4,7 +4,7 @@ import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Service.HeaderService;
 import com.cefetmg.hgmanager.Service.UsuarioService;
 
-import br.cefetmg.mockloginapi.exceptions.IncorrectPasswordException;
+import br.cefetmg.mockloginapi.exceptions.InvalidLoginCredentialsException;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +55,7 @@ public class LoginController {
         }
         catch (Exception e) {
 
-            if (!(e instanceof IncorrectPasswordException))
+            if (!(e instanceof InvalidLoginCredentialsException))
                 return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
 
@@ -65,7 +64,6 @@ public class LoginController {
     }
 
     @RequestMapping(value={"/eu"}, method={RequestMethod.POST, RequestMethod.GET})
-    @PreAuthorize("hasAnyRole('ROLE_TAE', 'ROLE_PROFESSOR')")
     public ModelAndView profileDebug(HttpSession session, ModelMap model) {
 
         Usuario user = service.retrieveValidatedUser(session);

@@ -6,4 +6,3 @@ public enum Estado {
     VELHO,
     ESTRAGADO
 }
-

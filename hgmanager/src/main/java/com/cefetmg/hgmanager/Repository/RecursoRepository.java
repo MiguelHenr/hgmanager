@@ -18,7 +18,7 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
 
     List<Recurso> findByEstado(Estado estado);
 
-    @Query(value = "SELECT r FROM Recurso r WHERE r.Id NOT IN " +
+    @Query(value = "SELECT r FROM Recurso r WHERE r.deletado = false AND r.Id NOT IN " +
             "(SELECT res.recurso.Id FROM Reserva res INNER JOIN Recurso r " +
             "ON res.recurso.Id = r.Id " +
             "GROUP BY 1 " +
