@@ -178,7 +178,7 @@ public class ReservaController {
     @ResponseBody
     public List<String> recuperarHorariosReservadosRecurso(@RequestParam("idRecurso") String idRecursoString, Model model,
                                                            HttpSession session) throws AccessException {
-        if (userService.verificarCargoUsuario(session, "PROFESSOR")){
+        if (!userService.verificarCargoUsuario(session, "PROFESSOR")){
             throw new AccessException("Acesso negado");
         }
 

@@ -2,13 +2,18 @@ let datePickerInstance;
 
 // Recuperar horários de reserva do empréstimo selecionado para confimração
 async function getHorariosReserva(id) {
-    return await $.ajax({
-        url: "/recuperar_horarios_recurso",
-        type: "GET",
-        contentType: "application/json",
-        dataType: "json",
-        data: ("idRecurso=" + id)
-    });
+    try {
+        return await $.ajax({
+            url: "/recuperar_horarios_recurso",
+            type: "GET",
+            contentType: "application/json",
+            dataType: "json",
+            data: { idRecurso: id }, // Alterei para formato de objeto
+        });
+    } catch (error) {
+        console.error("Erro na requisição AJAX:", error.status, error.statusText, error.responseText);
+        return [];
+    }
 }
 
 // Fechar popup de confirmação de empréstimo
