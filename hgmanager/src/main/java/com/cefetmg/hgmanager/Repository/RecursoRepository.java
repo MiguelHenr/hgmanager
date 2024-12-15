@@ -2,6 +2,9 @@ package com.cefetmg.hgmanager.Repository;
 
 import com.cefetmg.hgmanager.Model.Departamento;
 import com.cefetmg.hgmanager.Model.Enum.Estado;
+
+import jakarta.transaction.Transactional;
+
 import com.cefetmg.hgmanager.Model.Recurso;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -42,5 +45,7 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
     List<Recurso> ListaRecursoAtivos();
 
     @Query("UPDATE Recurso r SET r.deletado = true WHERE r.Id = :idRecurso")
+    @Modifying
+    @Transactional
     void tornarInativo(@Param("idRecurso") Long id);
 }
