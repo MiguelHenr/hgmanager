@@ -5,8 +5,6 @@ import com.cefetmg.hgmanager.Model.Enum.Estado;
 import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Repository.RecursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,15 +55,10 @@ public class RecursoService {
         }
     }
 
-    public int paginas(int pageSize, Departamento departamento) {
-        long totalRequests = repository.countByDepartamento(departamento);
-        return (int) Math.ceil((double) totalRequests / pageSize);
-    }
 
-
-    public Page<Recurso> listarPorDepartamento(Departamento departamento, Pageable pageable) {
+    public List<Recurso> listarPorDepartamento(Departamento departamento) {
         try{
-            return repository.findByDepartamento(departamento.getId(), pageable);
+            return repository.findByDepartamento(departamento.getId());
         }catch(Exception e){
             throw new NullPointerException();
         }
@@ -85,10 +78,10 @@ public class RecursoService {
 
     public boolean usuarioMesmoDepartamentoRecurso(Long idUsuario, Long idRecurso){ return repository.areUsuarioSameDepartamentoOfRecurso(idUsuario, idRecurso);}
 
-    public Page<Recurso> ListarTodosRecursos(Pageable pageable) {
+    public List<Recurso> ListarTodosRecursos() {
         try {
             System.out.println("entrou lista recurso");
-            return repository.ListaRecursoAtivos(pageable);
+            return repository.ListaRecursoAtivos();
 
         }catch (Exception e) {
             System.out.println("erro no ListarTodosrecursos, no arquivo TestService");
