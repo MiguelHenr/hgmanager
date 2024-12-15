@@ -48,7 +48,7 @@ public class ReclamacaoController {
 
     @GetMapping("registrar_reclamacao")
     public String report(@RequestParam(value = "id", required = true) String idToParse, ModelMap model, HttpSession session) throws AccessException {
-        if (!usuarioService.verificarCargoUsuario(session, "PROFESSOR")) {
+        if (!usuarioService.verificarCargoUsuario(session, "PROFESSOR") && !usuarioService.verificarCargoUsuario(session, "TAE")) {
             throw new AccessException("Acesso negado");
         }
 
@@ -69,7 +69,7 @@ public class ReclamacaoController {
 
     @PostMapping("registrar_reclamacao")
     public ResponseEntity<?> report(@RequestBody Map<String, String> params, Model model, HttpSession session) throws AccessException {
-        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+        if (!usuarioService.verificarCargoUsuario(session, "PROFESSOR") && !usuarioService.verificarCargoUsuario(session, "TAE")) {
             throw new AccessException("Acesso negado");
         }
 

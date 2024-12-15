@@ -1,0 +1,117 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo geral do corpo */
+body {
+    background-color: #06191E;
+    color: #FCE1C1;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Container principal */
+.report-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #233040;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Título */
+.report-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #FE6156;
+    margin-bottom: 20px;
+}
+
+/* Detalhes da reserva */
+.reservation-details {
+    margin-bottom: 20px;
+}
+
+.reservation-desc,
+.reservation-origin,
+.reservation-time,
+.reservation-status {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.reservation-desc {
+    color: #AD9FEA;
+    font-weight: bold;
+}
+
+.reservation-status {
+    font-style: italic;
+    color: #FCE1C1;
+}
+
+/* Formulário de reclamação */
+.report-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.report-label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #FCE1C1;
+}
+
+.report-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #AD9FEA;
+    border-radius: 4px;
+    background-color: #06191E;
+    color: #FCE1C1;
+    resize: none;
+    font-size: 1rem;
+}
+
+.report-textarea:focus {
+    outline: none;
+    border-color: #FE6156;
+}
+
+/* Botão */
+.report-button {
+    background-color: #FE6156;
+    color: #FCE1C1;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.report-button:hover {
+    background-color: #AD9FEA;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .report-container {
+        margin: 20px;
+        padding: 15px;
+    }
+    .report-title {
+        font-size: 1.5rem;
+    }
+    .report-textarea {
+        height: 80px;
+    }
+}

@@ -100,10 +100,6 @@ public class UsuarioService {
     public boolean verificarCargoUsuario(HttpSession session, String cargo) {
         Usuario user = retrieveValidatedUser(session);
 
-        System.out.println("USERNAME: " + user.getNome());
-        System.out.println("CARGO: " + user.getTipoUsuarioAsString());
-        System.out.println("RETORNO: " + user.getTipoUsuarioAsString().equals(cargo));
-
         return user.getTipoUsuarioAsString().equals(cargo);
     }
 }

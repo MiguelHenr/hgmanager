@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" th:href="@{/estilos/cabecalho.css}">
-        <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
-        <title>Registrar Reclamação</title>
-    </head>
-    <body>
-        <header th:replace="~{frag/cabecalho}"></header>
-        
-        <div>
-            <h2>Registrar Reclamação sobre a seguinte reserva:</h2>
-            <h3 th:text="${'Empréstimo de :'} + ${reservaRecursoDesc}"></h3>
-            <p th:text="${'Origem: '} + ${reservaRecursoDepartamento}"></p>
-            <p th:text="${'Horário: '} + ${reservaInicio} + ${' às '} + ${reservaFim}"></p>
-            <p th:text="${'Status da reserva: '} + ${reservaStatus}"></p>
-        </div>
-        <div>
-            <label for="com">Descreva sua reclamação.</label>
-            <textarea name="comentario" id="com" class="com" maxlength="255"></textarea>
-            <button>Registrar reclamação.</button>
-        </div>
-        <script src="/script/reportProblem.js"></script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/estilos/cabecalho.css}">
+    <link rel="stylesheet" th:href="@{/estilos/registrar-reclamacao.css}">
+    <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
+    <title>Registrar Reclamação</title>
+</head>
+<body>
+<!-- Cabeçalho permanece inalterado -->
+<header th:replace="~{frag/cabecalho}"></header>
+
+<!-- Container principal -->
+<main class="report-container">
+    <h2 class="report-title">Registrar Reclamação sobre a seguinte reserva:</h2>
+    <div class="reservation-details">
+        <h3 class="reservation-desc" th:text="${'Empréstimo de :'} + ${reservaRecursoDesc}"></h3>
+        <p class="reservation-origin" th:text="${'Origem: '} + ${reservaRecursoDepartamento}"></p>
+        <p class="reservation-time" th:text="${'Início: '} + ${#dates.format(reservaInicio, 'dd/MM/yy HH:mm')} + ${' Fim: '} + ${#dates.format(reservaFim, 'dd/MM/yy HH:mm')}"></p>
+        <p class="reservation-status" th:text="${'Status da reserva: '} + ${reservaStatus}"></p>
+    </div>
+
+    <!-- Área de reclamação -->
+    <div class="report-form">
+        <label for="com" class="report-label">Descreva sua reclamação:</label>
+        <textarea name="comentario" id="com" class="report-textarea" maxlength="255"></textarea>
+        <button class="report-button">Registrar reclamação</button>
+    </div>
+</main>
+
+<script src="/script/reportProblem.js"></script>
+</body>
 </html>
