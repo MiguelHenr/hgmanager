@@ -76,8 +76,6 @@ public class RecursoService {
         return repository.listByAvailability();
     }
 
-    public boolean usuarioMesmoDepartamentoRecurso(Long idUsuario, Long idRecurso){ return repository.areUsuarioSameDepartamentoOfRecurso(idUsuario, idRecurso);}
-
     public List<Recurso> ListarTodosRecursos() {
         try {
             System.out.println("entrou lista recurso");

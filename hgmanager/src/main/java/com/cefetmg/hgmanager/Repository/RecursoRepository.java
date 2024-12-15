@@ -31,11 +31,6 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
             "HAVING COUNT(res.inicio) >= 126)  ")
     List<Recurso> listByAvailability();
 
-    @Query("SELECT EXISTS(SELECT u.id FROM Usuario u INNER JOIN Recurso r " +
-            "ON u.departamento.id = r.departamento.id " +
-            "WHERE u.id = :idUsuario AND r.Id = :idRecurso)")
-    boolean areUsuarioSameDepartamentoOfRecurso(@Param("idUsuario") Long idUsuario, @Param("idRecurso") Long idRecurso);
-
     @Modifying
     @Query("DELETE FROM Recurso r WHERE r.Id = :id")
     void deleteById(@Param("id") Long id);

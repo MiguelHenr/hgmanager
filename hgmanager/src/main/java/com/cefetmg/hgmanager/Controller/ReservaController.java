@@ -247,9 +247,14 @@ public class ReservaController {
     }
 
     private void estadoReserva(Long idProfessor, Long idRecurso, Reserva reserva){
-        if(recursoService.usuarioMesmoDepartamentoRecurso(idProfessor, idRecurso)){
-            approve(reserva);
+        Optional<Usuario> professor = usuarioRepository.findById(idProfessor);
+        Optional<Recurso> recurso = recursoService.encontrarPorID(idRecurso);
+
+        if(Objects.equals(professor.get().getDepartamento(), recurso.get().getDepartamento())) {
+            reserva.setStatus(Status.APROVADA);
+            return;
         }
+
         reserva.setStatus(Status.AGUARDANDO);
     }
 }
