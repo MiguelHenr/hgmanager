@@ -7,6 +7,7 @@ import com.cefetmg.hgmanager.Model.Recurso;
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Service.*;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -56,7 +59,7 @@ public class RecursoController {
     }
 
     @PostMapping("/recurso/cadastro_recurso")
-    public ResponseEntity<String> CadastroRecurso(@RequestBody Recurso recurso, HttpSession session) throws AccessException {
+    public void CadastroRecurso(@RequestBody Recurso recurso, HttpSession session, HttpServletResponse response) throws AccessException {
         if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
             throw new AccessException("Acesso negado");
         }
@@ -66,12 +69,11 @@ public class RecursoController {
             Departamento dep = departamentoService.encontrarPorIdUsuario(usuario.getId());
             recurso.setDepartamento(dep);
             service.inserirRecurso(recurso);
-            return ResponseEntity
-                    .ok("Recurso cadastrado com sucesso!");
+
+            response.setStatus(HttpServletResponse.SC_OK);
         }catch(Exception e){
-            return ResponseEntity
-                    .badRequest()
-                    .body("Erro: não foi possível cadastrar o recurso.");
+            Map<String, String> errorResponse = new HashMap<>();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 

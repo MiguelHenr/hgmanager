@@ -1,11 +1,12 @@
-
 document.addEventListener('DOMContentLoaded', function () {
-
+    let divResposta = document.querySelector('.resposta');
+    divResposta.style.display = 'none';
 
     document.getElementById('formulario').addEventListener('submit', async function (event) {
         event.preventDefault();
-
-
+        let botaoSubmit = document.querySelector('#enviar');
+        botaoSubmit.disabled = true;
+        botaoSubmit.innerHTML = `<div class='spinner'></div>`
 
         const formData = new FormData(this);
 
@@ -24,25 +25,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
         console.log('Dados enviados:', data);
 
-        try {
-            const response = await fetch('/recurso/cadastro_recurso', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+        const response = await
+        fetch('/recurso/cadastro_recurso', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(res => {
+            if(res.status === 200) {
+                divResposta.textContent = 'Recurso cadastrado com sucesso';
+                divResposta.classList.add('show');
+                divResposta.style.display = 'block';
 
-            if (response.ok) {
-                const result = await response.json();
-                console.log(result);
-            } else {
-                const error = await response.text();
-                console.log(error);
+                botaoSubmit.disabled = true;
+                botaoSubmit.innerHTML = ``
+                botaoSubmit.textContent = 'Enviar'
+            } else{
+                divResposta.textContent = 'Erro ao cadastrar recurso';
+                divResposta.classList.add('erro');
+                divResposta.style.display = 'block';
+
+                botaoSubmit.disabled = true;
+                botaoSubmit.innerHTML = ``
+                botaoSubmit.textContent = 'Enviar'
             }
-        } catch (error) {
-            console.error('Erro:', error);
-        }
+        });
     });
 });
 
@@ -52,25 +61,25 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function listarDepartamentos() {
-    const url = "/Departamento/listar_departamento";
+    const url = '/Departamento/listar_departamento';
 
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                console.error("Erro ao resgatar departamentos:", response.status);
+                console.error('Erro ao resgatar departamentos:', response.status);
                 throw new Error(`Erro: ${response.status}`);
             }
             return response.json();
         })
         .then(departamentos => {
-            const selecao = document.getElementById("departamentoSelect");
+            const selecao = document.getElementById('departamentoSelect');
             departamentos.forEach(opcao => {
                 console.log(opcao);
-                const op = document.createElement("option");
+                const op = document.createElement('option');
                 op.value = opcao.id;
                 op.textContent = opcao.nome;
                 selecao.appendChild(op);
             });
         })
-        .catch(error => console.error("Erro ao listar departamentos:", error));
+        .catch(error => console.error('Erro ao listar departamentos:', error));
 }*/
