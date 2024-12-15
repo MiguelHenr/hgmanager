@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     listarDepartamentos();
 });
-
+/*
 function listarDepartamentos() {
     const url = "/Departamento/listar_departamento";
 
@@ -77,4 +77,4 @@ function listarDepartamentos() {
             });
         })
         .catch(error => console.error("Erro ao listar departamentos:", error));
-}
+}*/

@@ -25,7 +25,6 @@ import java.util.List;
 
 @Controller
 public class RecursoController {
-    private static final int PAGE_SIZE = 12;
 
     @Autowired
     private RecursoService service;
@@ -52,9 +51,12 @@ public class RecursoController {
     }
 
     @PostMapping("/recurso/cadastro_recurso")
-    public ResponseEntity<String> CadastroRecurso(@RequestBody Recurso recurso) {
+    public ResponseEntity<String> CadastroRecurso(@RequestBody Recurso recurso, HttpSession session) {
 
         try{
+            Usuario usuario = usuarioService.retrieveValidatedUser(session);
+            Departamento dep = departamentoService.encontrarPorIdUsuario(usuario.getId());
+            recurso.setDepartamento(dep);
             service.inserirRecurso(recurso);
             return ResponseEntity
                     .ok("Recurso cadastrado com sucesso!");
