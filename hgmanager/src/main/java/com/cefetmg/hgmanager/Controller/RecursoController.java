@@ -10,6 +10,9 @@ import com.cefetmg.hgmanager.Service.*;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,7 @@ import java.util.List;
 
 @Controller
 public class RecursoController {
+    private static final int PAGE_SIZE = 12;
 
     @Autowired
     private RecursoService service;
@@ -94,9 +98,9 @@ public class RecursoController {
     }
 
     @GetMapping("Recurso/resgatar_recurso/{departamento}")
-    public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento){
+    public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento, Pageable pageable){
         try{
-            service.listarPorDepartamento(departamento);
+            service.listarPorDepartamento(departamento, pageable);
             return ResponseEntity.ok("");
         }catch (Exception e){
             return  ResponseEntity.badRequest().body(e.getMessage());
@@ -105,11 +109,11 @@ public class RecursoController {
 
 
     @GetMapping("Recurso/resgatar_recurso")
-    public ResponseEntity<List<Recurso>> ResgatarRecurso(HttpSession session){
+    public ResponseEntity<Page<Recurso>> ResgatarRecurso(HttpSession session, @RequestParam(defaultValue = "1") int page){
 
         try{
             System.out.println("entrou no resgatar recurso");
-            return ResponseEntity.ok(listaRecursoDepartamento(session));
+            return ResponseEntity.ok(listaRecursoDepartamento(session, page));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(null);
         }
@@ -124,10 +128,13 @@ public class RecursoController {
         }
     }
 
-    public List<Recurso> listaRecursoDepartamento(HttpSession session){
+    public Page<Recurso> listaRecursoDepartamento(HttpSession session, int page){
         Usuario usuario = usuarioService.retrieveValidatedUser(session);
         Departamento dep = departamentoService.encontrarPorIdUsuario(usuario.getId());
-        return recursoService.listarPorDepartamento(dep);
+
+        int paginas = recursoService.paginas(PAGE_SIZE, dep);
+        Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
+        return recursoService.listarPorDepartamento(dep,pageable);
     }
 
     @GetMapping("/cadastra_recurso")
