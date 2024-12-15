@@ -66,6 +66,13 @@ function makeInputDisabled(input){
         input.checked = false;
     });
 }
+function makeInputUnchecked(input){
+    input.forEach(input => {
+        input.disabled = false;
+        input.checked = false;
+    });
+}
+
 
 function checkInput(inputs, data, dataSelecionada){
     const [dataAtual, horaAtual] = getDataHoraAtual();
@@ -101,6 +108,9 @@ function getDataHoraAtual(){
 // Define quais horários podem ou não ser clicáveis dependendo do dia escolhido
 function setHorariosReserva(){
     const containerToObserve = document.body;
+    const inputsHorarios = document.querySelectorAll("input[name='horario']");
+
+    makeInputDisabled(inputsHorarios);
 
     const callbackFuncao = async () => {
         const datepickerEl = document.querySelector("#datepicker-inline");
@@ -111,8 +121,7 @@ function setHorariosReserva(){
                 diaDatepicker.addEventListener("click", () => {
                     setTimeout(() => {
                         const inputsHorarios = document.querySelectorAll("input[name='horario']");
-
-                        makeInputDisabled(inputsHorarios);
+                        makeInputUnchecked(inputsHorarios)
 
                         let ano = datePickerInstance.getDate().getFullYear().toString();
                         let mes = (datePickerInstance.getDate().getMonth() + 1).toString();
@@ -137,6 +146,8 @@ function setHorariosReserva(){
 
 // Confirmar empréstimo
 function confirmarEmprestimo(){
+
+
     let dateFormat = datePickerInstance.getDate();
     let dia = `${dateFormat.getDate().toString()}/${(dateFormat.getMonth() + 1).toString()}/${dateFormat.getFullYear().toString()}`;
     let horario = document.querySelector("input[name='horario']:checked").value;
@@ -243,6 +254,7 @@ document.querySelectorAll(".clique-botao").forEach(button => {
         botaoConfirmar.addEventListener("click", () => {
             botaoConfirmar.disabled = true;
             confirmarEmprestimo(botaoConfirmar);
+            botaoConfirmar.innerHTML = `<div class="spinner"></div>`
         })
 
         // Criando botão para cancelar
@@ -297,8 +309,6 @@ document.querySelectorAll(".clique-botao").forEach(button => {
 
         // Abrindo o popup de confirmação de empréstimo
         abrirPopup();
-
-        setTest();
 
         setHorariosReserva();
     })

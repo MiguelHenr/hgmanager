@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpSession;
 
 import com.cefetmg.hgmanager.Service.ReclamacaoService;
 import com.cefetmg.hgmanager.Service.RespostaService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ReclamacaoController {

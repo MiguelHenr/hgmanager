@@ -4,15 +4,9 @@ import com.cefetmg.hgmanager.Model.Enum.Cargo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
 
 @Entity
-public class Usuario implements UserDetails {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,6 +65,8 @@ public class Usuario implements UserDetails {
         return tipoUsuario;
     }
 
+    public String getTipoUsuarioAsString(){return tipoUsuario.toString();}
+
     public Departamento getDepartamento() {
         return departamento;
     }
@@ -102,21 +98,5 @@ public class Usuario implements UserDetails {
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(tipoUsuario == Cargo.TAE) return List.of(new SimpleGrantedAuthority("ROLE_TAE"));
-        return List.of(new SimpleGrantedAuthority("ROLE_PROFESSOR"));
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return cpf;
     }
 }
