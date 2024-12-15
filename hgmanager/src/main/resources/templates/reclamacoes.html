@@ -24,7 +24,7 @@
                 <p th:text="${#dates.format(c.data, 'dd/MM/yy HH:mm')}">Data</p>
             </div>
             
-            <form th:if="${tae}" th:data-ri="${r.id}" class="form">
+            <form th:if="${tae}" th:data-ri="${c.id}" class="form">
                 <textarea name="comentario" class="com" maxlength="255"></textarea>
                 <button type="submit">Responder</button>
             </form>

@@ -8,9 +8,11 @@ body {
 }
 
 main {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-around; 
+    gap: 2vh; 
 }
 
 .cmp {
