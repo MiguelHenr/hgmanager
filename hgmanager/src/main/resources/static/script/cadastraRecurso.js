@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Dados enviados:', data);
 
         try {
-            const response = await fetch('http://localhost:8080/recurso/cadastro_recurso', {
+            const response = await fetch('/recurso/cadastro_recurso', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,14 +38,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 const result = await response.json();
-                alert('Recurso cadastrado com sucesso! ID: ' + result);
+                console.log(result);
             } else {
                 const error = await response.text();
-                alert('Erro ao cadastrar recurso: ' + error);
+                console.log(error);
             }
         } catch (error) {
             console.error('Erro:', error);
-           
         }
     });
 });
@@ -56,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function listarDepartamentos() {
-    const url = "http://localhost:8080/Departamento/listar_departamento";
+    const url = "/Departamento/listar_departamento";
 
     fetch(url)
         .then(response => {
