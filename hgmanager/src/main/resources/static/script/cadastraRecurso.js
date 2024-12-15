@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
 
 
+
         const formData = new FormData(this);
 
         const data = {

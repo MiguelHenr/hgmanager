@@ -121,6 +121,24 @@ button {
     cursor: pointer;
 }
 
+.report {
+    max-height: 1.4em;
+    width: 1.4em;
+    border-radius: 10px;
+    margin-bottom: 0.2em;
+    margin-left: 0.2em;
+    padding: 0;
+}
+
+.report-button {
+    /*background: none;*/
+}
+
+.report-button img {
+    height: 0.6em;
+    width: 0.6em;
+}
+
 @keyframes pulse {
     0% {
         background-color: #233040;
