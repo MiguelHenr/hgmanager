@@ -12,35 +12,39 @@
     <script th:src="@{/script/atualizarRecurso.js}"></script>
     <script th:src="@{/script/deletarRecurso.js}"></script>
     <script th:src="@{/script/filtrarRecurso.js}"></script>
-    <title>listagem de Recursos</title>
+    <title>Listagem de Recursos</title>
 </head>
 <body>
 <header th:replace="~{frag/cabecalho}"></header>
 
-    <main class="container">
-        <div class="d-inline-flex">
-            <select id="filtroEstado" class="form-select form-control-sm" onchange="filtrarRecursos()">
-                <option value="TODOS">Todos</option>
-                <option value="NOVO">Novo</option>
-                <option value="CONSERVADO">Conservado</option>
-                <option value="VELHO">Velho</option>
-                <option value="ESTRAGADO">Estragado</option>
-            </select>
-            <button id="novo"><img th:src="@{/imagens/mais.png}" alt="Botão de novo"></button>
-        </div>
+<main class="container">
+    <div class="d-inline-flex mb-4">
+        <select id="filtroEstado" class="form-select form-control-sm" onchange="filtrarRecursos()">
+            <option value="TODOS">Todos</option>
+            <option value="NOVO">Novo</option>
+            <option value="CONSERVADO">Conservado</option>
+            <option value="VELHO">Velho</option>
+            <option value="ESTRAGADO">Estragado</option>
+        </select>
+        <button id="novo"><img th:src="@{/imagens/mais.png}" alt="Botão de novo"></button>
+    </div>
 
-        <div id="recursosDiv">
+    <div id="recursosDiv" class="row gx-3 gy-3">
+        <!-- Recursos serão renderizados aqui -->
+    </div>
 
-        </div>
+    <!-- Adicionado o campo para paginação -->
+    <div id="paginacaoDiv" class="d-flex justify-content-center mt-4">
+        <!-- Botões de paginação serão renderizados aqui -->
+    </div>
 
-        <div id="confirma" class="confirmacao-overlay">
-            <div class="confirmacao-container">
-                <p>Tem certeza de que deseja deletar este recurso?</p>
-                <button id="confirmar" class="btn btn-danger">Sim</button>
-                <button id="cancelar" class="btn btn-secondary">Cancelar</button>
-            </div>
+    <div id="confirma" class="confirmacao-overlay">
+        <div class="confirmacao-container">
+            <p>Tem certeza de que deseja deletar este recurso?</p>
+            <button id="confirmar" class="btn btn-danger">Sim</button>
+            <button id="cancelar" class="btn btn-secondary">Cancelar</button>
         </div>
-    </main>
-<nav id="pages" th:data-number="${pages}"></nav>
+    </div>
+</main>
 </body>
 </html>
