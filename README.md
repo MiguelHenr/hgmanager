@@ -1,7 +1,7 @@
 # HgManager 
 
 <p align="center">
-  <img src="documentos/hg.png" alt="Logo do HgManager" width="100">
+  <img src="documentos/hg.png" alt="Logo do HgManager" width="200">
 </p>
 
 O projeto HgManager é um sistema de gestão, desenvolvido como Trabalho de Conclusão de Curso Técnico em Informática pelo CEFET-MG. O projeto tem como propósito disponibilizar uma plataforma de auxilio na organização e gestão de recursos e empréstimos, tanto inter quanto intradepartmaneto.
