@@ -150,6 +150,7 @@ function updateReqs(el,action) {
     const status = document.createElement('p');
 
     status.innerHTML = action == 'approve' ? 'APROVADA' : action == 'reject' ? 'REJEITADA' : 'CANCELADA';
+    status.classList.add(action == 'approve' ? 'lilac' : 'red');
 
     btnEl.remove();
     el.appendChild(status);

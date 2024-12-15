@@ -22,6 +22,7 @@ import com.cefetmg.hgmanager.Service.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
+import com.cefetmg.hgmanager.Service.HeaderService;
 import com.cefetmg.hgmanager.Service.ReclamacaoService;
 import com.cefetmg.hgmanager.Service.RespostaService;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,8 +42,11 @@ public class ReclamacaoController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private HeaderService hService;
+
     @GetMapping("registrar_reclamacao")
-    public String report(@RequestParam(value = "id", required = true) String idToParse, ModelMap model) {
+    public String report(@RequestParam(value = "id", required = true) String idToParse, ModelMap model, HttpSession session) {
 
         long id = Long.parseLong(idToParse);
 
@@ -53,6 +57,7 @@ public class ReclamacaoController {
         model.addAttribute("reservaInicio", reserva.getInicio());
         model.addAttribute("reservaFim", reserva.getFim());
         model.addAttribute("reservaStatus", reserva.getStatus());
+        hService.setAttributes(model,session);
 
         return "RegistrarReclamacao";
     }

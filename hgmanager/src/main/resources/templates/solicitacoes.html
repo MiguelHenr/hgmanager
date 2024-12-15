@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/estilos/req.css}">
     <link rel="stylesheet" th:href="@{/estilos/cabecalho.css}">
     <link rel="shortcut icon" th:href="@{/imagens/favicon.ico}" type="image/x-icon">
-    <title>Solicitacoes</title>
+    <title th:text="${(mine ? 'Minhas s' : 'S') + 'olicitações'}">Solicitacoes</title>
 </head>
 
 <body>
