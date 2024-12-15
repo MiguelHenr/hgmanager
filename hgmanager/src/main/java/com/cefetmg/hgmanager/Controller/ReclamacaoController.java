@@ -16,11 +16,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.expression.Dates;
 
 import com.cefetmg.hgmanager.Model.Enum.Cargo;
-import com.cefetmg.hgmanager.Service.UserValidationService;
+import com.cefetmg.hgmanager.Service.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -40,7 +38,7 @@ public class ReclamacaoController {
     private RespostaService respostaService;
 
     @Autowired
-    private UserValidationService usuarioService;
+    private UsuarioService usuarioService;
 
     @GetMapping("registrar_reclamacao")
     public String report(@RequestParam(value = "id", required = true) String idToParse, ModelMap model) {

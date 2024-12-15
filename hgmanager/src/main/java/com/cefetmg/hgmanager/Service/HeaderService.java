@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 @Service
 public class HeaderService {
     @Autowired
-    private UserValidationService service;
+    private UsuarioService service;
 
     public void setAttributes(Model model, HttpSession session) {
         setAttributes(model, service.retrieveValidatedUser(session));

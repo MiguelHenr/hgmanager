@@ -11,25 +11,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const data = {
             marca: formData.get('marca'),
-            descricao: formData.get('descricao'),
+            descricao: formData.get('desc'),
             estado: formData.get('estado'),
-            codigo: formData.get('codigo'),
+            codigo: formData.get('cod'),
             departamento: {
                 id: formData.get('departamentoSelect')
             }
 
         };
 
-        // Validação
+
         if (!data.marca || !data.descricao || !data.estado || !data.departamento.id || !data.codigo)  {
-           
+            console.log('preencha todos os campos');
             return;
         }
 
         console.log('Dados enviados:', data);
 
         try {
-            const response = await fetch('http://localhost:8080/Recurso/cadastroRecurso', {
+            const response = await fetch('http://localhost:8080/recurso/cadastro_recurso', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 const result = await response.json();
-                alert('Recurso cadastrado com sucesso! ID: ');
+                alert('Recurso cadastrado com sucesso! ID: ' + result);
             } else {
                 const error = await response.text();
                 alert('Erro ao cadastrar recurso: ' + error);
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function listarDepartamentos() {
-    const url = "http://localhost:8080/Departamento/listarDepartamento";
+    const url = "http://localhost:8080/Departamento/listar_departamento";
 
     fetch(url)
         .then(response => {

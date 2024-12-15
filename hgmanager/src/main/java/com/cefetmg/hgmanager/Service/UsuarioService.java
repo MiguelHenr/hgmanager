@@ -20,10 +20,11 @@ import br.cefetmg.mockloginapi.dto.UsuarioDTO;
 import java.util.Optional;
 
 @Service
-public class UserValidationService {
+public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
     @Autowired
     private DepartamentoRepository departamentoRepository;
 
@@ -93,5 +94,6 @@ public class UserValidationService {
 
     public void logout(HttpSession session) {
         session.removeAttribute("userId");
+        session.invalidate();
     }
 }

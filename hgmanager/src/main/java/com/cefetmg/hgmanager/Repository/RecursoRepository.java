@@ -12,7 +12,9 @@ import java.util.List;
 
 @Repository
 public interface RecursoRepository extends org.springframework.data.jpa.repository.JpaRepository<Recurso, Long> {
-    List<Recurso> findByDepartamento(Departamento departamento);
+
+    @Query("SELECT r FROM Recurso r WHERE r.deletado = false AND r.departamento.id = :idDepartamento")
+    List<Recurso> findByDepartamento(@Param("idDepartamento") Long idDepartamento );
 
     List<Recurso> findByEstado(Estado estado);
 
@@ -32,5 +34,10 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
     @Query("DELETE FROM Recurso r WHERE r.Id = :id")
     void deleteById(@Param("id") Long id);
 
-    void delete(Recurso recurso);
+
+    @Query("SELECT r FROM Recurso r WHERE r.deletado = false")
+    List<Recurso> ListaRecursoAtivos();
+
+    @Query("UPDATE Recurso r SET r.deletado = true WHERE r.Id = :idRecurso")
+    void tornarInativo(@Param("idRecurso") Long id);
 }

@@ -1,5 +1,12 @@
-function atualizarRecurso(id, estado) {
-    const url = `http://localhost:8080/Recurso/AtualizarRecurso/${id}/${estado}`;
+function atualizarRecurso(evt,id, estado) {
+    const url = `http://localhost:8080/Recurso/atualizar_recurso/${id}/${estado}`;
+    const div = evt.target.parentNode;
+    div.classList.add('clicked');
+
+    const btns = div.querySelectorAll('button');
+
+    for (let btn of btns)
+        btn.disabled = true;
 
     fetch(url, {
         method: 'PUT',
@@ -16,12 +23,16 @@ function atualizarRecurso(id, estado) {
         .then(() => {
            
 
-            // Atualiza a interface para refletir a mudança
+            // Atualiza a "interface" para refletir a mudança
             const recursoDiv = document.getElementById(`recurso-${id}`);
-            const estadoAtualizado = recursoDiv.querySelector('h2:nth-of-type(1)');
+            const estadoAtualizado = recursoDiv.querySelector('h3:nth-of-type(1)');
             if (estadoAtualizado) {
                 estadoAtualizado.textContent = `${estado}`;
             }
+
+            for (let btn of btns)
+                btn.disabled = false;
+            div.classList.remove('clicked');
         })
         .catch(error => {
             console.error('Erro ao atualizar recurso:', error);

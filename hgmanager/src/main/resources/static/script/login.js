@@ -17,7 +17,7 @@ async function validarLogin(event) {
     const data = Object.fromEntries(formData.entries());
 
     // Faz a requisição ao backend
-    var response = await fetch('login', {
+    var response = await fetch('login/confirmar-login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

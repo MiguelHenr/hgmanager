@@ -2,7 +2,7 @@ package com.cefetmg.hgmanager.Controller;
 
 import com.cefetmg.hgmanager.Model.Usuario;
 import com.cefetmg.hgmanager.Service.HeaderService;
-import com.cefetmg.hgmanager.Service.UserValidationService;
+import com.cefetmg.hgmanager.Service.UsuarioService;
 
 import br.cefetmg.mockloginapi.exceptions.InvalidLoginCredentialsException;
 
@@ -11,9 +11,9 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.ui.Model;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ public class LoginController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
-    UserValidationService service;
+    UsuarioService service;
 
     @Autowired
     private HeaderService hService;
@@ -40,7 +40,7 @@ public class LoginController {
 
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login/confirmar-login")
     public ResponseEntity<?> validateLogin(@RequestBody Map<String, String> params, HttpSession httpSession) {
 
         String login = params.get("usuario");
@@ -65,6 +65,7 @@ public class LoginController {
     }
 
     @RequestMapping(value={"/eu"}, method={RequestMethod.POST, RequestMethod.GET})
+    @PreAuthorize("hasAnyRole('ROLE_TAE', 'ROLE_PROFESSOR')")
     public ModelAndView profileDebug(HttpSession session, ModelMap model) {
 
         Usuario user = service.retrieveValidatedUser(session);
