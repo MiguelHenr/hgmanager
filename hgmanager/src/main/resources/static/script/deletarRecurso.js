@@ -3,7 +3,7 @@ function deletarRecurso(id) {
 
     const confirmarBtn = document.getElementById('confirmar');
     const cancelarBtn = document.getElementById('cancelar');
-    const confirmacaoDiv =document.getElementById('confirma');
+    const confirmacaoDiv = document.getElementById('confirma');
 
     if (confirmacaoDiv) {
         confirmacaoDiv.style.display = 'flex';
