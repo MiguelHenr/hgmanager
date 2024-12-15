@@ -1,6 +1,9 @@
 package com.cefetmg.hgmanager.Controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.AccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +22,11 @@ public class HomeController {
 
     @Autowired
     private HeaderService hService;
+    @Autowired
+    private HttpServletResponse httpServletResponse;
 
     @GetMapping("/")
-    public String home(Model model, HttpSession session) {
+    public String home(Model model, HttpSession session) throws AccessException {
         Usuario user = uService.retrieveValidatedUser(session);
 
         hService.setAttributes(model, session);

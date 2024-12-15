@@ -22,6 +22,8 @@
         <h2 th:if="${status == 403}">Faça login e tente novamente.</h2>
         <h2 th:if="${status == 503}">Tente novamente mais tarde.</h2>
         <p th:text="'Error ' + ${status}">Erro</p>
+
+        <a th:href="@{/}" class="btn btn-primary mt-4">Voltar para a página inicial</a>
     </main>
 </body>
 </html>

@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.expression.AccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,10 +34,8 @@ public class LoginController {
     private HeaderService hService;
 
     @GetMapping("/login")
-    public String validateLogin() {
-        
+    public String validateLogin(){
         return "login";
-
     }
 
     @PostMapping("/login/confirmar-login")
@@ -64,7 +63,11 @@ public class LoginController {
     }
 
     @RequestMapping(value={"/eu"}, method={RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView profileDebug(HttpSession session, ModelMap model) {
+    public ModelAndView profileDebug(HttpSession session, ModelMap model) throws AccessException {
+        if (!service.verificarCargoUsuario(session, "PROFESSOR") && !service.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
 
         Usuario user = service.retrieveValidatedUser(session);
 

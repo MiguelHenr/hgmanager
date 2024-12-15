@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.expression.AccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +43,11 @@ public class RecursoController {
 
 
     @GetMapping("/solicitar_emprestimo")
-    public String carregarRecursos(Model model, HttpSession session) {
+    public String carregarRecursos(Model model, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "PROFESSOR")) {
+            throw new AccessException("Acesso negado");
+        }
+
         List<Recurso> recursos = service.listarPorDisponibilidade();
         model.addAttribute("recursos", recursos);
         hService.setAttributes(model, session);
@@ -51,7 +56,10 @@ public class RecursoController {
     }
 
     @PostMapping("/recurso/cadastro_recurso")
-    public ResponseEntity<String> CadastroRecurso(@RequestBody Recurso recurso, HttpSession session) {
+    public ResponseEntity<String> CadastroRecurso(@RequestBody Recurso recurso, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
 
         try{
             Usuario usuario = usuarioService.retrieveValidatedUser(session);
@@ -69,7 +77,11 @@ public class RecursoController {
 
 
     @DeleteMapping("/Recurso/deletar_recurso/{id}")
-    public ResponseEntity<String> deletarRecurso(@PathVariable Long id) {
+    public ResponseEntity<String> deletarRecurso(@PathVariable Long id, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         try{
             service.apagarRecurso(id);
             return ResponseEntity.ok("deletado com sucesso");
@@ -80,7 +92,11 @@ public class RecursoController {
     }
 
     @PutMapping("Recurso/atualizar_recurso/{id}/{estado}")
-    public ResponseEntity<String> AtualizarRecurso(@PathVariable Long id, @PathVariable String estado) {
+    public ResponseEntity<String> AtualizarRecurso(@PathVariable Long id, @PathVariable String estado, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         try{
             service.atualizarEstado(id, Estado.valueOf(estado));
             return ResponseEntity.ok("");
@@ -90,7 +106,11 @@ public class RecursoController {
     }
 
     @GetMapping("Recurso/resgatar_recurso/{id}")
-    public ResponseEntity<String> ResgatarRecurso(@PathVariable Long id){
+    public ResponseEntity<String> ResgatarRecurso(@PathVariable Long id, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         try{
             service.encontrarRecursoPorID(id);
             return ResponseEntity.ok("");
@@ -100,7 +120,11 @@ public class RecursoController {
     }
 
     @GetMapping("Recurso/resgatar_recurso/{departamento}")
-    public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento){
+    public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         try{
             service.listarPorDepartamento(departamento);
             return ResponseEntity.ok("");
@@ -111,7 +135,11 @@ public class RecursoController {
 
 
     @GetMapping("Recurso/resgatar_recurso")
-    public ResponseEntity<List<Recurso>> ResgatarRecurso(HttpSession session){
+    public ResponseEntity<List<Recurso>> ResgatarRecurso(HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
 
         try{
             System.out.println("entrou no resgatar recurso");
@@ -122,7 +150,11 @@ public class RecursoController {
     }
 
     @GetMapping("Departamento/listar_departamento")
-    public ResponseEntity<List<Departamento>> listarDepartamento(){
+    public ResponseEntity<List<Departamento>> listarDepartamento(HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         try{
             return ResponseEntity.ok(departamentoService.listar());
         } catch (Exception e) {
@@ -137,13 +169,21 @@ public class RecursoController {
     }
 
     @GetMapping("/cadastra_recurso")
-    public ModelAndView helloWorld(ModelMap model, HttpSession session) {
+    public ModelAndView helloWorld(ModelMap model, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         hService.setAttributes(model, session);
 
         return new ModelAndView("CadastrarRecurso");
     }
     @GetMapping("/lista_recurso")
-    public ModelAndView listar(ModelMap model, HttpSession session){
+    public ModelAndView listar(ModelMap model, HttpSession session)throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso TAE");
+        }
+
         hService.setAttributes(model, session);
 
         return new ModelAndView("ListaRecurso",model);

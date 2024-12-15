@@ -8,6 +8,7 @@ import com.cefetmg.hgmanager.Model.*;
 import com.cefetmg.hgmanager.Repository.ReservaRepository;
 import com.cefetmg.hgmanager.Service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.AccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -46,7 +47,11 @@ public class ReclamacaoController {
     private HeaderService hService;
 
     @GetMapping("registrar_reclamacao")
-    public String report(@RequestParam(value = "id", required = true) String idToParse, ModelMap model, HttpSession session) {
+    public String report(@RequestParam(value = "id", required = true) String idToParse, ModelMap model, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "PROFESSOR")) {
+            throw new AccessException("Acesso negado");
+        }
+
 
         long id = Long.parseLong(idToParse);
 
@@ -63,7 +68,11 @@ public class ReclamacaoController {
     }
 
     @PostMapping("registrar_reclamacao")
-    public ResponseEntity<?> report(@RequestBody Map<String, String> params, Model model, HttpSession session) {
+    public ResponseEntity<?> report(@RequestBody Map<String, String> params, Model model, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
 
         String comment = params.get("comment");
         Long reservaId = Long.parseLong(params.get("id"));
@@ -74,14 +83,22 @@ public class ReclamacaoController {
     }
 
     @GetMapping("reclamacoes")
-    public String getComplaints(Model model, HttpSession session) {
+    public String getComplaints(Model model, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "PROFESSOR") && !usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         setUp(model,session);
 
         return "reclamacoes";
     }
 
     @PostMapping("responder")
-    public ResponseEntity<?> responder(@RequestBody Map<String, String> params, HttpSession session) {
+    public ResponseEntity<?> responder(@RequestBody Map<String, String> params, HttpSession session) throws AccessException {
+        if (!usuarioService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         long id = Long.parseLong(params.get("id"));
         String comentario = params.get("ans");
         Reclamacao rec = reclamacaoService.encontrar(id);
