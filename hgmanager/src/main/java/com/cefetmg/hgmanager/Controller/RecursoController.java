@@ -98,9 +98,9 @@ public class RecursoController {
     }
 
     @GetMapping("Recurso/resgatar_recurso/{departamento}")
-    public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento, Pageable pageable){
+    public ResponseEntity<String> ResgatarRecurso(@PathVariable Departamento departamento){
         try{
-            service.listarPorDepartamento(departamento, pageable);
+            service.listarPorDepartamento(departamento);
             return ResponseEntity.ok("");
         }catch (Exception e){
             return  ResponseEntity.badRequest().body(e.getMessage());
@@ -109,11 +109,11 @@ public class RecursoController {
 
 
     @GetMapping("Recurso/resgatar_recurso")
-    public ResponseEntity<Page<Recurso>> ResgatarRecurso(HttpSession session, @RequestParam(defaultValue = "1") int page){
+    public ResponseEntity<List<Recurso>> ResgatarRecurso(HttpSession session){
 
         try{
             System.out.println("entrou no resgatar recurso");
-            return ResponseEntity.ok(listaRecursoDepartamento(session, page));
+            return ResponseEntity.ok(listaRecursoDepartamento(session));
         }catch (Exception e){
             return ResponseEntity.badRequest().body(null);
         }
@@ -128,13 +128,10 @@ public class RecursoController {
         }
     }
 
-    public Page<Recurso> listaRecursoDepartamento(HttpSession session, int page){
+    public List<Recurso> listaRecursoDepartamento( HttpSession session){
         Usuario usuario = usuarioService.retrieveValidatedUser(session);
         Departamento dep = departamentoService.encontrarPorIdUsuario(usuario.getId());
-
-        int paginas = recursoService.paginas(PAGE_SIZE, dep);
-        Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
-        return recursoService.listarPorDepartamento(dep,pageable);
+        return recursoService.listarPorDepartamento(dep);
     }
 
     @GetMapping("/cadastra_recurso")

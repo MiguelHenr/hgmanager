@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 let todosRecursos = []; // Variável global para armazenar todos os recursos
 
 function listarRecursos() {
-    const url = `http://localhost:8080/Recurso/Recurso/resgatar_recurso?page=${encodeURIComponent(page)}`;
+    const url = `http://localhost:8080/Recurso/Recurso/resgatar_recurso`;
     fetch(url)
         .then(response => {
             if (!response.ok) {

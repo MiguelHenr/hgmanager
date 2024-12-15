@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
@@ -19,7 +17,7 @@ import java.util.List;
 public interface RecursoRepository extends org.springframework.data.jpa.repository.JpaRepository<Recurso, Long> {
 
     @Query("SELECT r FROM Recurso r WHERE r.deletado = false AND r.departamento.id = :idDepartamento")
-    Page<Recurso> findByDepartamento(@Param("idDepartamento") Long idDepartamento , Pageable pageable);
+    List<Recurso> findByDepartamento(@Param("idDepartamento") Long idDepartamento);
 
     List<Recurso> findByEstado(Estado estado);
 
@@ -39,10 +37,9 @@ public interface RecursoRepository extends org.springframework.data.jpa.reposito
     @Query("DELETE FROM Recurso r WHERE r.Id = :id")
     void deleteById(@Param("id") Long id);
 
-    Long countByDepartamento(Departamento departamento);
 
     @Query("SELECT r FROM Recurso r WHERE r.deletado = false")
-    Page<Recurso> ListaRecursoAtivos(Pageable pageable);
+    List<Recurso> ListaRecursoAtivos();
 
     @Query("UPDATE Recurso r SET r.deletado = true WHERE r.Id = :idRecurso")
     void tornarInativo(@Param("idRecurso") Long id);
