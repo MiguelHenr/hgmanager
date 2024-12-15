@@ -154,6 +154,20 @@ function updateReqs(el,action) {
 
     btnEl.remove();
     el.appendChild(status);
+
+    if (action == 'cancel')
+        addReport(el);
+}
+
+function addReport(el) {
+    const btnEl = getEl('div','btn');
+    const btn = getEl('button','report-button');
+
+    btn.innerHTML = 'Reclamar';
+    btn.addEventListener("click", event => report(event));
+
+    btnEl.appendChild(btn);
+    el.appendChild(btnEl);
 }
 
 function disable(el) {

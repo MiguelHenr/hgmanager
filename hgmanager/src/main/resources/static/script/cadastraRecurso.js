@@ -13,15 +13,11 @@ document.addEventListener('DOMContentLoaded', function () {
             marca: formData.get('marca'),
             descricao: formData.get('desc'),
             estado: formData.get('estado'),
-            codigo: formData.get('cod'),
-            departamento: {
-                id: formData.get('departamentoSelect')
-            }
-
+            codigo: formData.get('cod')
         };
 
 
-        if (!data.marca || !data.descricao || !data.estado || !data.departamento.id || !data.codigo)  {
+        if (!data.marca || !data.descricao || !data.estado || /*!data.departamento.id ||*/ !data.codigo)  {
             console.log('preencha todos os campos');
             return;
         }
@@ -51,10 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
     listarDepartamentos();
 });
-/*
+
 function listarDepartamentos() {
     const url = "/Departamento/listar_departamento";
 
