@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 let todosRecursos = []; // Variável global para armazenar todos os recursos
 
 function listarRecursos() {
-    const url = "http://localhost:8080/Recurso/resgatarRecurso";
+    const url = "http://localhost:8080/Recurso/resgatar_recurso";
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -57,6 +57,6 @@ function renderizarRecursos(recursos) {
     });
 }
 
-document.getElementById('novo').addEventListener('click', () =>{
-    window.location.href = '/CadastraRec';
+window.onload = () => document.getElementById('novo').addEventListener('click', () =>{
+    window.location.href = '/cadastra_recurso';
 })

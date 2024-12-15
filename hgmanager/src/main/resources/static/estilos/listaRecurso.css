@@ -70,8 +70,15 @@ body, html {
 }
 
 #novo {
-    color: #fce1c1;
+    all: unset;
     background-color: #06191e;
+    margin-left: 3vh;
+    cursor: pointer;
+}
+
+#novo img {
+    height: 7vh;
+    aspect-ratio: 1/1;
 }
 
 #filtroEstado {
@@ -92,6 +99,11 @@ body, html {
     background-color: #233040;
     color: #fce1c1; 
     margin-bottom: 5%;
+}
+
+#filtroEstado {
+    color: #ad9fea;
+    border-color: #ad9fea;
 }
 
 button {

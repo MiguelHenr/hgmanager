@@ -38,7 +38,7 @@ public class RecursoController {
     private RecursoService recursoService;
 
 
-    @GetMapping("/Recurso/solicitar_emprestimo")
+    @GetMapping("/solicitar_emprestimo")
     public String carregarRecursos(Model model, HttpSession session) {
         List<Recurso> recursos = service.listarPorDisponibilidade();
         model.addAttribute("recursos", recursos);
@@ -53,11 +53,11 @@ public class RecursoController {
         try{
             service.inserirRecurso(recurso);
             return ResponseEntity
-                    .badRequest()
-                    .body("Erro: não foi possível cadastrar o recurso.");
+                    .ok("Recurso cadastrado com sucesso!");
         }catch(Exception e){
             return ResponseEntity
-                    .ok("Recurso cadastrado com sucesso!");
+                    .badRequest()
+                    .body("Erro: não foi possível cadastrar o recurso.");
         }
     }
 
@@ -136,7 +136,7 @@ public class RecursoController {
 
         return new ModelAndView("CadastrarRecurso");
     }
-    @GetMapping("/Lista_recurso")
+    @GetMapping("/lista_recurso")
     public ModelAndView listar(ModelMap model, HttpSession session){
         hService.setAttributes(model, session);
 
