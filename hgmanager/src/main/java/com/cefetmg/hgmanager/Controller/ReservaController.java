@@ -14,6 +14,7 @@ import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.expression.AccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +48,11 @@ public class ReservaController {
     private HeaderService hService;
 
     @GetMapping("solicitacoes")
-    public String getSol(Model model, HttpSession session) {
+    public String getSol(Model model, HttpSession session) throws AccessException {
+        if (!userService.verificarCargoUsuario(session, "PROFESSOR") && !userService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         Usuario usuario = userService.retrieveValidatedUser(session);
 
         if (usuario.getTipoUsuario() == Cargo.PROFESSOR)
@@ -61,20 +66,12 @@ public class ReservaController {
         return "solicitacoes";
     }
 
-    @GetMapping("eu/solicitacoes")
-    public String getMySol(Model model, HttpSession session) {
-        Usuario usuario = userService.retrieveValidatedUser(session);
+    @PostMapping({"my-requests"})
+    public String getMyRequests(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page)  throws AccessException {
+        if (!userService.verificarCargoUsuario(session, "PROFESSOR")){
+            throw new AccessException("Acesso negado");
+        }
 
-        model.addAttribute("mine", true);
-        model.addAttribute("waiting", Status.AGUARDANDO);
-        model.addAttribute("pages", reservaService.paginas(PAGE_SIZE,usuario));
-        hService.setAttributes(model, session);
-
-        return "solicitacoes";
-    }
-
-    @PostMapping({"my-requests","eu/my-requests"})
-    public String getMyRequests(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
         Usuario usuario = userService.retrieveValidatedUser(session);
         int paginas = reservaService.paginas(PAGE_SIZE,usuario);
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
@@ -90,7 +87,11 @@ public class ReservaController {
     }
 
     @PostMapping("requests")
-    public String getRequests(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page) {
+    public String getRequests(Model model, HttpSession session, @RequestParam(defaultValue = "1") int page)  throws AccessException {
+        if (!userService.verificarCargoUsuario(session, "TAE")){
+            throw new AccessException("Acesso negado");
+        }
+
         Departamento dpto = userService.retrieveValidatedUser(session).getDepartamento();
         int paginas = reservaService.paginas(PAGE_SIZE,dpto);
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
@@ -106,7 +107,11 @@ public class ReservaController {
     }
 
     @PostMapping("update-sol")
-    public ResponseEntity<?> update(@RequestBody Map<String, String> params) {
+    public ResponseEntity<?> update(@RequestBody Map<String, String> params, HttpSession session)  throws AccessException {
+        if (!userService.verificarCargoUsuario(session, "PROFESSOR") && !userService.verificarCargoUsuario(session, "TAE")) {
+            throw new AccessException("Acesso negado");
+        }
+
         long id = Long.parseLong(params.get("id"));
         String action = params.get("action");
 
@@ -125,7 +130,11 @@ public class ReservaController {
     }
 
     @PostMapping("/confirmar_emprestimo")
-    public ResponseEntity<Boolean> confirmarEmprestimo(@RequestBody Map<String, String> bodyRetorno, HttpSession session) {
+    public ResponseEntity<Boolean> confirmarEmprestimo(@RequestBody Map<String, String> bodyRetorno, HttpSession session)  throws AccessException {
+        if (!userService.verificarCargoUsuario(session, "PROFESSOR")){
+            throw new AccessException("Acesso negado");
+        }
+
         try{
             Usuario usuarioSession = validationService.retrieveValidatedUser(session);
 
@@ -167,7 +176,12 @@ public class ReservaController {
 
     @GetMapping("/recuperar_horarios_recurso")
     @ResponseBody
-    public List<String> recuperarHorariosReservadosRecurso(@RequestParam("idRecurso") String idRecursoString, Model model) {
+    public List<String> recuperarHorariosReservadosRecurso(@RequestParam("idRecurso") String idRecursoString, Model model,
+                                                           HttpSession session) throws AccessException {
+        if (userService.verificarCargoUsuario(session, "PROFESSOR")){
+            throw new AccessException("Acesso negado");
+        }
+
         Long idRecursoLong = Long.parseLong(idRecursoString);
 
         return reservaService.encontrarHorarioReservaPorRecurso(idRecursoLong);
@@ -219,6 +233,17 @@ public class ReservaController {
         calendarioDataFim.set(Calendar.MINUTE, Integer.parseInt(minutosFinal));
 
         return new Pair<>(calendarioDataInicio, calendarioDataFim);
+    }
+
+    public String getMySol(Model model, HttpSession session)  {
+        Usuario usuario = userService.retrieveValidatedUser(session);
+
+        model.addAttribute("mine", true);
+        model.addAttribute("waiting", Status.AGUARDANDO);
+        model.addAttribute("pages", reservaService.paginas(PAGE_SIZE,usuario));
+        hService.setAttributes(model, session);
+
+        return "solicitacoes";
     }
 
     private void estadoReserva(Long idProfessor, Long idRecurso, Reserva reserva){
