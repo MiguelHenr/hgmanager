@@ -11,7 +11,7 @@
 	<groupId>com.cefetmg</groupId>
 	<artifactId>hgmanager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>HgManager</name>
 	<description>Trabalho de conclusão de curso de automatização de empréstimo de materiais</description>
 	<properties>
